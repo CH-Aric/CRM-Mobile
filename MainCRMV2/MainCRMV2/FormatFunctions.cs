@@ -1,31 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace MainCRMV2
 {
-    // Token: 0x0200000B RID: 11
     public static class FormatFunctions
     {
-        // Token: 0x06000027 RID: 39 RVA: 0x00002A3E File Offset: 0x00000C3E
+        private static Regex digitsOnly = new Regex("[^\\d]");
+        static bool Responded = false;
+        static Dictionary<string, List<string>> dict;
         public static string CleanPhone(string phone)
         {
             return FormatFunctions.digitsOnly.Replace(phone, "");
         }
-
-        // Token: 0x06000028 RID: 40 RVA: 0x00002A50 File Offset: 0x00000C50
         public static string[] CleanDate(string datein)
         {
-            return datein.Split(new char[]
-            {
-                ' '
-            })[0].Split(new char[]
-            {
-                '-'
-            });
+            return datein.Split(' ')[0].Split('-');
         }
-
-        // Token: 0x06000029 RID: 41 RVA: 0x00002A78 File Offset: 0x00000C78
         public static string[] SplitToPairs(string input)
         {
             input = input.Replace("\"", "");
@@ -35,22 +27,14 @@ namespace MainCRMV2
             input = input.Replace("}", "");
             input = input.Replace("[", "");
             input = input.Replace("NewRow:", "");
-            return input.Split(new char[]
-            {
-                ','
-            });
+            return input.Split(',');
         }
-
-        // Token: 0x0600002A RID: 42 RVA: 0x00002B14 File Offset: 0x00000D14
         public static Dictionary<string, List<string>> createValuePairs(string[] input)
         {
             Dictionary<string, List<string>> dictionary = new Dictionary<string, List<string>>();
             for (int i = 0; i < input.Length; i++)
             {
-                string[] array = input[i].Split(new char[]
-                {
-                    ':'
-                });
+                string[] array = input[i].Split(':');
                 if (array.Length < 2)
                 {
                     return dictionary;
@@ -67,8 +51,31 @@ namespace MainCRMV2
             }
             return dictionary;
         }
-
-        // Token: 0x04000017 RID: 23
-        private static Regex digitsOnly = new Regex("[^\\d]");
+        public async static Task<string> smartsearch(string term,string table)
+        {
+            Responded = false;
+            TaskCallback call = boolSetter;
+            string sql = "SELECT smartStatement FROM smartsearch WHERE table='"+table+"' AND term='"+term+"';";
+            DatabaseFunctions.SendToPhp(false, sql, call);
+            while (!Responded)
+            {
+                await Task.Delay(50);
+            }
+            string toReturn="";
+            if (dict.Count > 0)
+            {
+                foreach (string s in dict["smartStatement"])
+                {
+                    toReturn += " OR " + s;
+                }
+            }
+            return toReturn;
+        }
+        public static void boolSetter(string result)
+        {
+            string[] input = FormatFunctions.SplitToPairs(result);
+            dict = FormatFunctions.createValuePairs(input);
+            Responded = true;
+        }
     }
 }

@@ -1,14 +1,9 @@
 ﻿using MainCRMV2.Pages.Popup_Pages;
 using Rg.Plugins.Popup.Services;
 using System;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
-using Xamarin.Forms.Xaml;
-using Xamarin.Forms.Xaml.Internals;
 
 namespace MainCRMV2.Pages
 {
@@ -113,12 +108,12 @@ namespace MainCRMV2.Pages
         {
 
         }
-        public void onClicked(object sender, EventArgs e)
+        public async void onClicked(object sender, EventArgs e)
         {
             DataButton dataButton = (DataButton)sender;
             TaskCallback call = new TaskCallback(this.openFile);
             string loadedfile=DatabaseFunctions.getFile(dataButton.String, dataButton.String2, call);
-            PopupNavigation.Instance.PushAsync(new Audio_Popup(loadedfile), true);
+            await PopupNavigation.Instance.PushAsync(new Audio_Popup(loadedfile), true);
         }
         public void onClickedSearch(object sender, EventArgs e)
         {

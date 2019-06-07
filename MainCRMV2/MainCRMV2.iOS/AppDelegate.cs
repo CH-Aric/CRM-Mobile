@@ -22,6 +22,7 @@ namespace MainCRMV2.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            Rg.Plugins.Popup.Popup.Init();
             global::Xamarin.Forms.Forms.Init();
             Plugin.InputKit.Platforms.iOS.Config.Init();
             LoadApplication(new App());

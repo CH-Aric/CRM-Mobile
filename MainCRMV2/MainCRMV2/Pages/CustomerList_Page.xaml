@@ -5,7 +5,7 @@
     <TableView>
         <TableSection x:Name="TSection">
             <ViewCell>
-                <StackLayout>
+                <StackLayout Orientation="Horizontal">
                     <Entry x:Name="SearchEntry" HorizontalOptions="FillAndExpand"/>
                     <Button Clicked="onClickedSearch" Text="Search"/>
                 </StackLayout>

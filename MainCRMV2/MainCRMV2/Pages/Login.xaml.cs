@@ -1,11 +1,7 @@
 ﻿using System;
-using System.CodeDom.Compiler;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
-using Xamarin.Forms.Xaml.Internals;
 
 namespace MainCRMV2.Pages
 {

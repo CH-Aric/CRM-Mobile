@@ -124,7 +124,8 @@ namespace MainCRMV2
             Stream responseStream = ((HttpWebResponse)httpWebRequest.GetResponse()).GetResponseStream();
             int num = 1024;
             byte[] buffer = new byte[num];
-            FileStream fileStream = File.Create("CHStreamFile" + filename);
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            FileStream fileStream = File.Create(path+"CHStreamFile" + filename);
             int count;
             while ((count = responseStream.Read(buffer, 0, num)) != 0)
             {
