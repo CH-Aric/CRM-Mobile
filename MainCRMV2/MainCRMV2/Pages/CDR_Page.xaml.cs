@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MainCRMV2.Pages.Popup_Pages;
+using Rg.Plugins.Popup.Services;
+using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Reflection;
@@ -26,16 +28,12 @@ namespace MainCRMV2.Pages
                 SearchButton.IsEnabled = false;
             }
         }
-
-        // Token: 0x0600006D RID: 109 RVA: 0x00004444 File Offset: 0x00002644
         public void PerformSearch()
         {
             string statement = "SELECT DISTINCT CusID FROM cusfields WHERE Value LIKE '%" + this.SearchEntry.Text + "%'";
             TaskCallback call = new TaskCallback(this.performSearch2);
             DatabaseFunctions.SendToPhp(false, statement, call);
         }
-
-        // Token: 0x0600006E RID: 110 RVA: 0x00004484 File Offset: 0x00002684
         public void performSearch2(string result)
         {
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
@@ -48,8 +46,6 @@ namespace MainCRMV2.Pages
             TaskCallback call = new TaskCallback(this.performSearch3);
             DatabaseFunctions.SendToPhp(false, text, call);
         }
-
-        // Token: 0x0600006F RID: 111 RVA: 0x00004518 File Offset: 0x00002718
         public void performSearch3(string result)
         {
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
@@ -82,8 +78,6 @@ namespace MainCRMV2.Pages
             TaskCallback call = new TaskCallback(this.populateResults);
             DatabaseFunctions.SendToPhp(true, text, call);
         }
-
-        // Token: 0x06000070 RID: 112 RVA: 0x0000462C File Offset: 0x0000282C
         public void populateResults(string result)
         {
             this.PurgeCells();
@@ -101,7 +95,7 @@ namespace MainCRMV2.Pages
                         VerticalOptions = LayoutOptions.CenterAndExpand,
                         HorizontalOptions = LayoutOptions.EndAndExpand
                     };
-                    dataButton.Clicked += this.onClicked;
+                    dataButton.Clicked += onClicked;
                     dataButton.String = dictionary["calldate"][i];
                     dataButton.String2 = dictionary["recordingfile"][i];
                     ViewCell viewCell = new ViewCell();
@@ -116,27 +110,21 @@ namespace MainCRMV2.Pages
                 }
             }
         }
-
-        // Token: 0x06000071 RID: 113 RVA: 0x00002149 File Offset: 0x00000349
         public void openFile(string result)
         {
-        }
 
-        // Token: 0x06000072 RID: 114 RVA: 0x00004794 File Offset: 0x00002994
+        }
         public void onClicked(object sender, EventArgs e)
         {
             DataButton dataButton = (DataButton)sender;
             TaskCallback call = new TaskCallback(this.openFile);
-            DatabaseFunctions.getFile(dataButton.String, dataButton.String2, call);
+            string loadedfile=DatabaseFunctions.getFile(dataButton.String, dataButton.String2, call);
+            PopupNavigation.Instance.PushAsync(new Audio_Popup(loadedfile), true);
         }
-
-        // Token: 0x06000073 RID: 115 RVA: 0x000047C8 File Offset: 0x000029C8
         public void onClickedSearch(object sender, EventArgs e)
         {
             this.PerformSearch();
         }
-
-        // Token: 0x06000074 RID: 116 RVA: 0x000047D0 File Offset: 0x000029D0
         public void onClickedExplicitySearch(object sender, EventArgs e)
         {
             string text = "SELECT uniqueid,cnum,cnam,disposition,duration,did,recordingfile,src,calldate FROM asteriskcdrdb.cdr WHERE ";
@@ -165,8 +153,6 @@ namespace MainCRMV2.Pages
             TaskCallback call = new TaskCallback(this.populateResults);
             DatabaseFunctions.SendToPhp(true, text, call);
         }
-
-        // Token: 0x06000075 RID: 117 RVA: 0x00004898 File Offset: 0x00002A98
         public void PurgeCells()
         {
             if (this.views.Count > 0)

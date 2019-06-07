@@ -11,7 +11,6 @@ namespace MainCRMV2.Pages.Popup_Pages
     public partial class GetString_Popup : PopupPage
     {
         private TaskCallback call;
-        // Token: 0x060000D9 RID: 217 RVA: 0x00009244 File Offset: 0x00007444
         public GetString_Popup(string labelText, string confirmText, string cancelText, TaskCallback c)
         {
             InitializeComponent();
@@ -21,21 +20,15 @@ namespace MainCRMV2.Pages.Popup_Pages
             base.Animation = new ScaleAnimation();
             this.call = c;
         }
-
-        // Token: 0x060000DA RID: 218 RVA: 0x00009294 File Offset: 0x00007494
         protected override bool OnBackButtonPressed()
         {
             this.call("Cancel");
             return base.OnBackButtonPressed();
         }
-
-        // Token: 0x060000DB RID: 219 RVA: 0x000092AC File Offset: 0x000074AC
         public void onClicked(object sender, EventArgs e)
         {
             this.call(this.TextInput.Text);
         }
-
-        // Token: 0x060000DC RID: 220 RVA: 0x000092C4 File Offset: 0x000074C4
         public void onClickedCancel(object sender, EventArgs e)
         {
             this.call("Cancel");
