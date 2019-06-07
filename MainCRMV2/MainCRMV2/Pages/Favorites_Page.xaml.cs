@@ -12,17 +12,9 @@ namespace MainCRMV2.Pages
     public partial class Favorites_Page : ContentPage
     {
         private List<DataSwitch> Favorites;
-
-        // Token: 0x0400005A RID: 90
         private List<DataSwitch> Group;
-
-        // Token: 0x0400005B RID: 91
         private Picker GroupSelector;
-
-        // Token: 0x0400005C RID: 92
         private Entry GroupEntry;
-
-        // Token: 0x0400005D RID: 93
         private IDictionary<string, List<string>> pickerIndex;
         public Favorites_Page()
         {
@@ -34,16 +26,12 @@ namespace MainCRMV2.Pages
             this.renderLowerUI();
             this.getGroups();
         }
-
-        // Token: 0x06000097 RID: 151 RVA: 0x00006364 File Offset: 0x00004564
         public void getAgents()
         {
             string statement = "SELECT FName,IDKey FROM agents;";
             TaskCallback call = new TaskCallback(this.populateList);
             DatabaseFunctions.SendToPhp(false, statement, call);
         }
-
-        // Token: 0x06000098 RID: 152 RVA: 0x0000638C File Offset: 0x0000458C
         public void populateList(string result)
         {
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
@@ -80,16 +68,12 @@ namespace MainCRMV2.Pages
                 this.Group.Add(item3);
             }
         }
-
-        // Token: 0x06000099 RID: 153 RVA: 0x000064E4 File Offset: 0x000046E4
         public void getFavorites()
         {
             string statement = "SELECT TargetID FROM chatfavorite WHERE AgentID='" + ClientData.AgentIDK + "'";
             TaskCallback call = new TaskCallback(this.populateFavorites);
             DatabaseFunctions.SendToPhp(false, statement, call);
         }
-
-        // Token: 0x0600009A RID: 154 RVA: 0x00006520 File Offset: 0x00004720
         public void populateFavorites(string result)
         {
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
@@ -101,16 +85,12 @@ namespace MainCRMV2.Pages
                 }
             }
         }
-
-        // Token: 0x0600009B RID: 155 RVA: 0x00006584 File Offset: 0x00004784
         public void getGroups()
         {
             string statement = "SELECT GroupName,GroupID FROM groupmembers WHERE Admin='1' AND MemberID='" + ClientData.AgentIDK + "';";
             TaskCallback call = new TaskCallback(this.populateGroups);
             DatabaseFunctions.SendToPhp(false, statement, call);
         }
-
-        // Token: 0x0600009C RID: 156 RVA: 0x000065C0 File Offset: 0x000047C0
         public void populateGroups(string result)
         {
             string[] input = FormatFunctions.SplitToPairs(result);
@@ -118,8 +98,6 @@ namespace MainCRMV2.Pages
             this.GroupSelector.ItemsSource = this.pickerIndex["GroupName"];
             this.GroupSelector.SelectedItem = 1;
         }
-
-        // Token: 0x0600009D RID: 157 RVA: 0x0000660C File Offset: 0x0000480C
         public void renderLowerUI()
         {
             ViewCell viewCell = new ViewCell();
@@ -191,8 +169,6 @@ namespace MainCRMV2.Pages
             this.TSection.Add(viewCell);
             this.TSection.Add(viewCell2);
         }
-
-        // Token: 0x0600009E RID: 158 RVA: 0x0000686C File Offset: 0x00004A6C
         public void onClickAddToGroup(object sender, EventArgs e)
         {
             string text = "INSERT INTO groupmembers (GroupName,GroupID,MemberID) VALUES ";
@@ -228,8 +204,6 @@ namespace MainCRMV2.Pages
                 DatabaseFunctions.SendToPhp(text);
             }
         }
-
-        // Token: 0x0600009F RID: 159 RVA: 0x00006970 File Offset: 0x00004B70
         public void onClickRemoveFromGroup(object sender, EventArgs e)
         {
             string text = "DELETE FROM groupmembers WHERE ";
@@ -256,16 +230,12 @@ namespace MainCRMV2.Pages
                 DatabaseFunctions.SendToPhp(text);
             }
         }
-
-        // Token: 0x060000A0 RID: 160 RVA: 0x00006A40 File Offset: 0x00004C40
         public void onClickCreateGroup(object sender, EventArgs e)
         {
             string statement = "SELECT GroupID FROM groupmembers ORDER BY GroupID DESC LIMIT 1";
             TaskCallback call = new TaskCallback(this.createGroup);
             DatabaseFunctions.SendToPhp(false, statement, call);
         }
-
-        // Token: 0x060000A1 RID: 161 RVA: 0x00006A68 File Offset: 0x00004C68
         public void createGroup(string result)
         {
             int num = int.Parse(FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result))["GroupID"][0]) + 1;
@@ -280,8 +250,6 @@ namespace MainCRMV2.Pages
                 "');"
             }));
         }
-
-        // Token: 0x060000A2 RID: 162 RVA: 0x00006AEC File Offset: 0x00004CEC
         public void onClickDeleteGroup(object sender, EventArgs e)
         {
             DatabaseFunctions.SendToPhp(string.Concat(new object[]
@@ -293,8 +261,6 @@ namespace MainCRMV2.Pages
                 "')"
             }));
         }
-
-        // Token: 0x060000A3 RID: 163 RVA: 0x00006B54 File Offset: 0x00004D54
         public void onClickSaveFavorite(object sender, EventArgs e)
         {
             string text = "INSERT INTO chatfavorite (TargetID,AgentID) VALUES ";
@@ -348,68 +314,5 @@ namespace MainCRMV2.Pages
                 DatabaseFunctions.SendToPhp(text2);
             }
         }
-
-        /*// Token: 0x060000A4 RID: 164 RVA: 0x00006CB4 File Offset: 0x00004EB4
-        [GeneratedCode("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
-        private void InitializeComponent()
-        {
-            if (ResourceLoader.CanProvideContentFor(new ResourceLoader.ResourceLoadingQuery
-            {
-                AssemblyName = typeof(Favorites_Page).GetTypeInfo().Assembly.GetName(),
-                ResourcePath = "Pages/Favorites_Page.xaml"
-            }))
-            {
-                this.__InitComponentRuntime();
-                return;
-            }
-            if (XamlLoader.XamlFileProvider != null && XamlLoader.XamlFileProvider(base.GetType()) != null)
-            {
-                this.__InitComponentRuntime();
-                return;
-            }
-            Label label = new Label();
-            Label label2 = new Label();
-            Label label3 = new Label();
-            StackLayout stackLayout = new StackLayout();
-            ViewCell viewCell = new ViewCell();
-            TableSection tableSection = new TableSection();
-            TableRoot tableRoot = new TableRoot();
-            TableView tableView = new TableView();
-            NameScope nameScope = new NameScope();
-            NameScope.SetNameScope(this, nameScope);
-            ((INameScope)nameScope).RegisterName("TSection", tableSection);
-            this.TSection = tableSection;
-            tableSection.SetValue(TableSectionBase.TitleProperty, "Favorite's Management");
-            stackLayout.SetValue(StackLayout.OrientationProperty, StackOrientation.Horizontal);
-            label.SetValue(Label.TextProperty, "Agent");
-            label.SetValue(View.HorizontalOptionsProperty, LayoutOptions.StartAndExpand);
-            stackLayout.Children.Add(label);
-            label2.SetValue(Label.TextProperty, "Fav");
-            label2.SetValue(View.HorizontalOptionsProperty, LayoutOptions.CenterAndExpand);
-            stackLayout.Children.Add(label2);
-            label3.SetValue(Label.TextProperty, "Group");
-            label3.SetValue(View.HorizontalOptionsProperty, LayoutOptions.EndAndExpand);
-            stackLayout.Children.Add(label3);
-            viewCell.View = stackLayout;
-            tableSection.Add(viewCell);
-            tableRoot.Add(tableSection);
-            tableView.Root = tableRoot;
-            this.SetValue(ContentPage.ContentProperty, tableView);
-        }
-
-        // Token: 0x060000A5 RID: 165 RVA: 0x00006E64 File Offset: 0x00005064
-        private void __InitComponentRuntime()
-        {
-            this.LoadFromXaml(typeof(Favorites_Page));
-            this.TSection = this.FindByName("TSection");
-        }
-
-        // Token: 0x04000059 RID: 89
-        
-
-        // Token: 0x0400005E RID: 94
-        [GeneratedCode("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
-        private TableSection TSection;
-        */
     }
 }

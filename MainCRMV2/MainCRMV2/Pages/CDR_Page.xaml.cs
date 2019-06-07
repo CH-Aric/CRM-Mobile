@@ -14,7 +14,6 @@ namespace MainCRMV2.Pages
 {
     public partial class CDR_Page : ContentPage
     {
-        // Token: 0x0600006C RID: 108 RVA: 0x00004402 File Offset: 0x00002602
         private List<ViewCell> views;
         public CDR_Page(bool Searchmode, string Searchfor)
         {
@@ -163,106 +162,5 @@ namespace MainCRMV2.Pages
                 }
             }
         }
-        /*
-        // Token: 0x06000076 RID: 118 RVA: 0x00004900 File Offset: 0x00002B00
-        [GeneratedCode("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
-        private void InitializeComponent()
-        {
-            if (ResourceLoader.CanProvideContentFor(new ResourceLoader.ResourceLoadingQuery
-            {
-                AssemblyName = typeof(CDR_Page).GetTypeInfo().Assembly.GetName(),
-                ResourcePath = "Pages/CDR_Page.xaml"
-            }))
-            {
-                this.__InitComponentRuntime();
-                return;
-            }
-            if (XamlLoader.XamlFileProvider != null && XamlLoader.XamlFileProvider(base.GetType()) != null)
-            {
-                this.__InitComponentRuntime();
-                return;
-            }
-            Label label = new Label();
-            Entry entry = new Entry();
-            Button button = new Button();
-            Button button2 = new Button();
-            Label label2 = new Label();
-            StackLayout stackLayout = new StackLayout();
-            ViewCell viewCell = new ViewCell();
-            TableSection tableSection = new TableSection();
-            TableRoot tableRoot = new TableRoot();
-            TableView tableView = new TableView();
-            NameScope nameScope = new NameScope();
-            NameScope.SetNameScope(this, nameScope);
-            ((INameScope)nameScope).RegisterName("TSection", tableSection);
-            ((INameScope)nameScope).RegisterName("SearchEntry", entry);
-            if (entry.StyleId == null)
-            {
-                entry.StyleId = "SearchEntry";
-            }
-            ((INameScope)nameScope).RegisterName("SearchButton", button);
-            if (button.StyleId == null)
-            {
-                button.StyleId = "SearchButton";
-            }
-            ((INameScope)nameScope).RegisterName("ExSearchButton", button2);
-            if (button2.StyleId == null)
-            {
-                button2.StyleId = "ExSearchButton";
-            }
-            this.TSection = tableSection;
-            this.SearchEntry = entry;
-            this.SearchButton = button;
-            this.ExSearchButton = button2;
-            tableSection.SetValue(TableSectionBase.TitleProperty, "Call Detail Record");
-            stackLayout.SetValue(StackLayout.OrientationProperty, StackOrientation.Horizontal);
-            label.SetValue(Label.TextProperty, "Index");
-            stackLayout.Children.Add(label);
-            entry.SetValue(Entry.PlaceholderProperty, "Search");
-            stackLayout.Children.Add(entry);
-            button.SetValue(Button.TextProperty, "Search");
-            button.Clicked += this.onClickedSearch;
-            stackLayout.Children.Add(button);
-            button2.SetValue(Button.TextProperty, "D-Search");
-            button2.Clicked += this.onClickedExplicitySearch;
-            stackLayout.Children.Add(button2);
-            label2.SetValue(Label.TextProperty, "Value");
-            label2.SetValue(View.HorizontalOptionsProperty, LayoutOptions.EndAndExpand);
-            stackLayout.Children.Add(label2);
-            viewCell.View = stackLayout;
-            tableSection.Add(viewCell);
-            tableRoot.Add(tableSection);
-            tableView.Root = tableRoot;
-            this.SetValue(ContentPage.ContentProperty, tableView);
-        }
-
-        // Token: 0x06000077 RID: 119 RVA: 0x00004B74 File Offset: 0x00002D74
-        private void __InitComponentRuntime()
-        {
-            this.LoadFromXaml(typeof(CDR_Page));
-            this.TSection = this.FindByName("TSection");
-            this.SearchEntry = this.FindByName("SearchEntry");
-            this.SearchButton = this.FindByName("SearchButton");
-            this.ExSearchButton = this.FindByName("ExSearchButton");
-        }
-
-        // Token: 0x04000044 RID: 68
-        
-
-        // Token: 0x04000045 RID: 69
-        [GeneratedCode("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
-        private TableSection TSection;
-
-        // Token: 0x04000046 RID: 70
-        [GeneratedCode("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
-        private Entry SearchEntry;
-
-        // Token: 0x04000047 RID: 71
-        [GeneratedCode("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
-        private Button SearchButton;
-
-        // Token: 0x04000048 RID: 72
-        [GeneratedCode("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
-        private Button ExSearchButton;*/
     }
 }

@@ -7,9 +7,7 @@ using Xamarin.Forms.Xaml;
 
 namespace MainCRMV2.Pages
 {
-    // Token: 0x02000023 RID: 35
     [XamlCompilation(XamlCompilationOptions.Compile)]
-
     public partial class TaskCreate_Page : ContentPage
     {
         private List<DataEntry> Names;
@@ -216,96 +214,5 @@ namespace MainCRMV2.Pages
             this.Values.Add(item);
             this.Names.Add(item2);
         }
-
-        /*// Token: 0x060000B5 RID: 181 RVA: 0x00007444 File Offset: 0x00005644
-        [GeneratedCode("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
-        private void InitializeComponent()
-        {
-            if (ResourceLoader.CanProvideContentFor(new ResourceLoader.ResourceLoadingQuery
-            {
-                AssemblyName = typeof(taskCreate_Page).GetTypeInfo().Assembly.GetName(),
-                ResourcePath = "Pages/TaskCreate_Page.xaml"
-            }))
-            {
-                this.__InitComponentRuntime();
-                return;
-            }
-            if (XamlLoader.XamlFileProvider != null && XamlLoader.XamlFileProvider(base.GetType()) != null)
-            {
-                this.__InitComponentRuntime();
-                return;
-            }
-            Picker picker = new Picker();
-            Button button = new Button();
-            Button button2 = new Button();
-            StackLayout stackLayout = new StackLayout();
-            ViewCell viewCell = new ViewCell();
-            Button button3 = new Button();
-            Button button4 = new Button();
-            StackLayout stackLayout2 = new StackLayout();
-            ViewCell viewCell2 = new ViewCell();
-            TableSection tableSection = new TableSection();
-            TableRoot tableRoot = new TableRoot();
-            TableView tableView = new TableView();
-            NameScope nameScope = new NameScope();
-            NameScope.SetNameScope(this, nameScope);
-            ((INameScope)nameScope).RegisterName("TSection", tableSection);
-            ((INameScope)nameScope).RegisterName("templatePicker", picker);
-            if (picker.StyleId == null)
-            {
-                picker.StyleId = "templatePicker";
-            }
-            this.TSection = tableSection;
-            this.templatePicker = picker;
-            tableSection.SetValue(TableSectionBase.TitleProperty, "Creating Task");
-            stackLayout.SetValue(StackLayout.OrientationProperty, StackOrientation.Horizontal);
-            picker.SetValue(Picker.TitleProperty, "Select Template");
-            stackLayout.Children.Add(picker);
-            button.SetValue(Button.TextProperty, "Load template");
-            button.Clicked += this.onClickedLoadTemplate;
-            stackLayout.Children.Add(button);
-            button2.SetValue(Button.TextProperty, "Save Template");
-            button2.Clicked += this.onClickedSaveTemplate;
-            stackLayout.Children.Add(button2);
-            viewCell.View = stackLayout;
-            tableSection.Add(viewCell);
-            stackLayout2.SetValue(StackLayout.OrientationProperty, StackOrientation.Horizontal);
-            button3.SetValue(Button.TextProperty, "Create Task");
-            button3.Clicked += this.onClickedCreate;
-            stackLayout2.Children.Add(button3);
-            button4.SetValue(Button.TextProperty, "Add Fields");
-            button4.Clicked += this.onClickAddFields;
-            stackLayout2.Children.Add(button4);
-            viewCell2.View = stackLayout2;
-            tableSection.Add(viewCell2);
-            tableRoot.Add(tableSection);
-            tableView.Root = tableRoot;
-            this.SetValue(ContentPage.ContentProperty, tableView);
-        }
-
-        // Token: 0x060000B6 RID: 182 RVA: 0x000076A9 File Offset: 0x000058A9
-        private void __InitComponentRuntime()
-        {
-            this.LoadFromXaml(typeof(taskCreate_Page));
-            this.TSection = this.FindByName("TSection");
-            this.templatePicker = this.FindByName("templatePicker");
-        }
-
-        // Token: 0x0400005F RID: 95
-        
-
-        // Token: 0x04000062 RID: 98
-        private string saveAs = "";
-
-        // Token: 0x04000063 RID: 99
-        private string descAs = "";
-
-        // Token: 0x04000064 RID: 100
-        [GeneratedCode("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
-        private TableSection TSection;
-
-        // Token: 0x04000065 RID: 101
-        [GeneratedCode("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
-        private Picker templatePicker;*/
     }
 }

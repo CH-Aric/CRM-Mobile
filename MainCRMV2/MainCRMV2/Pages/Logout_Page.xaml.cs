@@ -5,7 +5,6 @@ using Xamarin.Forms.Xaml;
 
 namespace MainCRMV2.Pages
 {
-    // Token: 0x0200001A RID: 26
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Logout_Page : ContentPage
     {
@@ -22,6 +21,5 @@ namespace MainCRMV2.Pages
             Application.Current.MainPage = new NavigationPage();
             Application.Current.MainPage.Navigation.PushAsync(new Login());
         }
-
     }
 }
