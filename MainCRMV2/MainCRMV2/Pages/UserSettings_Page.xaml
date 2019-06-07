@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MainCRMV2.Pages.UserSettings_Page">
+    <TableView>
+        <TableSection x:Name="TSection">
+            <ViewCell>
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="Save" Clicked="onClicked"/>
+                    <Entry x:Name="UsernameEntry" Placeholder="Username"/>
+                    <Entry x:Name="PasswordEntry" Placeholder="Password"/>
+                </StackLayout>
+            </ViewCell>
+            <ViewCell>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="ID Key"/>
+                    <Label x:Name="AgentIDK"/>
+                </StackLayout>
+            </ViewCell>
+            <ViewCell>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="ID Number"/>
+                    <Label x:Name="AgentID"/>
+                </StackLayout>
+            </ViewCell>
+        </TableSection>
+    </TableView>
+</ContentPage>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MainCRMV2.Pages.CDR_Page">
+    <TableView>
+        <TableSection x:Name="TSection">
+            <ViewCell>
+                <StackLayout Orientation="Horizontal">
+                    <Entry x:Name="SearchEntry"/>
+                    <Button x:Name="SearchButton" Text="Search" Clicked="onClickedSearch"/>
+                    <Button Text="D-Search" Clicked="onClickedExplicitySearch"/>
+                </StackLayout>
+            </ViewCell>
+        </TableSection>
+    </TableView>
+</ContentPage>
