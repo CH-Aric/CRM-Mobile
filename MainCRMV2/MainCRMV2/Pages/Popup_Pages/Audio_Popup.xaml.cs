@@ -20,6 +20,7 @@ namespace MainCRMV2.Pages.Popup_Pages
             player = Plugin.SimpleAudioPlayer.CrossSimpleAudioPlayer.Current;
             player.Load(audiofile);
             player.Loop = true;
+            this.BackgroundColor = Color.WhiteSmoke;
         }
         public void onClickedPlay(object sender, EventArgs e)
         {

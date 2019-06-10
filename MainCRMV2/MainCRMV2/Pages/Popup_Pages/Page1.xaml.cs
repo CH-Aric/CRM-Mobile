@@ -16,6 +16,7 @@ namespace MainCRMV2.Pages.Popup_Pages
         public Page1()
         {
             this.InitializeComponent();
+
         }
 
         /*// Token: 0x060000E5 RID: 229 RVA: 0x0000990C File Offset: 0x00007B0C

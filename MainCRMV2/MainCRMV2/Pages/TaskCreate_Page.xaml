@@ -5,14 +5,16 @@
     <TableView>
         <TableSection x:Name="TSection">
             <ViewCell>
-                <StackLayout>
+                <StackLayout Orientation="Horizontal">
                     <Picker x:Name="templatePicker" HorizontalOptions="FillAndExpand"/>
-                    <Button Clicked="onClickedLoadTemplate"/>
+                    <Button Clicked="onClickedLoadTemplate" Text="Load Template" HorizontalOptions="FillAndExpand"/>
+                    <Button Clicked="onClickedSaveTemplate" Text="Save as Template" HorizontalOptions="FillAndExpand"/>
                 </StackLayout>
             </ViewCell>
             <ViewCell>
-                <StackLayout>
-                    <Button Clicked="onClickedSaveTemplate"/>
+                <StackLayout Orientation="Horizontal">
+                    <Button Clicked="onClickAddFields" Text="Add Fields" HorizontalOptions="FillAndExpand"/>
+                    <Button Clicked="onClickedCreate" Text="Create Task" HorizontalOptions="FillAndExpand"/>
                 </StackLayout>
             </ViewCell>
         </TableSection>

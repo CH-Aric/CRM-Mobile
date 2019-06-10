@@ -34,6 +34,9 @@ namespace MainCRMV2
                     new MainLink("Account")
                 },
                 {
+                    new MainLink("Coupon Checker")
+                },
+                {
                     new MainLink("Logout")
                 }
                 }

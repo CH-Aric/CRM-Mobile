@@ -18,6 +18,7 @@ namespace MainCRMV2.Pages.Popup_Pages
             this.button.Text = confirmText;
             this.cancelButton.Text = cancelText;
             base.Animation = new ScaleAnimation();
+            this.BackgroundColor = Color.WhiteSmoke;
             this.call = c;
         }
         protected override bool OnBackButtonPressed()

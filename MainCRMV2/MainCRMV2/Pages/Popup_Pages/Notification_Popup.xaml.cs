@@ -22,6 +22,7 @@ namespace MainCRMV2.Pages.Popup_Pages
             this.label.Text = labelText;
             this.button.Text = confirmText;
             base.Animation = new ScaleAnimation();
+            this.BackgroundColor = Color.WhiteSmoke;
             this.call = c;
         }
 

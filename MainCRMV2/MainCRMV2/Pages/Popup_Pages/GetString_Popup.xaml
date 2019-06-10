@@ -5,10 +5,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MainCRMV2.Pages.Popup_Pages.GetString_Popup">
 
-    <StackLayout Orientation="Horizontal">
-        <Label x:Name="label" />
-        <Entry x:Name="TextInput"/>
-        <Button Clicked="onClicked" x:Name="button"/>
-        <Button Clicked="onClickedCancel" x:Name="cancelButton"/>
+    <StackLayout Orientation="Vertical">
+        <Label x:Name="label" HorizontalOptions="FillAndExpand"/>
+        <Entry x:Name="TextInput" HorizontalOptions="FillAndExpand"/>
+        <Button Clicked="onClicked" x:Name="button" HorizontalOptions="FillAndExpand"/>
+        <Button Clicked="onClickedCancel" x:Name="cancelButton" HorizontalOptions="FillAndExpand"/>
     </StackLayout>
 </pages:PopupPage>

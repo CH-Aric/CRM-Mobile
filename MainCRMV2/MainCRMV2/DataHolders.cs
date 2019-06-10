@@ -167,6 +167,15 @@ namespace MainCRMV2
                 });
                 return;
             }
+            if (base.Text == "Coupon Checker")
+            {
+                base.Command = new Command(delegate (object o)
+                {
+                    App.MDP.Detail = new NavigationPage(new CouponChecker_Page());
+                    App.MDP.IsPresented = false;
+                });
+                return;
+            }
             base.Command = new Command(delegate (object o)
             {
                 App.MDP.Detail = new NavigationPage(new LinkPage(name));
