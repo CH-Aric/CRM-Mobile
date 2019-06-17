@@ -1,5 +1,6 @@
 ﻿using MainCRMV2;
 using MainCRMV2.Pages;
+using MainCRMV2.Pages.Inventory;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -88,6 +89,15 @@ namespace MainCRMV2
         public int Integer;
         public bool StartState;
     }
+    public class DataViewCell : ViewCell
+    {
+        public int Integer;
+        public DataViewCell(int i) :base()
+        {
+            this.Integer = i;
+        }
+
+    }
     public class LinkPage : ContentPage
     {
         public LinkPage(string name)
@@ -172,6 +182,15 @@ namespace MainCRMV2
                 base.Command = new Command(delegate (object o)
                 {
                     App.MDP.Detail = new NavigationPage(new CouponChecker_Page());
+                    App.MDP.IsPresented = false;
+                });
+                return;
+            }
+            if (base.Text == "Inventory")
+            {
+                base.Command = new Command(delegate (object o)
+                {
+                    App.MDP.Detail = new NavigationPage(new Items_Page());
                     App.MDP.IsPresented = false;
                 });
                 return;

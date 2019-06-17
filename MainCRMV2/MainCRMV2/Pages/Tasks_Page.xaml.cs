@@ -68,23 +68,20 @@ namespace MainCRMV2.Pages
                             HorizontalOptions = LayoutOptions.StartAndExpand
                         };
                         dataButton.Clicked += this.onClicked;
-                        this.buttonDict.Add(this.dict["IDKey"][i], dataButton);
-                        this.switchDict.Add(item);
+                        buttonDict.Add(this.dict["IDKey"][i], dataButton);
+                        switchDict.Add(item);
                         ViewCell viewCell = new ViewCell();
-                        StackLayout stackLayout = new StackLayout
-                        {
-                            Orientation = StackOrientation.Horizontal
-                        };
+                        StackLayout stackLayout = new StackLayout { Orientation = StackOrientation.Horizontal };
                         stackLayout.Children.Add(item);
                         stackLayout.Children.Add(dataButton);
                         viewCell.View = stackLayout;
-                        this.views.Add(viewCell);
+                        views.Add(viewCell);
                         TSection.Add(viewCell);
                     }
                     else
                     {
-                        DataButton dataButton2 = this.buttonDict[this.dict["IDKey"][i]];
-                        dataButton2.Text = dataButton2.Text + ", " + this.dict["Value"][i];
+                        DataButton dataButton2 = buttonDict[dict["IDKey"][i]];
+                        dataButton2.Text = dataButton2.Text + ", " + dict["Value"][i];
                     }
                 }
             }
@@ -98,7 +95,7 @@ namespace MainCRMV2.Pages
         public void populateGroups(string result)
         {
             string[] input = FormatFunctions.SplitToPairs(result);
-            this.groups = FormatFunctions.createValuePairs(input);
+            groups = FormatFunctions.createValuePairs(input);
         }
         public void onClicked(object sender, EventArgs e)
         {
@@ -111,9 +108,9 @@ namespace MainCRMV2.Pages
             string text;
             if (!this.gMode)
             {
-                int num = int.Parse(DatabaseFunctions.lookupInDictionary((string)this.agentPicker.SelectedItem, "FName", "IDKey", this.agents));
+                int num = int.Parse(DatabaseFunctions.lookupInDictionary((string)agentPicker.SelectedItem, "FName", "IDKey", agents));
                 text = "UPDATE tasks SET AgentID='" + num + "' , GroupID='0' WHERE";
-                foreach (DataSwitch dataSwitch in this.switchDict)
+                foreach (DataSwitch dataSwitch in switchDict)
                 {
                     if (dataSwitch.hasChanged())
                     {
@@ -130,9 +127,9 @@ namespace MainCRMV2.Pages
             }
             else
             {
-                int num = int.Parse(DatabaseFunctions.lookupInDictionary((string)this.agentPicker.SelectedItem, "GroupName", "GroupID", this.groups));
+                int num = int.Parse(DatabaseFunctions.lookupInDictionary((string)agentPicker.SelectedItem, "GroupName", "GroupID", groups));
                 text = "UPDATE tasks SET GroupID='" + num + "', AgentID='0' WHERE";
-                foreach (DataSwitch dataSwitch2 in this.switchDict)
+                foreach (DataSwitch dataSwitch2 in switchDict)
                 {
                     if (dataSwitch2.hasChanged())
                     {
@@ -168,27 +165,27 @@ namespace MainCRMV2.Pages
                 text,
                 "');"
             });
-            TaskCallback call = new TaskCallback(this.populateList);
+            TaskCallback call = new TaskCallback(populateList);
             DatabaseFunctions.SendToPhp(false, statement, call);
         }
         public void PurgeCells()
         {
-            foreach (ViewCell item in this.views)
+            foreach (ViewCell item in views)
             {
                 this.TSection.Remove(item);
             }
         }
         public void onToggledGroup(object sender, EventArgs e)
         {
-            this.gMode = !this.gMode;
-            if (this.gMode)
+            gMode = !gMode;
+            if (gMode)
             {
-                this.agentPicker.Title = "Select Group";
-                this.agentPicker.ItemsSource = this.groups["GroupName"];
+               agentPicker.Title = "Select Group";
+               agentPicker.ItemsSource = groups["GroupName"];
                 return;
             }
-            this.agentPicker.Title = "Select Agent";
-            this.agentPicker.ItemsSource = this.agents["FName"];
+            agentPicker.Title = "Select Agent";
+            agentPicker.ItemsSource = agents["FName"];
         }
     }
 }

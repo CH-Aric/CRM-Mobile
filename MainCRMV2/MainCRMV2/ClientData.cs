@@ -18,8 +18,8 @@ namespace MainCRMV2
         {
             if (Application.Current.Properties.ContainsKey("UN"))
             {
-                this.Username = (Application.Current.Properties["UN"] as string);
-                this.Password = (Application.Current.Properties["PW"] as string);
+               Username = (Application.Current.Properties["UN"] as string);
+               Password = (Application.Current.Properties["PW"] as string);
             }
         }
         public void writeUserDataToFile(string u, string p)
@@ -34,7 +34,7 @@ namespace MainCRMV2
         public async Task<bool> attemptNewLogin(string u, string p, bool s)
         {
             this.Responded = false;
-            TaskCallback call = new TaskCallback(this.response);
+            TaskCallback call = new TaskCallback(response);
             string statement = string.Concat(new string[]
             {
                 "SELECT IDKey,AgentNum FROM agents WHERE Username='",
@@ -44,16 +44,16 @@ namespace MainCRMV2
                 "';"
             });
             DatabaseFunctions.SendToPhp(false, statement, call);
-            while (!this.Responded)
+            while (!Responded)
             {
                 await Task.Delay(50);
             }
             bool result;
-            if (this.dict.Count > 1)
+            if (dict.Count > 1)
             {
                 if (s)
                 {
-                    this.writeUserDataToFile(u, p);
+                    writeUserDataToFile(u, p);
                 }
                 result = true;
             }
@@ -90,9 +90,9 @@ namespace MainCRMV2
             string[] input = FormatFunctions.SplitToPairs(result);
             dict = FormatFunctions.createValuePairs(input);
             Responded = true;
-            if (this.dict.Count > 1)
+            if (dict.Count > 1)
             {
-                ClientData.AgentIDK = int.Parse(this.dict["IDKey"][0]);
+                ClientData.AgentIDK = int.Parse(dict["IDKey"][0]);
             }
         }
     }
