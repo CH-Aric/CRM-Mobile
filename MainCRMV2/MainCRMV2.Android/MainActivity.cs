@@ -7,7 +7,6 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using System.Threading.Tasks;
-using Plugin.FacebookClient;
 using Android.Content;
 
 namespace MainCRMV2.Droid
@@ -21,7 +20,6 @@ namespace MainCRMV2.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
-            FacebookClientManager.Initialize(this);
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
@@ -44,11 +42,6 @@ namespace MainCRMV2.Droid
             {
                 base.OnBackPressed();
             }
-        }
-        protected override void OnActivityResult(int requestCode, Result resultCode, Intent intent)
-        {
-            base.OnActivityResult(requestCode, resultCode, intent);
-            FacebookClientManager.OnActivityResult(requestCode, resultCode, intent);
         }
     }
 }
