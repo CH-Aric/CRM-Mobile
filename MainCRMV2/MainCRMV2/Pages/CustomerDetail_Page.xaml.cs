@@ -135,6 +135,11 @@ namespace MainCRMV2.Pages
         }
         public void onFileButton(object sender, EventArgs e)
         {
+
+        }
+        public void onClickCDR(object sender,EventArgs e)
+        {
+            App.MDP.Detail.Navigation.PushAsync(new CDR_Page(false,customer+""));
         }
     }
 }

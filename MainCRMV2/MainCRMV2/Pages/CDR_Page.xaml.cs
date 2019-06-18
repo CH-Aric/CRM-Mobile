@@ -20,6 +20,9 @@ namespace MainCRMV2.Pages
                 SearchEntry.Text = Searchfor;
                 SearchEntry.IsEnabled = false;
                 SearchButton.IsEnabled = false;
+                string text = "SELECT DISTINCT cusfields.Value FROM cusfields WHERE cusfields.Index LIKE '%Phone%' AND ( CusID = '" + Searchfor + "');";
+                TaskCallback call = new TaskCallback(this.performSearch3);
+                DatabaseFunctions.SendToPhp(false, text, call);
             }
         }
         public void PerformSearch()
@@ -140,10 +143,9 @@ namespace MainCRMV2.Pages
                 text2,
                 "%' OR outbound_cnum LIKE'%",
                 text2,
-                "%' OR "
+                "%' LIMIT 500; "
             });
             text = Regex.Replace(text, "[-()]", "");
-            text += "src='-14' LIMIT 500;";
             TaskCallback call = new TaskCallback(this.populateResults);
             DatabaseFunctions.SendToPhp(true, text, call);
         }

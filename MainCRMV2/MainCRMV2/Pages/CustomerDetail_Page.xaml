@@ -7,6 +7,7 @@
             <ViewCell>
                 <StackLayout Orientation="Horizontal">
                     <Label x:Name="NameDisplay"/>
+                    <Button Text="View CDR" Clicked="onClickCDR"/>
                     <Button Text="Add Field" Clicked="onClickAddFields"/>
                     <Button Text="Save" Clicked="onClicked"/>
                 </StackLayout>
