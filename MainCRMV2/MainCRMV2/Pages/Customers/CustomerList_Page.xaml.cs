@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Xamarin.Forms;
 
-namespace MainCRMV2.Pages
+namespace MainCRMV2.Pages.Customers
 {
     public partial class CustomerList_Page : ContentPage
     {

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using MainCRMV2.Pages.Customers;
+using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
 using Xamarin.Forms.Xaml.Internals;
 
-namespace MainCRMV2.Pages
+namespace MainCRMV2.Pages.Customers
 {
     public partial class CustomerDetail_Page : ContentPage
     {
@@ -140,6 +141,11 @@ namespace MainCRMV2.Pages
         public void onClickCDR(object sender,EventArgs e)
         {
             App.MDP.Detail.Navigation.PushAsync(new CDR_Page(false,customer+""));
+        }
+        public void onBooking(object sender,EventArgs e)
+        {
+            App.MDP.Detail.Navigation.PushAsync(new Booking_Page());
+
         }
     }
 }

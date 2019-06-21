@@ -1,5 +1,6 @@
 ﻿using MainCRMV2;
 using MainCRMV2.Pages;
+using MainCRMV2.Pages.Customers;
 using MainCRMV2.Pages.Inventory;
 using System;
 using System.Collections.Generic;

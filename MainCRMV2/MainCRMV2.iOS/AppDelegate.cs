@@ -28,6 +28,7 @@ namespace MainCRMV2.iOS
             Plugin.InputKit.Platforms.iOS.Config.Init();
             LoadApplication(new App());
             FacebookClientManager.Initialize(app, options);
+            Xamarin.FormsMaps.Init();
             return base.FinishedLaunching(app, options);
         }
         public override void OnActivated(UIApplication uiApplication)

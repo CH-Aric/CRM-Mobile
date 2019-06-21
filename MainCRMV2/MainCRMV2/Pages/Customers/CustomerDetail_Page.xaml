@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MainCRMV2.Pages.CustomerDetail_Page">
+             x:Class="MainCRMV2.Pages.Customers.CustomerDetail_Page">
     <TableView>
         <TableSection x:Name="TSection">
             <ViewCell>
@@ -10,6 +10,7 @@
                     <Button Text="View CDR" Clicked="onClickCDR"/>
                     <Button Text="Add Field" Clicked="onClickAddFields"/>
                     <Button Text="Save" Clicked="onClicked"/>
+                    <Button Text="booking" Clicked="onBooking"/>
                 </StackLayout>
             </ViewCell>
         </TableSection>
