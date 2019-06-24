@@ -4,5 +4,6 @@
              x:Class="MainCRMV2.home">
     <StackLayout>
         <Label Text="Hello Xamarin.Forms!" />
+        
     </StackLayout>
 </ContentPage>

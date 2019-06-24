@@ -51,6 +51,41 @@ namespace MainCRMV2
             }
             return dictionary;
         }
+        public static Dictionary<string, List<string>> createValuePairs(string[] input,bool TimeOverload)
+        {
+            Dictionary<string, List<string>> dictionary = new Dictionary<string, List<string>>();
+            for (int i = 0; i < input.Length; i++)
+            {
+                string[] array = input[i].Split(':');
+                if (array.Length < 2)
+                {
+                    return dictionary;
+                }
+                if (dictionary.ContainsKey(array[0]))
+                {
+                    if (array.Length == 4)
+                    {
+                        dictionary[array[0]].Add(array[1] +":"+ array[2] + ":" + array[3]);
+                    }else
+                    {
+                        dictionary[array[0]].Add(array[1]);
+                    }
+                }
+                else
+                {
+                    dictionary.Add(array[0], new List<string>());
+                    if (array.Length == 4)
+                    {
+                        dictionary[array[0]].Add(array[1] + ":" + array[2] + ":" + array[3]);
+                    }
+                    else
+                    {
+                        dictionary[array[0]].Add(array[1]);
+                    }
+                }
+            }
+            return dictionary;
+        }
         public async static Task<string> smartsearch(string term,string table)
         {
             Responded = false;

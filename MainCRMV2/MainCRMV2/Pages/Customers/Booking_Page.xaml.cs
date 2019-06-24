@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Plugin.Geolocator;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,9 +17,16 @@ namespace MainCRMV2.Pages.Customers
         public Booking_Page()
         {
             InitializeComponent();
+            renderBookingMap();
+        }
+        public async void renderBookingMap()
+        {
+            var locator = CrossGeolocator.Current;
+            var position = await locator.GetPositionAsync();
+            var position2=await locator.GetPositionsForAddressAsync("1083 Elmlea");
             var map = new Map(
-            MapSpan.FromCenterAndRadius(
-                    new Position(37, -122), Distance.FromMiles(0.3)))
+            MapSpan.FromCenterAndRadius(new Position(position2.Latitude, position2.Longitude),
+                                             Distance.FromMiles(1)))
             {
                 IsShowingUser = true,
                 HeightRequest = 100,

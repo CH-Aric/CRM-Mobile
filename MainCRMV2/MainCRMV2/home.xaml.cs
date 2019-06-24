@@ -1,5 +1,8 @@
 ﻿using MainCRMV2.Pages;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using System;
+using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,7 +13,7 @@ namespace MainCRMV2
         public Home()
         {
             
-            this.MDPMain();
+            MDPMain();
         }
         public void MDPMain()
         {
@@ -39,6 +42,9 @@ namespace MainCRMV2
                 {
                     new MainLink("Inventory")
                 },
+                 {
+                    new MainLink("Calls Received")
+                },
                 {
                     new MainLink("Logout")
                 }
@@ -46,6 +52,7 @@ namespace MainCRMV2
             };
             base.Title = "Master";
             base.BackgroundColor = Color.Gray.WithLuminosity(0.9);
+
         }
 
         private async void Clicked_Task(object sender, EventArgs e)

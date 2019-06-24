@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using MainCRMV2.Pages.Popup_Pages;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -44,6 +46,23 @@ namespace MainCRMV2.Pages
         public async void voidCall(string x)
         {
             await PopupNavigation.Instance.PopAllAsync(true);
+        }
+        public void onClickedPermissions(object sender, EventArgs e)
+        {
+            setPermissions();
+        }
+        public async void setPermissions()
+        {
+            var Locstatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
+            if (Locstatus != PermissionStatus.Granted)
+            {
+                Dictionary<Permission, PermissionStatus> x = await CrossPermissions.Current.RequestPermissionsAsync(new Permission[] { Permission.Location });
+            }
+            var Calstatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Calendar);
+            if (Calstatus != PermissionStatus.Granted)
+            {
+                Dictionary<Permission, PermissionStatus> Calx = await CrossPermissions.Current.RequestPermissionsAsync(new Permission[] { Permission.Calendar });
+            }
         }
     }
 }

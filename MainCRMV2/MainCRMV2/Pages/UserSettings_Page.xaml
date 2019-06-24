@@ -7,6 +7,7 @@
             <ViewCell>
                 <StackLayout Orientation="Horizontal">
                     <Button Text="Save" Clicked="onClicked"/>
+                    <Button Text="Grant Permissions" Clicked="onClickedPermissions"/>
                     <Entry x:Name="UsernameEntry" Placeholder="Username"/>
                     <Entry x:Name="PasswordEntry" Placeholder="Password"/>
                 </StackLayout>
