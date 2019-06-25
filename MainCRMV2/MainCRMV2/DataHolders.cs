@@ -223,5 +223,9 @@ namespace MainCRMV2
             });
         }
     }
+    public class AwesomeHyperLinkLabel : Label
+    {
+
+    }
     public delegate void TaskCallback(string Result);
 }

@@ -144,7 +144,7 @@ namespace MainCRMV2.Pages.Customers
         }
         public void onBooking(object sender,EventArgs e)
         {
-            App.MDP.Detail.Navigation.PushAsync(new Booking_Page());
+            App.MDP.Detail.Navigation.PushAsync(new Booking_Page(customer));
 
         }
     }

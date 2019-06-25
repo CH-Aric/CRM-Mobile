@@ -3,13 +3,30 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:maincrmv2="clr-namespace:MainCRMV2"
              mc:Ignorable="d"
              x:Class="MainCRMV2.Pages.Customers.Booking_Page">
     <ContentPage.Content>
-        <StackLayout x:Name="stack">
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <TableView HasUnevenRows="true">
+            <TableSection>
+                <ViewCell Height="150" x:Name="textView">
+                    <StackLayout x:Name="textStack" Orientation="Vertical">
+                        <Label Text="Name" HorizontalOptions="FillAndExpand" x:Name="nameLabel"/>
+                        <maincrmv2:AwesomeHyperLinkLabel Text="Phone" HorizontalOptions="FillAndExpand" x:Name="phoneLabel"/>
+                        <Label Text="Time" HorizontalOptions="FillAndExpand" x:Name="bookLabel"/>
+                    </StackLayout>
+                </ViewCell>
+                <ViewCell Height="50" x:Name="navView">
+                    <StackLayout x:Name="navStack" Orientation="Vertical">
+                        <Button Text="Navigate To" Clicked="onClickNavigate" HorizontalOptions="FillAndExpand" x:Name="navButton"/>
+                    </StackLayout>
+                </ViewCell>
+                <ViewCell x:Name="mapView" Height="500">
+                    <StackLayout x:Name="mapStack">
+                        <!-- Map is inserted programmatically here-->
+                    </StackLayout>
+                </ViewCell>
+            </TableSection>
+        </TableView>
     </ContentPage.Content>
 </ContentPage>
