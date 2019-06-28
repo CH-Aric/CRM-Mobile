@@ -19,7 +19,9 @@ namespace MainCRMV2.Droid
             var view = (AwesomeHyperLinkLabel)Element;
             if (view == null) return;
 
+#pragma warning disable CS0618 // Type or member is obsolete
             TextView textView = new TextView(Forms.Context);
+#pragma warning restore CS0618 // Type or member is obsolete
             textView.LayoutParameters = new LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
             textView.SetTextColor(view.TextColor.ToAndroid());
 

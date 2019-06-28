@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:MainCRMV2="clr-namespace:MainCRMV2"
+             mc:Ignorable="d"
+             x:Class="MainCRMV2.Pages.Customers.Quote_Page">
+    <ContentPage.Content>
+        <TableView HasUnevenRows="true">
+            <TableSection x:Name="TSection">
+                <ViewCell Height="75" x:Name="v1">
+                    <StackLayout x:Name="nameStack" Orientation="Vertical">
+                        <Entry x:Name="nameLabel" Text="NameHere" HorizontalOptions="StartAndExpand"/>
+                        <Button x:Name="StageButton" Text="Advance" HorizontalOptions="EndAndExpand" Clicked="onClickAdvance"/>
+                    </StackLayout>
+                </ViewCell>
+                <ViewCell Height="75" x:Name="v2">
+                    <StackLayout x:Name="phoneStack" Orientation="Vertical">
+                        <MainCRMV2:AwesomeHyperLinkLabel x:Name="phoneLabel" Text="PhoneHere" HorizontalOptions="StartAndExpand"/>
+                        <Entry x:Name="contactLabel" Text="ContactHere" HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+                </ViewCell>
+                <ViewCell Height="300" x:Name="v3">
+                    <StackLayout x:Name="noteStack" Orientation="Vertical">
+                        <Entry x:Name="noteLabel" Text="" HorizontalOptions="StartAndExpand"/>
+                    </StackLayout>
+                </ViewCell>
+            </TableSection>
+        </TableView>
+    </ContentPage.Content>
+</ContentPage>
