@@ -12,7 +12,7 @@ namespace MainCRMV2.Pages.Customers
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Quote_Page : ContentPage
     {
-        private List<DataPair> entryDict;
+        private List<DataPair> entryDict,entryDictQ;
         string address;
         private int customer;
         public Quote_Page(int customerIn)
@@ -20,13 +20,15 @@ namespace MainCRMV2.Pages.Customers
             customer = customerIn;
             InitializeComponent();
             searchCustomers();
+            populateFileList();
+            
         }
-        
-       
         public void searchCustomers()
         {
             TaskCallback call2 = populatePage;
-            DatabaseFunctions.SendToPhp(false, "SELECT cusindex.Name,cusfields.IDKey AS FID,cusindex.IDKey,cusfields.value,cusfields.Index FROM cusfields INNER JOIN cusindex ON cusfields.cusID=cusindex.IDKey WHERE cusfields.CusID='" + customer + "';", call2);
+            DatabaseFunctions.SendToPhp(false, "SELECT cusindex.Name,cusfields.IDKey AS FID,cusindex.IDKey,cusfields.Value,cusfields.Index FROM cusfields INNER JOIN cusindex ON cusfields.cusID=cusindex.IDKey WHERE cusfields.CusID='" + customer + "' AND cusfields.Index <> 'QUOTEFIELD';", call2);
+            TaskCallback call3 = populateQuoteList;
+            DatabaseFunctions.SendToPhp(false,"SELECT cusfields.IDKey,cusfields.Value,cusfields.AdvValue FROM cusfields WHERE cusfields.CusID='"+customer+"' AND cusfields.Index='QUOTEFIELD';",call3);
         }
         public void onClickAdvance(object sender, EventArgs e)
         {
@@ -42,21 +44,12 @@ namespace MainCRMV2.Pages.Customers
                 {
                     if (dictionary["Index"][i].Contains("hone"))
                     {
-                        phoneLabel.Text = dictionary["value"][i];
-                    }
-                    else if (dictionary["Index"][i].Contains("ook"))
-                    {
-                        nameLabel.Text = "Booked For: " + dictionary["value"][i];
-                    }
-                    else if (dictionary["Index"][i].Contains("OTES"))
-                    {
-                        address = dictionary["value"][i];
-                        noteLabel.Text += dictionary["value"][i];
+                        phoneLabel.Text = dictionary["Value"][i];
                     }
                     else
                     {
-                        DataPair dataPair = new DataPair(int.Parse(dictionary["FID"][i]), dictionary["value"][i], dictionary["Index"][i]);
-                        dataPair.Value.Text = dictionary["value"][i];
+                        DataPair dataPair = new DataPair(int.Parse(dictionary["FID"][i]), dictionary["Value"][i], dictionary["Index"][i]);
+                        dataPair.Value.Text = dictionary["Value"][i];
                         dataPair.Value.Placeholder = "Value here";
                         dataPair.Value.FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label));
                         dataPair.Value.VerticalOptions = LayoutOptions.CenterAndExpand;
@@ -79,7 +72,6 @@ namespace MainCRMV2.Pages.Customers
                     }
                 }
             }
-            populateFileList();
         }
         public void populateFileList()
         {
@@ -104,9 +96,40 @@ namespace MainCRMV2.Pages.Customers
                 }
             }
         }
+        public void populateQuoteList(string result)
+        {
+            Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
+            entryDictQ = new List<DataPair>();
+            if (dictionary.Count > 0)
+            {
+                for (int i = 0; i < dictionary["Value"].Count; i++)
+                {
+                    DataPair dataPair = new DataPair(0, "", "");
+                    dataPair.setNew();
+                    dataPair.Value.Text = dictionary["Value"][i];
+                    dataPair.Value.Placeholder = "Item";
+                    dataPair.Value.FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label));
+                    dataPair.Value.VerticalOptions = LayoutOptions.CenterAndExpand;
+                    dataPair.Value.HorizontalOptions = LayoutOptions.StartAndExpand;
+                    dataPair.Index.Text = dictionary["AdvValue"][i];
+                    dataPair.Index.Placeholder = "Amount";
+                    dataPair.Index.FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label));
+                    dataPair.Index.VerticalOptions = LayoutOptions.CenterAndExpand;
+                    dataPair.Index.HorizontalOptions = LayoutOptions.EndAndExpand;
+                    StackLayout stackLayout = new StackLayout
+                    {
+                        Orientation = StackOrientation.Horizontal
+                    };
+                    stackLayout.Children.Add(dataPair.Index);
+                    stackLayout.Children.Add(dataPair.Value);
+                    quoteStack.Children.Add(stackLayout);
+                    entryDictQ.Add(dataPair);
+                }
+            }
+        }
         public void onClicked(object sender, EventArgs e)
         {
-            foreach (DataPair dataPair in this.entryDict)
+            foreach (DataPair dataPair in entryDict)
             {
                 if (dataPair.isNew)
                 {
@@ -127,8 +150,21 @@ namespace MainCRMV2.Pages.Customers
                     DatabaseFunctions.SendToPhp(string.Concat(new object[] { "UPDATE cusfields SET Value = '", dataPair.Value.Text, "',Index='", dataPair.Index.Text, "' WHERE (IDKey= '", dataPair.Index.GetInt(), "');" }));
                 }
             }
-            string sql = "UPDATE cusfields SET cusfields.value='" + noteLabel.Text + "' WHERE cusfields.Index='Notes:'";
+        }
+
+        public void onClickedQuoteSave(object sender, EventArgs e)
+        {
+            string sql = "DELETE FROM cusfields WHERE CusID='" + customer + "' AND cusfields.Index='QUOTEFIELD'";
             DatabaseFunctions.SendToPhp(sql);
+            foreach (DataPair dp in entryDictQ)
+            {
+                if (dp.Value.Text != "" && dp.Index.Text != "")
+                {
+                    string sql2 = "INSERT INTO cusfields(cusfields.Value,cusfields.Index,CusID,cusfields.AdvValue) VALUES ('" + dp.Value.Text + "','QUOTEFIELD','" + customer + "','" + dp.Index.Text + "')";
+                    DatabaseFunctions.SendToPhp(sql2);
+                }
+                
+            }
         }
         public void onClickAddFields(object sender, EventArgs e)
         {
@@ -154,6 +190,29 @@ namespace MainCRMV2.Pages.Customers
             viewCell.View = stackLayout;
             TSection.Add(viewCell);
             entryDict.Add(dataPair);
+        }
+        public void onClickAddFieldsQ(object sender, EventArgs e)
+        {
+            DataPair dataPair = new DataPair(0, "", "");
+            dataPair.setNew();
+            dataPair.Value.Text = "";
+            dataPair.Value.Placeholder = "Item";
+            dataPair.Value.FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label));
+            dataPair.Value.VerticalOptions = LayoutOptions.CenterAndExpand;
+            dataPair.Value.HorizontalOptions = LayoutOptions.StartAndExpand;
+            dataPair.Index.Text = "";
+            dataPair.Index.Placeholder = "Amount";
+            dataPair.Index.FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label));
+            dataPair.Index.VerticalOptions = LayoutOptions.CenterAndExpand;
+            dataPair.Index.HorizontalOptions = LayoutOptions.EndAndExpand;
+            StackLayout stackLayout = new StackLayout
+            {
+                Orientation = StackOrientation.Horizontal
+            };
+            stackLayout.Children.Add(dataPair.Index);
+            stackLayout.Children.Add(dataPair.Value);
+            quoteStack.Children.Add(stackLayout);
+            entryDictQ.Add(dataPair);
         }
         public void onFileButton(object sender, EventArgs e)
         {

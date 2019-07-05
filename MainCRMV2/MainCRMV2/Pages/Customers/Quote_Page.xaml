@@ -10,20 +10,30 @@
         <TableView HasUnevenRows="true">
             <TableSection x:Name="TSection">
                 <ViewCell Height="75" x:Name="v1">
-                    <StackLayout x:Name="nameStack" Orientation="Vertical">
+                    <StackLayout x:Name="nameStack" Orientation="Horizontal">
                         <Entry x:Name="nameLabel" Text="NameHere" HorizontalOptions="StartAndExpand"/>
                         <Button x:Name="StageButton" Text="Advance" HorizontalOptions="EndAndExpand" Clicked="onClickAdvance"/>
                     </StackLayout>
                 </ViewCell>
                 <ViewCell Height="75" x:Name="v2">
-                    <StackLayout x:Name="phoneStack" Orientation="Vertical">
+                    <StackLayout x:Name="phoneStack" Orientation="Horizontal">
                         <MainCRMV2:AwesomeHyperLinkLabel x:Name="phoneLabel" Text="PhoneHere" HorizontalOptions="StartAndExpand"/>
                         <Entry x:Name="contactLabel" Text="ContactHere" HorizontalOptions="EndAndExpand"/>
                     </StackLayout>
                 </ViewCell>
-                <ViewCell Height="300" x:Name="v3">
-                    <StackLayout x:Name="noteStack" Orientation="Vertical">
-                        <Entry x:Name="noteLabel" Text="" HorizontalOptions="StartAndExpand"/>
+                <ViewCell Height="600" x:Name="v3">
+                    <StackLayout x:Name="quoteStack" Orientation="Vertical">
+                        <Button Text="Add Item" Clicked="onClickAddFieldsQ"/>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Salesman:" HorizontalOptions="StartAndExpand"/>
+                            <Picker x:Name="Salesman" HorizontalOptions="EndAndExpand"/>
+                        </StackLayout>
+                    </StackLayout>
+                </ViewCell>
+                <ViewCell>
+                    <StackLayout>
+                        <Button Text="Add Row" Clicked="onClickAddFields"/>
+                        <Button Text="Save Changes"/>
                     </StackLayout>
                 </ViewCell>
             </TableSection>

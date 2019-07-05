@@ -23,7 +23,7 @@
                 </ViewCell>
                 <ViewCell Height="300" x:Name="v3">
                     <StackLayout x:Name="noteStack" Orientation="Vertical">
-                        <Entry x:Name="noteLabel" Text="" HorizontalOptions="StartAndExpand"/>
+                        <Editor x:Name="noteLabel" Text="" HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand"/>
                     </StackLayout>
                 </ViewCell>
             </TableSection>
