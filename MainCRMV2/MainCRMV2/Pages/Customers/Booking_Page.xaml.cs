@@ -20,6 +20,11 @@ namespace MainCRMV2.Pages.Customers
             InitializeComponent();
             searchCustomerData();
         }
+        public void onClickAdvance(object sender, EventArgs e)
+        {
+            App.MDP.Detail.Navigation.PopToRootAsync();
+            App.MDP.Detail.Navigation.PushAsync(new Advance_Page(customerID));
+        }
         public async void renderBookingMap(string Address)
         {
             var locator = CrossGeolocator.Current;

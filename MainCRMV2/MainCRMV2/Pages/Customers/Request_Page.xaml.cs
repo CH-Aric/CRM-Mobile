@@ -29,7 +29,8 @@ namespace MainCRMV2.Pages.Customers
         }
         public void onClickAdvance(object sender,EventArgs e)
         {
-
+            App.MDP.Detail.Navigation.PopToRootAsync();
+            App.MDP.Detail.Navigation.PushAsync(new Advance_Page(customer));
         }
         public void populatePage(string result)
         {

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MainCRMV2.Pages.Customers.Advance_Page">
+    <ContentPage.Content>
+        <TableView>
+            <TableSection x:Name="TSection">
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="NameHere" x:Name="nameLabel" HorizontalOptions="StartAndExpand"/>
+                        <Label Text="StageHere" x:Name="stageLabel"/>
+                    </StackLayout>
+                </ViewCell>
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Advance To:" HorizontalOptions="StartAndExpand"/>
+                        <Label Text="Ready?" HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+                </ViewCell>
+                <ViewCell x:Name="footer">
+                    <StackLayout>
+                        <Label Text="Footer! YAY"/>
+                    </StackLayout>
+                </ViewCell>
+            </TableSection>
+        </TableView>
+       
+    </ContentPage.Content>
+</ContentPage>

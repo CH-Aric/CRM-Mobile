@@ -4,6 +4,9 @@ using MainCRMV2.Pages.Customers;
 using MainCRMV2.Pages.Inventory;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Xamarin.Forms;
 
@@ -93,7 +96,7 @@ namespace MainCRMV2
     public class DataViewCell : ViewCell
     {
         public int Integer;
-        public DataViewCell(int i) :base()
+        public DataViewCell(int i) : base()
         {
             this.Integer = i;
         }
@@ -228,4 +231,38 @@ namespace MainCRMV2
 
     }
     public delegate void TaskCallback(string Result);
+    public class RadioButtonCore :INotifyPropertyChanged{
+        public RadioButtonCore()
+        {
+            MyList = new ObservableCollection<RadioButtonDataHandler>();
+            FillData();
+        }
+        public IList<RadioButtonDataHandler> MyList { get; set; }
+        private RadioButtonDataHandler _selectedItem;
+        public RadioButtonDataHandler SelectedItem
+        {
+            get => _selectedItem;
+            set { _selectedItem = value; OnPropertyChanged(); }
+        }
+
+        void FillData()
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                MyList.Add(new RadioButtonDataHandler { Id = i, Name = "Option " + i });
+            }
+        }
+
+        #region INotifyPropertyChanged Implementation
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName]string propName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+        #endregion
+    }
+    public class RadioButtonDataHandler
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        //Override string and return what you want to be displayed
+        public override string ToString() => Name;
+    }
 }

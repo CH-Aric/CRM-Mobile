@@ -15,13 +15,14 @@ namespace MainCRMV2.Pages.Customers
         private List<DataPair> entryDict,entryDictQ;
         string address;
         private int customer;
-        public Quote_Page(int customerIn)
+        private int stage;
+        public Quote_Page(int customerIn,int stageIn)
         {
             customer = customerIn;
+            stage = stageIn;
             InitializeComponent();
             searchCustomers();
             populateFileList();
-            
         }
         public void searchCustomers()
         {
@@ -32,7 +33,8 @@ namespace MainCRMV2.Pages.Customers
         }
         public void onClickAdvance(object sender, EventArgs e)
         {
-
+            App.MDP.Detail.Navigation.PopToRootAsync();
+            App.MDP.Detail.Navigation.PushAsync(new Advance_Page(customer));
         }
         public void populatePage(string result)
         {
@@ -151,7 +153,6 @@ namespace MainCRMV2.Pages.Customers
                 }
             }
         }
-
         public void onClickedQuoteSave(object sender, EventArgs e)
         {
             string sql = "DELETE FROM cusfields WHERE CusID='" + customer + "' AND cusfields.Index='QUOTEFIELD'";
@@ -163,7 +164,6 @@ namespace MainCRMV2.Pages.Customers
                     string sql2 = "INSERT INTO cusfields(cusfields.Value,cusfields.Index,CusID,cusfields.AdvValue) VALUES ('" + dp.Value.Text + "','QUOTEFIELD','" + customer + "','" + dp.Index.Text + "')";
                     DatabaseFunctions.SendToPhp(sql2);
                 }
-                
             }
         }
         public void onClickAddFields(object sender, EventArgs e)
@@ -190,6 +190,24 @@ namespace MainCRMV2.Pages.Customers
             viewCell.View = stackLayout;
             TSection.Add(viewCell);
             entryDict.Add(dataPair);
+            Button x = (Button)sender;
+            if (x!=row)
+            {
+                if (x == sig)
+                {
+                    dataPair.Index.Text = "Signature";
+                    dataPair.Value.Text = "True";
+                }
+                if (x == fie)
+                {
+                    dataPair.Index.Text = "Deposit Received";
+                    dataPair.Value.Text = "True";
+                }
+                if (x == met)
+                {
+                    dataPair.Index.Text = "Payment Method";
+                }
+            }
         }
         public void onClickAddFieldsQ(object sender, EventArgs e)
         {

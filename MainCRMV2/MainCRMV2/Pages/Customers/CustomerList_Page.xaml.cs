@@ -75,23 +75,16 @@ namespace MainCRMV2.Pages.Customers
             {
                 App.MDP.Detail.Navigation.PushAsync(new Booking_Page(dataButton.Integer));
             }
-            else if (stageSearch == 3)
+            else if (stageSearch >2&&stageSearch<9)
             {
-                App.MDP.Detail.Navigation.PushAsync(new Quote_Page(dataButton.Integer));
+                App.MDP.Detail.Navigation.PushAsync(new Quote_Page(dataButton.Integer, stageSearch));
             }
 
         }
         public void onClickedSearch(object sender, EventArgs e)
         {
             string text = "%" + SearchEntry.Text + "%";
-            string statement = string.Concat(new string[]
-            {
-                "SELECT DISTINCT cusindex.IDKey FROM cusindex INNER JOIN cusfields ON cusindex.IDKey=cusfields.CusID WHERE (cusfields.Value LIKE '",
-                text,
-                "' OR cusindex.Name LIKE '",
-                text,
-                "')"
-            });
+            string statement ="SELECT DISTINCT cusindex.IDKey FROM cusindex INNER JOIN cusfields ON cusindex.IDKey=cusfields.CusID WHERE (cusfields.Value LIKE '"+ text+"' OR cusindex.Name LIKE '"+ text+"')";
             statement+= appendPickerResult(); 
             TaskCallback call = new TaskCallback(this.PerformSearch);
             DatabaseFunctions.SendToPhp(false, statement, call);
