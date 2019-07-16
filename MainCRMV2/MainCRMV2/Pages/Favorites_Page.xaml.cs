@@ -58,9 +58,9 @@ namespace MainCRMV2.Pages
                 stackLayout.Children.Add(item2);
                 stackLayout.Children.Add(item3);
                 viewCell.View = stackLayout;
-                this.TSection.Add(viewCell);
-                this.Favorites.Add(item2);
-                this.Group.Add(item3);
+                TSection.Add(viewCell);
+                Favorites.Add(item2);
+                Group.Add(item3);
             }
         }
         public void getFavorites()
@@ -115,7 +115,8 @@ namespace MainCRMV2.Pages
             viewCell3.View = stackLayout3;
             this.GroupSelector = new Picker
             {
-                HorizontalOptions = LayoutOptions.FillAndExpand
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                Title="Group To Modify"
             };
             Button button = new Button
             {

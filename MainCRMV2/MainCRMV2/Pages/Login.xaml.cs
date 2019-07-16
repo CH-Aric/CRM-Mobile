@@ -26,8 +26,8 @@ namespace MainCRMV2.Pages
             {
                 App.MDP = new MasterDetailPage
                 {
-                    Master = new Home(),
-                    Detail = new NavigationPage(new LinkPage("A"))
+                    Master = new home(),
+                    Detail = new NavigationPage(new LinkPage(App.WelcomeMsg))
                 };
                 Application.Current.MainPage = App.MDP;
             }

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MainCRMV2.Pages.Price_Page">
+    <ContentPage.Content>
+        <TableView>
+            <TableSection x:Name="TSection">
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal">
+                        <Picker x:Name="TypePicker" HorizontalOptions="FillAndExpand" Title="Equipment Type">
+                            <Picker.Items>
+                                <x:String>A/C</x:String>
+                                <x:String>Furnace</x:String>
+                                <x:String>Water Tank</x:String>
+                                <x:String>Tankless</x:String>
+                            </Picker.Items>
+                        </Picker>
+                        <Picker x:Name="BrandPicker" HorizontalOptions="FillAndExpand" Title="Brand">
+                        </Picker>
+                        <Button Text="View" Clicked="onClicked" HorizontalOptions="FillAndExpand"/>
+                    </StackLayout>
+                </ViewCell>
+            </TableSection>
+        </TableView>
+    </ContentPage.Content>
+</ContentPage>

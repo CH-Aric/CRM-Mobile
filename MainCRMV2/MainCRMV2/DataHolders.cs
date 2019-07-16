@@ -26,6 +26,10 @@ namespace MainCRMV2
         {
             return this.Integer;
         }
+        public int GetInt2()
+        {
+            return this.Integer2;
+        }
         public string GetString()
         {
             return this.String;
@@ -35,6 +39,7 @@ namespace MainCRMV2
             return this.String2;
         }
         public int Integer;
+        public int Integer2;
         public string String;
         public string String2;
     }
@@ -208,11 +213,20 @@ namespace MainCRMV2
                 });
                 return;
             }
+            if (base.Text == "Price Guide")
+            {
+                base.Command = new Command(delegate (object o)
+                {
+                    App.MDP.Detail = new NavigationPage(new Price_Page());
+                    App.MDP.IsPresented = false;
+                });
+                return;
+            }
             base.Command = new Command(delegate (object o)
             {
                 App.MDP.Detail = new NavigationPage(new LinkPage(name));
                 App.MDP.IsPresented = false;
-            });
+            }); 
         }
     }
     public class SubLink : Button

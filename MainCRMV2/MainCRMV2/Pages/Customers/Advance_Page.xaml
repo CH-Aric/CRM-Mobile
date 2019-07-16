@@ -20,11 +20,6 @@
                         <Label Text="Ready?" HorizontalOptions="EndAndExpand"/>
                     </StackLayout>
                 </ViewCell>
-                <ViewCell x:Name="footer">
-                    <StackLayout>
-                        <Label Text="Footer! YAY"/>
-                    </StackLayout>
-                </ViewCell>
             </TableSection>
         </TableView>
        

@@ -7,14 +7,14 @@
             <ViewCell>
                 <StackLayout Orientation="Horizontal">
                     <Switch Toggled="onToggledGroup"/>
-                    <Picker x:Name="agentPicker" HorizontalOptions="FillAndExpand"/>
+                    <Picker x:Name="agentPicker" HorizontalOptions="FillAndExpand" Title="Agent"/>
                     <Button Clicked="onClickedAssign" Text="Transfer"/>
                     <Button Clicked="onClickedCreate" Text="Create"/>
                 </StackLayout>
             </ViewCell>
             <ViewCell>
                 <StackLayout Orientation="Horizontal">
-                    <Entry x:Name="SearchEntry" HorizontalOptions="FillAndExpand"/>
+                    <Entry x:Name="SearchEntry" HorizontalOptions="FillAndExpand" Placeholder="Search For"/>
                     <Button Clicked="onClickedSearch" Text="Search"/>
                 </StackLayout>
             </ViewCell>

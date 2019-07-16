@@ -1,17 +1,13 @@
 ﻿using MainCRMV2.Pages;
 using System;
-using System.CodeDom.Compiler;
-using System.Reflection;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
-using Xamarin.Forms.Xaml;
-using Xamarin.Forms.Xaml.Internals;
 
 namespace MainCRMV2
 {
     public partial class App : Application
     {
         public static MasterDetailPage MDP;
+        public static string WelcomeMsg="Welcome to the CoolHeat CRM";
         public App()
         {
             InitializeComponent();
@@ -20,8 +16,8 @@ namespace MainCRMV2
             {
                 App.MDP = new MasterDetailPage
                 {
-                    Master = new Home(),
-                    Detail = new NavigationPage(new LinkPage("Welcome to the CoolHeat CRM"))
+                    Master = new home(),
+                    Detail = new NavigationPage(new Toolbox_Page(WelcomeMsg))
                 };
                 Application.Current.MainPage = App.MDP;
                 return;

@@ -17,16 +17,19 @@
                 </ViewCell>
                 <ViewCell Height="50" x:Name="v2">
                     <StackLayout x:Name="phoneStack" Orientation="Horizontal">
-                        <MainCRMV2:AwesomeHyperLinkLabel x:Name="phoneLabel" Text="PhoneHere" HorizontalOptions="StartAndExpand"/>
-                        <Entry x:Name="contactLabel" Text="ContactHere" HorizontalOptions="EndAndExpand"/>
+                        <MainCRMV2:AwesomeHyperLinkLabel x:Name="phoneLabel" Text="PhoneHere" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                        <Entry x:Name="contactLabel" Text="ContactHere" HorizontalOptions="FillAndExpand"/>
                     </StackLayout>
                 </ViewCell>
                 <ViewCell Height="500" x:Name="v3">
                     <StackLayout x:Name="quoteStack" Orientation="Vertical">
-                        <Button Text="Add Item" Clicked="onClickAddFieldsQ"/>
                         <StackLayout Orientation="Horizontal">
-                            <Label Text="Salesman:" HorizontalOptions="StartAndExpand"/>
-                            <Picker x:Name="Salesman" HorizontalOptions="EndAndExpand"/>
+                            <Button Text="Save Changes" Clicked="onClicked"/>
+                            <Button Text="Add Item" Clicked="onClickAddFieldsQ"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Salesman:" HorizontalOptions="Start"/>
+                            <Picker x:Name="Salesman" HorizontalOptions="FillAndExpand"/>
                         </StackLayout>
                     </StackLayout>
                 </ViewCell>

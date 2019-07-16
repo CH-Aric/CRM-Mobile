@@ -12,9 +12,6 @@ namespace MainCRMV2.Pages
         {
             InitializeComponent();
         }
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-        }
         public void Clicked(object sender, EventArgs e)
         {
             DatabaseFunctions.client.wipeUserDataFromFile();

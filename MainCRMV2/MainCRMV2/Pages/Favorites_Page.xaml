@@ -5,7 +5,10 @@
     <TableView>
         <TableSection x:Name="TSection">
             <ViewCell>
-
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="User" HorizontalOptions="FillAndExpand"/>
+                    <Label Text="Favourite / Group" HorizontalOptions="CenterAndExpand"/>
+                </StackLayout>
             </ViewCell>
         </TableSection>
     </TableView>

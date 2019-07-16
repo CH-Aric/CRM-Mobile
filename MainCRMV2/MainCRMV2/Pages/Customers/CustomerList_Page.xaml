@@ -25,6 +25,25 @@
                     </Picker>
                 </StackLayout>
             </ViewCell>
+            <ViewCell>
+                <StackLayout Orientation="Horizontal">
+                    <Picker Title="Starting Stage" x:Name="NewPicker" HorizontalOptions="FillAndExpand">
+                        <Picker.Items>
+                            <x:String>Leads</x:String>
+                            <x:String>Booked</x:String>
+                            <x:String>Quoted</x:String>
+                            <x:String>Follow Up With</x:String>
+                            <x:String>Sold</x:String>
+                            <x:String>Installs</x:String>
+                            <x:String>Installing</x:String>
+                            <x:String>QA</x:String>
+                            <x:String>Clients</x:String>
+                            <x:String>Archived</x:String>
+                        </Picker.Items>
+                    </Picker>
+                    <Button Clicked="onClickedCreate" Text="Create New File" HorizontalOptions="FillAndExpand"/>
+                </StackLayout>
+            </ViewCell>
         </TableSection>
     </TableView>
 </ContentPage>

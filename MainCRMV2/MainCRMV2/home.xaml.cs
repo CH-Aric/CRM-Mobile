@@ -1,25 +1,24 @@
 ﻿using MainCRMV2.Pages;
-using Plugin.Permissions;
-using Plugin.Permissions.Abstractions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace MainCRMV2
 {
-    public partial class Home : ContentPage
+    public partial class home : ContentPage
     {
-        public Home()
+        public home()
         {
-            
+
+            InitializeComponent();
             MDPMain();
         }
         public void MDPMain()
         {
             base.Content = new StackLayout
             {
-                Padding = new Thickness(0.0, 20.0, 0.0, 0.0),
+                Padding = new Thickness(0.0, 10.0, 0.0, 0.0),//Controls Menu Button Layout
                 Children = {
                 {
                     new MainLink("Chat")
@@ -45,6 +44,9 @@ namespace MainCRMV2
                  {
                     new MainLink("Calls Received")
                 },
+                 {
+                    new MainLink("Price Guide")
+                },
                 {
                     new MainLink("Logout")
                 }
@@ -52,9 +54,11 @@ namespace MainCRMV2
             };
             base.Title = "Master";
             base.BackgroundColor = Color.Gray.WithLuminosity(0.9);
+        }
+        public void RenderHomeScreen()
+        {
 
         }
-
         private async void Clicked_Task(object sender, EventArgs e)
         {
             await Application.Current.MainPage.Navigation.PushAsync(new Tasks_Page());

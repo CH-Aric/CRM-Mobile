@@ -27,10 +27,9 @@ namespace MainCRMV2.Pages.Customers
         }
         public async void renderBookingMap(string Address)
         {
-            var locator = CrossGeolocator.Current;
-            var geoloc = await Xamarin.Essentials.Geocoding.GetLocationsAsync(Address);
+            var geoloc = await Geocoding.GetLocationsAsync(Address);
             place = geoloc.FirstOrDefault();
-            var map=new Xamarin.Forms.Maps.Map(MapSpan.FromCenterAndRadius(new Position(place.Latitude,place.Longitude),Distance.FromKilometers(1)))
+            Xamarin.Forms.Maps.Map map=new Xamarin.Forms.Maps.Map(MapSpan.FromCenterAndRadius(new Position(place.Latitude,place.Longitude),Distance.FromKilometers(1)))
             {
                 IsShowingUser = true,
                 HeightRequest = 100,
@@ -71,6 +70,7 @@ namespace MainCRMV2.Pages.Customers
                     {
                         address = dictionary["Value"][i];
                         navButton.Text += dictionary["Value"][i];
+                        address = dictionary["Value"][i];
                     }
                 }
             }

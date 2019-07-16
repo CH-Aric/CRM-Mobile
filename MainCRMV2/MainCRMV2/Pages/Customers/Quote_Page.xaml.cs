@@ -33,7 +33,7 @@ namespace MainCRMV2.Pages.Customers
         }
         public void onClickAdvance(object sender, EventArgs e)
         {
-            App.MDP.Detail.Navigation.PopToRootAsync();
+            //App.MDP.Detail.Navigation.PopToRootAsync();
             App.MDP.Detail.Navigation.PushAsync(new Advance_Page(customer));
         }
         public void populatePage(string result)
@@ -50,7 +50,7 @@ namespace MainCRMV2.Pages.Customers
                     }
                     else
                     {
-                        DataPair dataPair = new DataPair(int.Parse(dictionary["FID"][i]), dictionary["Value"][i], dictionary["Index"][i]);
+                        DataPair dataPair = new DataPair(int.Parse(dictionary["FID"][i]), dictionary["Index"][i], dictionary["Value"][i]);
                         dataPair.Value.Text = dictionary["Value"][i];
                         dataPair.Value.Placeholder = "Value here";
                         dataPair.Value.FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label));
@@ -106,8 +106,7 @@ namespace MainCRMV2.Pages.Customers
             {
                 for (int i = 0; i < dictionary["Value"].Count; i++)
                 {
-                    DataPair dataPair = new DataPair(0, "", "");
-                    dataPair.setNew();
+                    DataPair dataPair = new DataPair(0, dictionary["Value"][i], dictionary["AdvValue"][i]);
                     dataPair.Value.Text = dictionary["Value"][i];
                     dataPair.Value.Placeholder = "Item";
                     dataPair.Value.FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label));
@@ -147,14 +146,11 @@ namespace MainCRMV2.Pages.Customers
                     }));
                     dataPair.isNew = false;
                 }
-                else if (dataPair.Index.Text != dataPair.Index.GetInit())
+                else if (!dataPair.Index.Text.Equals(dataPair.Index.GetInit()))
                 {
                     DatabaseFunctions.SendToPhp(string.Concat(new object[] { "UPDATE cusfields SET Value = '", dataPair.Value.Text, "',Index='", dataPair.Index.Text, "' WHERE (IDKey= '", dataPair.Index.GetInt(), "');" }));
                 }
             }
-        }
-        public void onClickedQuoteSave(object sender, EventArgs e)
-        {
             string sql = "DELETE FROM cusfields WHERE CusID='" + customer + "' AND cusfields.Index='QUOTEFIELD'";
             DatabaseFunctions.SendToPhp(sql);
             foreach (DataPair dp in entryDictQ)
@@ -165,6 +161,8 @@ namespace MainCRMV2.Pages.Customers
                     DatabaseFunctions.SendToPhp(sql2);
                 }
             }
+            App.MDP.Detail.Navigation.PopToRootAsync();
+            App.MDP.Detail.Navigation.PushAsync(new Quote_Page(customer,stage));
         }
         public void onClickAddFields(object sender, EventArgs e)
         {

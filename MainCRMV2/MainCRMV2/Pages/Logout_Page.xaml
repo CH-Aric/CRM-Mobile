@@ -1,16 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage
-                xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MainCRMV2.Pages.Logout_Page">
-    <TableView>
-        <TableSection x:Name="TSection">
-            <ViewCell>
-                <StackLayout Orientation="Vertical">
-                    <Label Text="Would you like to Logout?"/>
-                    <Button Text="Logout" Clicked="Clicked"/>
-                </StackLayout>
-            </ViewCell>
-        </TableSection>
-    </TableView>
+        xmlns="http://xamarin.com/schemas/2014/forms" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        x:Class="MainCRMV2.Pages.Logout_Page">
+    <StackLayout Orientation="Vertical">
+        <Label Text="Would you like to Logout?" FontSize="Large"/>
+        <Button Text="Logout" Clicked="Clicked"/>
+    </StackLayout>
 </ContentPage>

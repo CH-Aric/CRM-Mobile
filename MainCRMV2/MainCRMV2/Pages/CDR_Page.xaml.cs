@@ -50,28 +50,10 @@ namespace MainCRMV2.Pages
             foreach (string phone in dictionary["Value"])
             {
                 string text2 = FormatFunctions.CleanPhone(phone);
-                text = string.Concat(new string[]
-                {
-                    text,
-                    "dst LIKE'%",
-                    text2,
-                    "%' OR src LIKE'%",
-                    text2,
-                    "%' OR clid LIKE'%",
-                    text2,
-                    "%' OR cnam LIKE'%",
-                    text2,
-                    "%' OR cnum LIKE'%",
-                    text2,
-                    "%' OR outbound_cnam LIKE'%",
-                    text2,
-                    "%' OR outbound_cnum LIKE'%",
-                    text2,
-                    "%' OR "
-                });
+                text = text+"dst LIKE'%" +text2 +"%' OR src LIKE'%" +text2 +"%' OR clid LIKE'%" +text2 +"%' OR cnam LIKE'%"+text2+"%' OR cnum LIKE'%" +text2 +"%' OR outbound_cnam LIKE'%"+text2 +"%' OR outbound_cnum LIKE'%" +text2 +"%' OR ";
             }
             text = Regex.Replace(text, "[-()]", "");
-            text += "src='-14' LIMIT 500;";
+            text += "src='-14' ORDER BY calldate DESC LIMIT 500;";
             TaskCallback call = new TaskCallback(this.populateResults);
             DatabaseFunctions.SendToPhp(true, text, call);
         }
@@ -126,25 +108,7 @@ namespace MainCRMV2.Pages
         {
             string text = "SELECT uniqueid,cnum,cnam,disposition,duration,did,recordingfile,src,calldate FROM asteriskcdrdb.cdr WHERE ";
             string text2 = this.SearchEntry.Text;
-            text = string.Concat(new string[]
-            {
-                text,
-                "dst LIKE'%",
-                text2,
-                "%' OR src LIKE'%",
-                text2,
-                "%' OR clid LIKE'%",
-                text2,
-                "%' OR cnam LIKE'%",
-                text2,
-                "%' OR cnum LIKE'%",
-                text2,
-                "%' OR outbound_cnam LIKE'%",
-                text2,
-                "%' OR outbound_cnum LIKE'%",
-                text2,
-                "%' LIMIT 500; "
-            });
+            text = text+"dst LIKE'%"+text2+"%' OR src LIKE'%"+text2+"%' OR clid LIKE'%"+text2+"%' OR cnam LIKE'%"+text2+"%' OR cnum LIKE'%"+text2+"%' OR outbound_cnam LIKE'%"+text2+"%' OR outbound_cnum LIKE'%"+text2+"%' LIMIT 500;";
             text = Regex.Replace(text, "[-()]", "");
             TaskCallback call = new TaskCallback(this.populateResults);
             DatabaseFunctions.SendToPhp(true, text, call);

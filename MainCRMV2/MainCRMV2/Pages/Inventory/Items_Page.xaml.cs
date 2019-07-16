@@ -19,7 +19,7 @@ namespace MainCRMV2.Pages.Inventory
         }
         public void loadItems()
         {
-            string sql = "SELECT SUM(stock.Quantity) Total,items.Description,items.Price,items.IDKey FROM stock LEFT JOIN items ON items.IDKey=stock.ItemID GROUP BY items.IDKey;";
+            string sql = "SELECT SUM(stock.Quantity) Total,items.Description,items.Price,items.IDKey,items.Category,items.Units FROM stock LEFT JOIN items ON items.IDKey=stock.ItemID GROUP BY items.IDKey;";
             TaskCallback call = populateTable;
             DatabaseFunctions.SendToPhp(false, sql, call);
         }
@@ -34,12 +34,9 @@ namespace MainCRMV2.Pages.Inventory
                 {
                     DataViewCell c = new DataViewCell(int.Parse(dict["IDKey"][i]));
                     cells.Add(c);
-                    Label e = new Label() { HorizontalOptions = LayoutOptions.FillAndExpand};
-                    e.Text = dict["Description"][i];
-                    Label e2 = new Label() { HorizontalOptions=LayoutOptions.FillAndExpand};
-                    e2.Text = dict["Price"][i];
-                    Label e3 = new Label() { HorizontalOptions=LayoutOptions.FillAndExpand};
-                    e3.Text = dict["Total"][i];
+                    Label e = new Label() { Text = dict["Description"][i], HorizontalOptions = LayoutOptions.FillAndExpand};
+                    Label e2 = new Label() { Text = dict["Price"][i], HorizontalOptions =LayoutOptions.FillAndExpand};
+                    Label e3 = new Label() {Text = dict["Total"][i], HorizontalOptions=LayoutOptions.FillAndExpand};
                     StackLayout s = new StackLayout() { Orientation=StackOrientation.Horizontal};
                     c.View = s;
                     s.Children.Add(e);

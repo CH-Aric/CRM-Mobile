@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace MainCRMV2.Pages
 {
@@ -74,8 +73,8 @@ namespace MainCRMV2.Pages
                             dictionary["Message"][i]
                         }),
                         FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
-                        VerticalOptions = LayoutOptions.CenterAndExpand,
-                        HorizontalOptions = LayoutOptions.StartAndExpand
+                        VerticalOptions = LayoutOptions.Start,
+                        HorizontalOptions = LayoutOptions.Start
                     };
                     ChatStack.Children.Add(item);
                 }
@@ -103,20 +102,8 @@ namespace MainCRMV2.Pages
             int num = int.Parse(DatabaseFunctions.lookupInDictionary((string)Target.SelectedItem, "Name", "IDKey", this.pickerIndex));
             int num2 = int.Parse(DatabaseFunctions.lookupInDictionary((string)Target.SelectedItem, "Name", "g", this.pickerIndex));
             string text = DateTime.Now.ToString("yyyy'-'MM'-'dd HH':'mm':'ss");
-            DatabaseFunctions.SendToPhp(string.Concat(new object[]
-            {
-                "INSERT INTO chat (Message,AgentID,TargetID,Global,Timestamp) VALUES ('",
-                this.Message.Text,
-                "','",
-                ClientData.AgentIDK,
-                "','",
-                num,
-                "','",
-                num2,
-                "','",
-                text,
-                "')"
-            }));
+            string sql = "INSERT INTO chat (Message,AgentID,TargetID,Global,Timestamp) VALUES ('" + Message.Text + "','" + ClientData.AgentIDK + "','" + num + "','" + num2 + "','" + text + "')";
+            DatabaseFunctions.SendToPhp(sql);
             this.getChatMessages();
         }
         public void OnClickMan(object sender, EventArgs e)
