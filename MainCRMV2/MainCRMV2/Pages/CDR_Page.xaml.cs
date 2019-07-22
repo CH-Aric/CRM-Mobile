@@ -61,7 +61,7 @@ namespace MainCRMV2.Pages
         {
             this.PurgeCells();
             this.views = new List<ViewCell>();
-            Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
+            Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result),true);
             if (dictionary.Count > 1)
             {
                 for (int i = 0; i < dictionary["uniqueid"].Count; i++)

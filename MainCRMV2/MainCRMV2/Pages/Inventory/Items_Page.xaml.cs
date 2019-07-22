@@ -9,8 +9,6 @@ namespace MainCRMV2.Pages.Inventory
     public partial class Items_Page : ContentPage
     {
         public int AuditID=0;
-        List<DataEntry> CountEntries;
-        List<DataViewCell> cells;
         private Dictionary<string, List<string>> dict;
         public Items_Page()
         {
@@ -22,27 +20,25 @@ namespace MainCRMV2.Pages.Inventory
             string sql = "SELECT SUM(stock.Quantity) Total,items.Description,items.Price,items.IDKey,items.Category,items.Units FROM stock LEFT JOIN items ON items.IDKey=stock.ItemID GROUP BY items.IDKey;";
             TaskCallback call = populateTable;
             DatabaseFunctions.SendToPhp(false, sql, call);
+            string sql2 = "SELECT Name,IDKey FROM auditlist";
+            TaskCallback call2 = popupatePicker;
+            DatabaseFunctions.SendToPhp(false, sql2, call2);
+        }
+        public void popupatePicker(string result)
+        {
+            Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
+            AuditPicker.ItemsSource = dictionary["Name"];
         }
         public void populateTable(string result)
         {
             string[] input = FormatFunctions.SplitToPairs(result);
             dict = FormatFunctions.createValuePairs(input);
-            cells = new List<DataViewCell>();
             if (dict.Count > 0)
             {
                 for (int i = 0; i < dict["Description"].Count; i++)
                 {
-                    DataViewCell c = new DataViewCell(int.Parse(dict["IDKey"][i]));
-                    cells.Add(c);
-                    Label e = new Label() { Text = dict["Description"][i], HorizontalOptions = LayoutOptions.FillAndExpand};
-                    Label e2 = new Label() { Text = dict["Price"][i], HorizontalOptions =LayoutOptions.FillAndExpand};
-                    Label e3 = new Label() {Text = dict["Total"][i], HorizontalOptions=LayoutOptions.FillAndExpand};
-                    StackLayout s = new StackLayout() { Orientation=StackOrientation.Horizontal};
-                    c.View = s;
-                    s.Children.Add(e);
-                    s.Children.Add(e3);
-                    s.Children.Add(e2);
-                    TSection.Add(c);
+                    string[] s = new string[] { dict["Description"][i], dict["Price"][i], dict["Total"][i] };
+                    GridFiller.rapidFill(s,BodyGrid);
                 }
             }
         }
@@ -50,14 +46,18 @@ namespace MainCRMV2.Pages.Inventory
         {
             string[] input = FormatFunctions.SplitToPairs(result);
             dict = FormatFunctions.createValuePairs(input);
-
+            if (dict.Count > 0)
+            {
+                string[] total = dict["Total"].ToArray();
+                int[] idk = Array.ConvertAll<string, int>(dict["IDKey"].ToArray(),int.Parse);
+                GridFiller.rapidAppendData(total, idk, BodyGrid);
+            }
         }
         public void onClickedViewAudit(object sender, EventArgs e)
         {
-            string sql = "SELECT SUM(audits.Quantity) total,items.Description,items.Price FROM audits LEFT JOIN items ON items.IDKey=stock.ItemID GROUP BY audits.IDKey;";
+            string sql = "SELECT SUM(audits.Quantity) Total,items.Description,items.Price,items.IDKey FROM audits LEFT JOIN items ON items.IDKey=audits.ItemID  INNER JOIN auditlist ON audits.AuditID=auditlist.IDKey WHERE auditlist.Name='"+AuditPicker.SelectedItem+"' GROUP BY audits.IDKey;";
             TaskCallback call = populateTableWithAudit;
             DatabaseFunctions.SendToPhp(false,sql,call);
         }
-
     }
 }

@@ -28,57 +28,25 @@ namespace MainCRMV2.Pages
         }
         public void populateResults(string result)
         {
-            PurgeCells();
             this.views = new List<ViewCell>();
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result),true);
             if (dictionary.Count > 1)
             {
                 for (int i = 0; i < dictionary["eventtime"].Count; i++)
                 {
-
-                    Label a = new Label()
-                    {
-                        Text = dictionary["cid_num"][i],
-                        HorizontalOptions = LayoutOptions.FillAndExpand
-                    };
-                    Label b = new Label()
-                    {
-                        Text = dictionary["eventtime"][i],
-                        HorizontalOptions = LayoutOptions.FillAndExpand
-                    };
-                    Label c = new Label()
-                    {
-                        HorizontalOptions = LayoutOptions.FillAndExpand
-                    };
+                    string c;
+                    bool CC = false;
                     if (dictionary["eventtype"][i] == "ANSWER")
                     {
-                        c.Text = "Yes";
+                        c = "Yes";
+                        CC = true;
                     }
                     else
                     {
-                        c.Text = "No";
+                        c = "No";
                     }
-                    ViewCell viewCell = new ViewCell();
-                    StackLayout stackLayout = new StackLayout
-                    {
-                        Orientation = StackOrientation.Horizontal
-                    };
-                    stackLayout.Children.Add(a);
-                    stackLayout.Children.Add(b);
-                    stackLayout.Children.Add(c);
-                    viewCell.View = stackLayout;
-                    this.views.Add(viewCell);
-                    this.TSection.Add(viewCell);
-                }
-            }
-        }
-        public void PurgeCells()
-        {
-            if (this.views.Count > 0)
-            {
-                foreach (ViewCell item in this.views)
-                {
-                    this.TSection.Remove(item);
+                    string[] s = new string[3] { dictionary["cid_num"][i], dictionary["eventtime"][i] ,c};
+                    GridFiller.rapidFillColorized(s, TSection,CC);
                 }
             }
         }

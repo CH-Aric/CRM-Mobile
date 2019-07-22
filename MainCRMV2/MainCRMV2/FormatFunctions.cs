@@ -21,6 +21,7 @@ namespace MainCRMV2
         public static string[] SplitToPairs(string input)
         {
             input = input.Replace("\"", "");
+            input = input.Replace("\\", "");
             input = input.Replace("[", "");
             input = input.Replace("]", "");
             input = input.Replace("{", "");

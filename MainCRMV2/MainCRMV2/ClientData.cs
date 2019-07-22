@@ -10,10 +10,39 @@ namespace MainCRMV2
         public static int StoredKey;
         public static int AgentID;
         public static int AgentIDK;
+        public static int GridMargin = 1;
+        public static Color[] rotatingColors=new Color[2] { Color.White,Color.LightGray};
+        public static Color[] rotatingConfirmationColors = new Color[2] { Color.LimeGreen, Color.LightGreen };
+        public static Color[] rotatingNegativeColors = new Color[2] { Color.LightPink, Color.MistyRose };
+        public static Color textColor = Color.Black;
+        public static int LastColor = 0;
         private string Username = "x";
         private string Password = "x";
         private bool Responded;
         private Dictionary<string, List<string>> dict;
+
+        public static Color getGridColor()
+        {
+            LastColor++;
+            if (LastColor > rotatingColors.Length-1)
+            {
+                LastColor = 0;
+            }
+            return rotatingColors[LastColor];
+        }
+        public static Color getGridColorCC(bool CC)
+        {
+            LastColor++;
+            if (LastColor > rotatingColors.Length - 1)
+            {
+                LastColor = 0;
+            }
+            if (CC)
+            {
+                return rotatingConfirmationColors[LastColor];
+            }
+            return rotatingNegativeColors[LastColor];
+        }
         public void loadUserDatafromFile()
         {
             if (Application.Current.Properties.ContainsKey("UN"))

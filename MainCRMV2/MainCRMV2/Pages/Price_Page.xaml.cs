@@ -12,7 +12,7 @@ namespace MainCRMV2.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Price_Page : ContentPage
     {
-        List<ViewCell> Views;
+        List<ViewCell> Views;//Update this to work with the Grid!
         public Price_Page()
         {
             InitializeComponent();
@@ -20,9 +20,7 @@ namespace MainCRMV2.Pages
             Views = new List<ViewCell>();
             TaskCallback call = populateBrands;
             DatabaseFunctions.SendToPhp(false, sql, call);
-            
         }
-
         public void onClicked(object sender,EventArgs e)
         {
             string sql = "SELECT * FROM pricesheet WHERE Brand LIKE '%" + BrandPicker.SelectedItem + "%' AND ItemType LIKE '%"+TypePicker.SelectedItem+"%'";
@@ -48,77 +46,84 @@ namespace MainCRMV2.Pages
             {
                 for (int i = 0; i < dictionary["IDKey"].Count; i++)
                 {
-                    ViewCell vc = new ViewCell();
-                    StackLayout sl = new StackLayout() { Orientation=StackOrientation.Horizontal};
-                    vc.View = sl;
-                    Label l1 = new Label() { Text=dictionary["Desc1"][i],HorizontalOptions=LayoutOptions.FillAndExpand};
-                    Label l2 = new Label() { Text = dictionary["Desc2"][i], HorizontalOptions = LayoutOptions.FillAndExpand };
-                    Label l3 = new Label() { Text = "$" + dictionary["Price"][i], HorizontalOptions = LayoutOptions.FillAndExpand };
-                    Label l4 = new Label() { Text = "$" + dictionary["PriceSale"][i], HorizontalOptions = LayoutOptions.FillAndExpand };
-                    if (BrandPicker.SelectedIndex == -1)
+                    string[] s = new string[] { dictionary["Desc1"][i], dictionary["Desc2"][i], "$" + dictionary["Price"][i], "$" + dictionary["PriceSale"][i] };
+                    int count = 4;
+                    if (BrandPicker.SelectedIndex == -1 || !BrandPicker.SelectedItem.Equals("Additives"))
                     {
-                        Label l5 = new Label() { Text = dictionary["Brand"][i], HorizontalOptions = LayoutOptions.FillAndExpand };
-                        sl.Children.Add(l5);
+                        count++;
+                        s = new string[] { dictionary["Brand"][i] ,s[0],s[1],s[2],s[3]};
                     }
                     if (TypePicker.SelectedIndex == -1)
                     {
-                        Label l6 = new Label() { Text = dictionary["ItemType"][i], HorizontalOptions = LayoutOptions.FillAndExpand };
-                        sl.Children.Add(l6);
-                    }
-                    sl.Children.Add(l1);
-                    sl.Children.Add(l2);
-                    if(BrandPicker.SelectedIndex != -1)//Print the Wholesale price only if Additives is not selected
-                    {
-                        if (!BrandPicker.SelectedItem.Equals("Additives"))
+                        count++;
+                        if (count == 6)
                         {
-                            sl.Children.Add(l3);
+                            s = new string[] { dictionary["ItemType"][i], s[0], s[1], s[2], s[3], s[4] };
+                        }
+                        else
+                        {
+                            s = new string[] { dictionary["ItemType"][i], s[0], s[1], s[2], s[3] };
                         }
                     }
-                    sl.Children.Add(l4);
-                    TSection.Add(vc);
-                    Views.Add(vc);
+                    int[] Spacing = new int[] { 1,1,1,1,1,1};
+                    if (s.Length == 5)
+                    {
+                        Spacing = new int[] { 1,2,1,1,1};
+                    }else if (s.Length == 4)
+                    {
+                        Spacing = new int[] { 2, 2, 1 ,1};
+                    }
+                    GridFiller.rapidFillSpaced(s,TSection,Spacing);
                 }
-                printHeader();
             }
         }
         public void printHeader()
         {
-            ViewCell vc = new ViewCell();
-            StackLayout sl = new StackLayout() { Orientation = StackOrientation.Horizontal };
-            vc.View = sl;
-            Label l1 = new Label() { Text = "Spec 1", HorizontalOptions = LayoutOptions.FillAndExpand };
-            Label l2 = new Label() { Text = "Spec 2", HorizontalOptions = LayoutOptions.FillAndExpand };
-            Label l3 = new Label() { Text = "Wholesale" , HorizontalOptions = LayoutOptions.FillAndExpand };
-            Label l4 = new Label() { Text = "Market" , HorizontalOptions = LayoutOptions.FillAndExpand };
-            if (BrandPicker.SelectedIndex == -1)
+            string[] s = new string[] { "Spec 1","Spec 2","Wholesale","Market"};
+            if (BrandPicker.SelectedIndex == -1 || !BrandPicker.SelectedItem.Equals("Additives"))
             {
-                Label l5 = new Label() { Text ="Brand", HorizontalOptions = LayoutOptions.FillAndExpand };
-                sl.Children.Add(l5);
-            }
-            if (TypePicker.SelectedIndex == -1)
-            {
-                Label l6 = new Label() { Text = "ItemType", HorizontalOptions = LayoutOptions.FillAndExpand };
-                sl.Children.Add(l6);
-            }
-            sl.Children.Add(l1);
-            sl.Children.Add(l2);
-            if (BrandPicker.SelectedIndex != -1)//Print the Wholesale price only if Additives is not selected
-            {
-                if (!BrandPicker.SelectedItem.Equals("Additives"))
+                s = new string[] {"Brand", "Spec 1", "Spec 2", "Wholesale", "Market" };
+                if (TypePicker.SelectedIndex == -1)
                 {
-                    sl.Children.Add(l3);
+                    s = new string[] { "ItemType", "Brand", "Spec 1", "Spec 2", "Wholesale", "Market" };
                 }
             }
-            sl.Children.Add(l4);
-            TSection.Add(vc);
-            Views.Add(vc);
+            else if (TypePicker.SelectedIndex == -1)
+            {
+                s = new string[] { "ItemType", "Spec 1", "Spec 2", "Wholesale", "Market" };
+            }
+            int[] Spacing = new int[] { 1, 1, 1, 1, 1, 1 };
+            if (s.Length == 5)
+            {
+                Spacing = new int[] { 1, 2, 1, 1, 1 };
+            }
+            else if (s.Length == 4)
+            {
+                Spacing = new int[] { 2, 2, 1, 1 };
+            }
+            GridFiller.rapidFillSpacedRowHeightLocked(s,HeaderGrid,Spacing,new int[] { 50,0});
         }
         public void PurgeCells()
         {
-            foreach (ViewCell item in Views)
+            var children = TSection.Children.ToList();
+            foreach (var child in children.Where(child => Grid.GetRow(child) !=0))
             {
-                this.TSection.Remove(item);
+                TSection.Children.Remove(child);
+            }
+            while (TSection.RowDefinitions.Count > 1)
+            {
+                TSection.RowDefinitions.RemoveAt(0);
+            }
+            var childrenHead = TSection.Children.ToList();//Strips header for Rewriting
+            foreach (var child in childrenHead.Where(child => Grid.GetRow(child) != 0))
+            {
+                HeaderGrid.Children.Remove(child);
+            }
+            if (HeaderGrid.RowDefinitions.Count > 1)
+            {
+                HeaderGrid.RowDefinitions.RemoveAt(1);
             }
         }
+        
     }
 }
