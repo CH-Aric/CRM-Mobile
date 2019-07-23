@@ -11,7 +11,7 @@ namespace MainCRMV2.Pages
     {
         private List<ViewCell> views;
         private Dictionary<string, List<string>> dict;
-        private Dictionary<string, DataButton> buttonDict;
+        private Dictionary<string, SecurityButton> buttonDict;
         private List<DataSwitch> switchDict;
         private Dictionary<string, List<string>> agents;
         private Dictionary<string, List<string>> groups;
@@ -48,14 +48,14 @@ namespace MainCRMV2.Pages
             this.views = new List<ViewCell>();
             if (this.dict.Count > 1)
             {
-                this.buttonDict = new Dictionary<string, DataButton>();
+                this.buttonDict = new Dictionary<string, SecurityButton>();
                 this.switchDict = new List<DataSwitch>();
                 for (int i = 0; i < this.dict["Name"].Count; i++)
                 {
                     if (!this.buttonDict.ContainsKey(this.dict["IDKey"][i]))
                     {
                         string text = this.dict["Name"][i] ?? "";
-                        DataButton dataButton = new DataButton(int.Parse(this.dict["IDKey"][i]))
+                        SecurityButton dataButton = new SecurityButton(int.Parse(this.dict["IDKey"][i]),new string[] { "Employee"})
                         {
                             Text = text,
                             FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
@@ -80,7 +80,7 @@ namespace MainCRMV2.Pages
                     }
                     else
                     {
-                        DataButton dataButton2 = buttonDict[dict["IDKey"][i]];
+                        SecurityButton dataButton2 = buttonDict[dict["IDKey"][i]];
                         dataButton2.Text = dataButton2.Text + ", " + dict["Value"][i];
                     }
                 }
@@ -99,7 +99,7 @@ namespace MainCRMV2.Pages
         }
         public void onClicked(object sender, EventArgs e)
         {
-            DataButton dataButton = (DataButton)sender;
+            SecurityButton dataButton = (SecurityButton)sender;
             App.MDP.Detail.Navigation.PushAsync(new TaskEdit_Page(dataButton.Integer));
             App.MDP.IsPresented = false;
         }

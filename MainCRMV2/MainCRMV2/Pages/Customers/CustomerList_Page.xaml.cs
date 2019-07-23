@@ -23,7 +23,7 @@ namespace MainCRMV2.Pages.Customers
         public void populateList(string result)
         {
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
-            Dictionary<string, DataButton> dictionary2 = new Dictionary<string, DataButton>();
+            Dictionary<string, SecurityButton> dictionary2 = new Dictionary<string, SecurityButton>();
             this.views = new List<ViewCell>();
             if (dictionary.Count > 0)
             {
@@ -32,7 +32,7 @@ namespace MainCRMV2.Pages.Customers
                     if (!dictionary2.ContainsKey(dictionary["IDKey"][i]))
                     {
                         string text = dictionary["Name"][i] + ": " + dictionary["Value"][i];
-                        DataButton dataButton = new DataButton(int.Parse(dictionary["IDKey"][i]))
+                        SecurityButton dataButton = new SecurityButton(int.Parse(dictionary["IDKey"][i]),new string[] { "Employee"})
                         {
                             Text = text,
                             FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
@@ -55,7 +55,7 @@ namespace MainCRMV2.Pages.Customers
                     }
                     else
                     {
-                        DataButton dataButton2 = dictionary2[dictionary["IDKey"][i]];
+                        SecurityButton dataButton2 = dictionary2[dictionary["IDKey"][i]];
                         dataButton2.Text = dataButton2.Text + ", " + dictionary["Value"][i];
                     }
                 }
@@ -63,7 +63,7 @@ namespace MainCRMV2.Pages.Customers
         }
         public void onClicked(object sender, EventArgs e)
         {
-            DataButton dataButton = (DataButton)sender;
+            SecurityButton dataButton = (SecurityButton)sender;
             App.MDP.IsPresented = false;
             if (dataButton.GetInt2() == 0)
             {
@@ -101,7 +101,7 @@ namespace MainCRMV2.Pages.Customers
         public void OpenPage(string result)
         {
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
-            DataButton x = new DataButton(int.Parse(dictionary["IDKey"][0]));
+            SecurityButton x = new SecurityButton(int.Parse(dictionary["IDKey"][0]),new string[] { "Employee"});
             x.Integer2 = int.Parse(dictionary["Stage"][0]);
             EventArgs y = new EventArgs();
             onClicked(x,y);

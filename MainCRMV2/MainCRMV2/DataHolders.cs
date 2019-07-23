@@ -12,8 +12,52 @@ using Xamarin.Forms;
 
 namespace MainCRMV2
 {
+    public class SecurityButton: DataButton
+    {
+        private string[] Locks;
+        public SecurityButton(int i,string[] locks)
+        {
+            Locks = locks;
+            Integer = i;
+            SecurityAlpha();
+        }
+        public SecurityButton(string i, string[] locks)
+        {
+            Locks = locks;
+            String = i;
+            SecurityAlpha();
+        }
+        private bool checkKeys()
+        {
+            int i = 0;
+            foreach(string s in Locks)
+            {
+                if (ClientData.hasSecurityKey(s))
+                {
+                    i++;
+                }
+            }
+            if (i == Locks.Length)
+            {
+                return true;
+            }
+            return false;
+        }
+        private void SecurityAlpha()
+        {
+            if (!checkKeys())
+            {
+                IsEnabled = false;
+                Text = "Unauthorized, Please see your supervisor";
+            }
+        }
+    }
     public class DataButton : Button
     {
+        public DataButton()
+        {
+
+        }
         public DataButton(int i)
         {
             this.Integer = i;

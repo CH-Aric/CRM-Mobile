@@ -20,7 +20,7 @@ namespace MainCRMV2
         private string Password = "x";
         private bool Responded;
         private Dictionary<string, List<string>> dict;
-
+        private static List<string> SecurityKeys;
         public static Color getGridColor()
         {
             LastColor++;
@@ -122,7 +122,23 @@ namespace MainCRMV2
             if (dict.Count > 1)
             {
                 ClientData.AgentIDK = int.Parse(dict["IDKey"][0]);
+                string sql = "SELECT PermissionGranted FROM agentpermissions WHERE AgentID='" + AgentIDK+"'";
+                TaskCallback call = loadSecurityKeys;
+                DatabaseFunctions.SendToPhp(false,sql,call);
             }
+        }
+        public void loadSecurityKeys(string result)
+        {
+            Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
+            SecurityKeys = dictionary["PermissionGranted"];
+        }
+        public static bool hasSecurityKey(string Key)
+        {
+            if (SecurityKeys.Contains("Admin"))
+            {
+                return true;
+            }
+            return SecurityKeys.Contains(Key);
         }
     }
 }

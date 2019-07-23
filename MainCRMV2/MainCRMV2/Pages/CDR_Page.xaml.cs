@@ -67,7 +67,7 @@ namespace MainCRMV2.Pages
                 for (int i = 0; i < dictionary["uniqueid"].Count; i++)
                 {
                     string text = dictionary["calldate"][i] + " : " + dictionary["cnam"][i];
-                    DataButton dataButton = new DataButton(int.Parse(Regex.Replace(dictionary["uniqueid"][i], "^[^.]+.", "")))
+                    SecurityButton dataButton = new SecurityButton(int.Parse(Regex.Replace(dictionary["uniqueid"][i], "^[^.]+.", "")),new string[]{ "Manager"})
                     {
                         Text = text,
                         FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
@@ -95,7 +95,7 @@ namespace MainCRMV2.Pages
         }
         public async void onClicked(object sender, EventArgs e)
         {
-            DataButton dataButton = (DataButton)sender;
+            SecurityButton dataButton = (SecurityButton)sender;
             TaskCallback call = new TaskCallback(this.openFile);
             string loadedfile=DatabaseFunctions.getFile(dataButton.String, dataButton.String2, call);
             await PopupNavigation.Instance.PushAsync(new Audio_Popup(loadedfile), true);

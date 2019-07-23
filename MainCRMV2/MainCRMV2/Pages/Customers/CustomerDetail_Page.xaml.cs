@@ -60,7 +60,7 @@ namespace MainCRMV2.Pages.Customers
             {
                 if ((text != "." || text != "..") && customerFileList.Length > 1)
                 {
-                    DataButton dataButton = new DataButton(this.NameDisplay.Text + "/" + text)
+                    SecurityButton dataButton = new SecurityButton(this.NameDisplay.Text + "/" + text,new string[]{ "Employee"})
                     {
                         Text = text,
                         FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),

@@ -13,11 +13,11 @@ namespace MainCRMV2.Pages.Customers
     public partial class Advance_Page : ContentPage
     {
         int customer;
-        List<DataButton> Buttons;
+        List<SecurityButton> Buttons;
         public Advance_Page(int customerIn)
         {
             InitializeComponent();
-            Buttons = new List<DataButton>();
+            Buttons = new List<SecurityButton>();
             customer = customerIn;
             assessStage();
         }
@@ -36,56 +36,56 @@ namespace MainCRMV2.Pages.Customers
             int Stage = int.Parse(dictionary["Stage"][0]);
             if (Stage<2)
             {
-                DataButton l = new DataButton(2) { HorizontalOptions=LayoutOptions.StartAndExpand, Text="Booking"};
+                SecurityButton l = new SecurityButton(2,new string[] { "Employee"}) { HorizontalOptions=LayoutOptions.StartAndExpand, Text="Booking"};
                 l.Clicked += onClicked;
                 sl.Children.Add(l);
                 Buttons.Add(l);
             }
             if (Stage < 3)
             {
-                DataButton l = new DataButton(3) { HorizontalOptions = LayoutOptions.StartAndExpand, Text = "Quote" };
+                SecurityButton l = new SecurityButton(3, new string[] { "Employee" }) { HorizontalOptions = LayoutOptions.StartAndExpand, Text = "Quote" };
                 l.Clicked += onClicked;
                 sl.Children.Add(l);
                 Buttons.Add(l);
             }
             if (Stage < 4)
             {
-                DataButton l = new DataButton(4) { HorizontalOptions = LayoutOptions.StartAndExpand, Text = "Sale" };
+                SecurityButton l = new SecurityButton(4, new string[] { "Employee" }) { HorizontalOptions = LayoutOptions.StartAndExpand, Text = "Sale" };
                 l.Clicked += onClicked;
                 sl.Children.Add(l);
                 Buttons.Add(l);
             }
             if (Stage < 5)
             {
-                DataButton l = new DataButton(5) { HorizontalOptions = LayoutOptions.StartAndExpand, Text = "Install" };
+                SecurityButton l = new SecurityButton(5, new string[] { "Employee" }) { HorizontalOptions = LayoutOptions.StartAndExpand, Text = "Install" };
                 l.Clicked += onClicked;
                 sl.Children.Add(l);
                 Buttons.Add(l);
             }
             if (Stage < 6)
             {
-                DataButton l = new DataButton(6) { HorizontalOptions = LayoutOptions.StartAndExpand, Text = "Installing" };
+                SecurityButton l = new SecurityButton(6, new string[] { "Employee" }) { HorizontalOptions = LayoutOptions.StartAndExpand, Text = "Installing" };
                 l.Clicked += onClicked;
                 sl.Children.Add(l);
                 Buttons.Add(l);
             }
             if (Stage < 7)
             {
-                DataButton l = new DataButton(7) { HorizontalOptions = LayoutOptions.StartAndExpand, Text = "Quality Assurance" };
+                SecurityButton l = new SecurityButton(7, new string[] { "Employee" }) { HorizontalOptions = LayoutOptions.StartAndExpand, Text = "Quality Assurance" };
                 l.Clicked += onClicked;
                 sl.Children.Add(l);
                 Buttons.Add(l);
             }
             if (Stage < 8)
             {
-                DataButton l = new DataButton(8) { HorizontalOptions = LayoutOptions.StartAndExpand, Text = "Clients" };
+                SecurityButton l = new SecurityButton(8, new string[] { "Employee" }) { HorizontalOptions = LayoutOptions.StartAndExpand, Text = "Clients" };
                 l.Clicked += onClicked;
                 sl.Children.Add(l);
                 Buttons.Add(l);
             }
             if (Stage < 9)
             {
-                DataButton l = new DataButton(9) { HorizontalOptions = LayoutOptions.StartAndExpand, Text = "Archive"};
+                SecurityButton l = new SecurityButton(9, new string[] { "Employee" }) { HorizontalOptions = LayoutOptions.StartAndExpand, Text = "Archive"};
                 l.Clicked += onClicked;
                 sl.Children.Add(l);
                 Buttons.Add(l);
@@ -95,7 +95,7 @@ namespace MainCRMV2.Pages.Customers
         }
         public void onClicked(object sender, EventArgs e)
         {
-            DataButton db = (DataButton)sender;
+            SecurityButton db = (SecurityButton)sender;
             string sql = "UPDATE cusindex SET Stage='"+db.GetInt()+"' WHERE IDKey='"+customer+"'";
             DatabaseFunctions.SendToPhp(sql);
             App.MDP.Detail.Navigation.PopToRootAsync();
