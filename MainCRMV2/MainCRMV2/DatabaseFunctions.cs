@@ -36,16 +36,6 @@ namespace MainCRMV2
                 call(streamReader.ReadToEnd());
                 streamReader.Close();
                 responseStream.Close();
-                /*
-                HttpWebRequest myrequest = (HttpWebRequest)WebRequest.Create(requestUriString);
-                myrequest.Method = "POST";
-                string s = text;
-                byte[] bytes = Encoding.UTF8.GetBytes(s);
-                myrequest.ContentType = "application/x-www-form-urlencoded";
-                myrequest.ContentLength = bytes.Length;
-                WebResponse response = myrequest.GetResponse();
-                Stream responseStream = response.GetResponseStream();
-               */
             }
             catch (WebException ex)
             {

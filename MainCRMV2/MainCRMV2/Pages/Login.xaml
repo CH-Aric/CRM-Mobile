@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maincrmv2="clr-namespace:MainCRMV2"
              x:Class="MainCRMV2.Pages.Login">
     <TableView>
         <TableSection>
@@ -19,7 +20,7 @@
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Stay Logged in?" HorizontalOptions="CenterAndExpand"/>
                     <Switch x:Name="stay" HorizontalOptions="CenterAndExpand"/>
-                    <Button Clicked="LoginClick" Text="Log In" HorizontalOptions="CenterAndExpand"/>
+                    <maincrmv2:StyledButton Clicked="LoginClick" Text="Log In" HorizontalOptions="CenterAndExpand"/>
                 </StackLayout>
             </ViewCell>
             <ViewCell>

@@ -2,9 +2,10 @@
 <ContentPage
         xmlns="http://xamarin.com/schemas/2014/forms" 
         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-        x:Class="MainCRMV2.Pages.Logout_Page">
+    xmlns:maincrmv2="clr-namespace:MainCRMV2"
+    x:Class="MainCRMV2.Pages.Logout_Page">
     <StackLayout Orientation="Vertical">
         <Label Text="Would you like to Logout?" FontSize="Large"/>
-        <Button Text="Logout" Clicked="Clicked"/>
+        <maincrmv2:StyledButton Text="Logout" Clicked="Clicked"/>
     </StackLayout>
 </ContentPage>

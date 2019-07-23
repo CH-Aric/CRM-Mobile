@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maincrmv2="clr-namespace:MainCRMV2"
              x:Class="MainCRMV2.Pages.Tasks_Page">
     <TableView>
         <TableSection x:Name="TSection">
@@ -8,14 +9,14 @@
                 <StackLayout Orientation="Horizontal">
                     <Switch Toggled="onToggledGroup"/>
                     <Picker x:Name="agentPicker" HorizontalOptions="FillAndExpand" Title="Agent"/>
-                    <Button Clicked="onClickedAssign" Text="Transfer"/>
-                    <Button Clicked="onClickedCreate" Text="Create"/>
+                    <maincrmv2:StyledButton Clicked="onClickedAssign" Text="Transfer"/>
+                    <maincrmv2:StyledButton Clicked="onClickedCreate" Text="Create"/>
                 </StackLayout>
             </ViewCell>
             <ViewCell>
                 <StackLayout Orientation="Horizontal">
                     <Entry x:Name="SearchEntry" HorizontalOptions="FillAndExpand" Placeholder="Search For"/>
-                    <Button Clicked="onClickedSearch" Text="Search"/>
+                    <maincrmv2:StyledButton Clicked="onClickedSearch" Text="Search"/>
                 </StackLayout>
             </ViewCell>
         </TableSection>

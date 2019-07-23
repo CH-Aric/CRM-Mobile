@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maincrmv2="clr-namespace:MainCRMV2"
              x:Class="MainCRMV2.Pages.Customers.CustomerList_Page">
     <TableView>
         <TableSection x:Name="TSection">
             <ViewCell>
                 <StackLayout Orientation="Horizontal">
                     <Entry x:Name="SearchEntry" HorizontalOptions="FillAndExpand"/>
-                    <Button Clicked="onClickedSearch" Text="Search"/>
+                    <maincrmv2:StyledButton Clicked="onClickedSearch" Text="Search"/>
                     <Picker Title="Category" x:Name="picker">
                         <Picker.Items>
                             <x:String>All</x:String>
@@ -41,7 +42,7 @@
                             <x:String>Archived</x:String>
                         </Picker.Items>
                     </Picker>
-                    <Button Clicked="onClickedCreate" Text="Create New File" HorizontalOptions="FillAndExpand"/>
+                    <maincrmv2:StyledButton Clicked="onClickedCreate" Text="Create New File" HorizontalOptions="FillAndExpand"/>
                 </StackLayout>
             </ViewCell>
         </TableSection>

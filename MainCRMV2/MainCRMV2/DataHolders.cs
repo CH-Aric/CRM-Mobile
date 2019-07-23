@@ -52,7 +52,7 @@ namespace MainCRMV2
             }
         }
     }
-    public class DataButton : Button
+    public class DataButton : StyledButton
     {
         public DataButton()
         {
@@ -86,6 +86,15 @@ namespace MainCRMV2
         public int Integer2;
         public string String;
         public string String2;
+    }
+    public class StyledButton : Button
+    {
+        public StyledButton()
+        {
+            BackgroundColor = Color.AliceBlue;
+            BorderColor = Color.Black;
+            BorderWidth = 2;
+        }
     }
     public class DataEntry : Entry
     {
@@ -171,7 +180,7 @@ namespace MainCRMV2
             };
         }
     }
-    public class MainLink : Button
+    public class MainLink : StyledButton
     {
         public MainLink(string name)
         {
@@ -273,7 +282,7 @@ namespace MainCRMV2
             }); 
         }
     }
-    public class SubLink : Button
+    public class SubLink : StyledButton
     {
         public SubLink(string name)
         {

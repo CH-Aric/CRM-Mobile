@@ -12,7 +12,7 @@
                 <ViewCell Height="75" x:Name="v1">
                     <StackLayout x:Name="nameStack" Orientation="Horizontal">
                         <Entry x:Name="nameLabel" Text="NameHere" HorizontalOptions="StartAndExpand"/>
-                        <Button x:Name="StageButton" Text="Advance" HorizontalOptions="EndAndExpand" Clicked="onClickAdvance"/>
+                        <MainCRMV2:StyledButton x:Name="StageButton" Text="Advance" HorizontalOptions="EndAndExpand" Clicked="onClickAdvance"/>
                     </StackLayout>
                 </ViewCell>
                 <ViewCell Height="75" x:Name="v2">

@@ -3,30 +3,31 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:maincrmv2="clr-namespace:MainCRMV2"
              mc:Ignorable="d"
              x:Class="MainCRMV2.Pages.Toolbox_Page">
-
-    <Grid ColumnSpacing="8" HorizontalOptions="FillAndExpand">
+    <RelativeLayout BackgroundColor="LightPink">
+        <Image Source="@mipmap/background" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+    <Grid ColumnSpacing="8" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent" VerticalOptions="Center">
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15*"/>
             <ColumnDefinition Width="50*"/>
             <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="15*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <Button Text="Pricing Guide" Clicked="onClickAccess" Grid.Column="0" Grid.Row="0"/>
-        <Button Text="Coupon Checker" Clicked="onClickAccess" Grid.Column="1" Grid.Row="0"/>
-        <Button Grid.Column="0" Grid.Row="1" Text="Chat" Clicked="onClickAccess" />
-        <Button Grid.Column="1" Grid.Row="1" Text="Manage Favourites" Clicked="onClickAccess" />
-        <Button Grid.Column="0" Grid.Row="2" Text="Inventory" Clicked="onClickAccess"/>
-        <Button Grid.Column="1" Grid.Row="2" Text="Perform an Audit" Clicked="onClickAccess"/>
+
+            <maincrmv2:StyledButton Text="Pricing Guide" Clicked="onClickAccess" Grid.Column="1" Grid.Row="0" />
+            <maincrmv2:StyledButton Text="Coupon Checker" Clicked="onClickAccess" Grid.Column="2" Grid.Row="0" />
+            <maincrmv2:StyledButton Grid.Column="1" Grid.Row="1" Text="Chat" Clicked="onClickAccess"/>
+            <maincrmv2:StyledButton Grid.Column="2" Grid.Row="1" Text="Manage Favourites" Clicked="onClickAccess"/>
+            <maincrmv2:StyledButton Grid.Column="1" Grid.Row="2" Text="Inventory" Clicked="onClickAccess"/>
+            <maincrmv2:StyledButton Grid.Column="2" Grid.Row="2" Text="Perform an Audit" Clicked="onClickAccess"/>
     </Grid>
+        
+    </RelativeLayout>
 </ContentPage>

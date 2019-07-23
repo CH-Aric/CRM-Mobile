@@ -18,7 +18,7 @@
                 </ViewCell>
                 <ViewCell Height="50" x:Name="navView">
                     <StackLayout x:Name="navStack" Orientation="Vertical">
-                        <Button Text="Navigate To" Clicked="onClickNavigate" HorizontalOptions="FillAndExpand" x:Name="navButton"/>
+                        <maincrmv2:StyledButton Text="Navigate To" Clicked="onClickNavigate" HorizontalOptions="FillAndExpand" x:Name="navButton"/>
                     </StackLayout>
                 </ViewCell>
                 <ViewCell x:Name="mapView" Height="500">

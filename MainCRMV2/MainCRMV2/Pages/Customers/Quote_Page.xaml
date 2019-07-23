@@ -12,7 +12,7 @@
                 <ViewCell Height="50" x:Name="v1">
                     <StackLayout x:Name="nameStack" Orientation="Horizontal">
                         <Entry x:Name="nameLabel" Text="NameHere" HorizontalOptions="StartAndExpand"/>
-                        <Button x:Name="StageButton" Text="Advance" HorizontalOptions="EndAndExpand" Clicked="onClickAdvance"/>
+                        <MainCRMV2:StyledButton x:Name="StageButton" Text="Advance" HorizontalOptions="EndAndExpand" Clicked="onClickAdvance"/>
                     </StackLayout>
                 </ViewCell>
                 <ViewCell Height="50" x:Name="v2">
@@ -24,8 +24,8 @@
                 <ViewCell Height="500" x:Name="v3">
                     <StackLayout x:Name="quoteStack" Orientation="Vertical">
                         <StackLayout Orientation="Horizontal">
-                            <Button Text="Save Changes" Clicked="onClicked"/>
-                            <Button Text="Add Item" Clicked="onClickAddFieldsQ"/>
+                            <MainCRMV2:StyledButton Text="Save Changes" Clicked="onClicked"/>
+                            <MainCRMV2:StyledButton Text="Add Item" Clicked="onClickAddFieldsQ"/>
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Text="Salesman:" HorizontalOptions="Start"/>
@@ -36,13 +36,13 @@
                 <ViewCell>
                     <StackLayout Orientation="Vertical">
                         <StackLayout Orientation="Horizontal">
-                            <Button Text="Add Row" Clicked="onClickAddFields" x:Name="row"/>
-                            <Button Text="Add Signature" Clicked="onClickAddFields" x:Name="sig"/>
-                            <Button Text="Add Deposit Field" Clicked="onClickAddFields" x:Name="fie"/>
+                            <MainCRMV2:StyledButton Text="Add Row" Clicked="onClickAddFields" x:Name="row"/>
+                            <MainCRMV2:StyledButton Text="Add Signature" Clicked="onClickAddFields" x:Name="sig"/>
+                            <MainCRMV2:StyledButton Text="Add Deposit Field" Clicked="onClickAddFields" x:Name="fie"/>
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
-                            <Button Text="Add Payment Method" Clicked="onClickAddFields" x:Name="met"/>
-                            <Button Text="Save Changes" Clicked="onClicked"/>
+                            <MainCRMV2:StyledButton Text="Add Payment Method" Clicked="onClickAddFields" x:Name="met"/>
+                            <MainCRMV2:StyledButton Text="Save Changes" Clicked="onClicked"/>
                         </StackLayout>
                     </StackLayout>
                 </ViewCell>

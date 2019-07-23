@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:MainCRMV2="clr-namespace:MainCRMV2"
              mc:Ignorable="d"
              x:Class="MainCRMV2.Pages.Inventory.Items_Page">
     <StackLayout>
@@ -18,7 +19,7 @@
             <BoxView BackgroundColor="White" Margin="1" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
             <Picker x:Name="AuditPicker" HorizontalOptions="FillAndExpand" Title="Audit Selection" Grid.Column="0" Grid.ColumnSpan="2"/>
             <BoxView BackgroundColor="White" Margin="1" Grid.Column="1" Grid.Row="0"/>
-            <Button Text="View" Clicked="onClickedViewAudit" Grid.Column="2"/>
+            <MainCRMV2:StyledButton Text="View" Clicked="onClickedViewAudit" Grid.Column="2"/>
             
         </Grid>
         <ScrollView>

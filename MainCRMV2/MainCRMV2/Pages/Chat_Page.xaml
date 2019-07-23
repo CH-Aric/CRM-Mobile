@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maincrmv2="clr-namespace:MainCRMV2"
              x:Class="MainCRMV2.Pages.Chat_Page">
     <TableView HasUnevenRows="True">
         <TableSection x:Name="TSection">
@@ -13,12 +14,12 @@
                 <StackLayout Orientation="Horizontal">
                     <Entry x:Name="Message" HorizontalOptions="FillAndExpand" Placeholder="Message"/>
                     <Picker x:Name="Target" HorizontalOptions="Center" Title="Target"/>
-                    <Button Text="Send" Clicked="OnClickSendMsg"/>
+                    <maincrmv2:StyledButton Text="Send" Clicked="OnClickSendMsg"/>
                 </StackLayout>
             </ViewCell>
             <ViewCell>
                 <StackLayout Orientation="Horizontal">
-                    <Button Text="Manage Groups and Favorites" Clicked="OnClickMan"/>
+                    <maincrmv2:StyledButton Text="Manage Groups and Favorites" Clicked="OnClickMan"/>
                 </StackLayout>
             </ViewCell>
         </TableSection>

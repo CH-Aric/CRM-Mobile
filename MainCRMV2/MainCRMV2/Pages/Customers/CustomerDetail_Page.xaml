@@ -1,16 +1,17 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maincrmv2="clr-namespace:MainCRMV2"
              x:Class="MainCRMV2.Pages.Customers.CustomerDetail_Page">
     <TableView>
         <TableSection x:Name="TSection">
             <ViewCell>
                 <StackLayout Orientation="Horizontal">
                     <Label x:Name="NameDisplay"/>
-                    <Button Text="View CDR" Clicked="onClickCDR"/>
-                    <Button Text="Add Field" Clicked="onClickAddFields"/>
-                    <Button Text="Save" Clicked="onClicked"/>
-                    <Button Text="booking" Clicked="onBooking"/>
+                    <maincrmv2:StyledButton Text="View CDR" Clicked="onClickCDR"/>
+                    <maincrmv2:StyledButton Text="Add Field" Clicked="onClickAddFields"/>
+                    <maincrmv2:StyledButton Text="Save" Clicked="onClicked"/>
+                    <maincrmv2:StyledButton Text="booking" Clicked="onBooking"/>
                 </StackLayout>
             </ViewCell>
         </TableSection>
