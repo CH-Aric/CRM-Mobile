@@ -3,22 +3,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:maincrmv2="clr-namespace:MainCRMV2"
              x:Class="MainCRMV2.Pages.Tasks_Page">
-    <TableView>
-        <TableSection x:Name="TSection">
-            <ViewCell>
-                <StackLayout Orientation="Horizontal">
-                    <Switch Toggled="onToggledGroup"/>
-                    <Picker x:Name="agentPicker" HorizontalOptions="FillAndExpand" Title="Agent"/>
-                    <maincrmv2:StyledButton Clicked="onClickedAssign" Text="Transfer"/>
-                    <maincrmv2:StyledButton Clicked="onClickedCreate" Text="Create"/>
-                </StackLayout>
-            </ViewCell>
-            <ViewCell>
-                <StackLayout Orientation="Horizontal">
-                    <Entry x:Name="SearchEntry" HorizontalOptions="FillAndExpand" Placeholder="Search For"/>
-                    <maincrmv2:StyledButton Clicked="onClickedSearch" Text="Search"/>
-                </StackLayout>
-            </ViewCell>
-        </TableSection>
-    </TableView>
+    <StackLayout>
+        <Grid BackgroundColor="Black">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="25*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <BoxView BackgroundColor="White" Margin="1" Grid.Column="0" Grid.Row="0"/>
+            <BoxView BackgroundColor="White" Margin="1" Grid.Column="1" Grid.Row="0"/>
+            <BoxView BackgroundColor="White" Margin="1" Grid.Column="2" Grid.Row="0"/>
+            <BoxView BackgroundColor="White" Margin="1" Grid.Column="3" Grid.Row="0"/>
+            <BoxView BackgroundColor="White" Margin="1" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3"/>
+            <BoxView BackgroundColor="White" Margin="1" Grid.Column="3" Grid.Row="1"/>
+            <Switch Toggled="onToggledGroup" Grid.Column="0" Grid.Row="0"/>
+            <Picker x:Name="agentPicker" HorizontalOptions="FillAndExpand" Title="Agent" Grid.Column="1" Grid.Row="0"/>
+            <maincrmv2:StyledButton Clicked="onClickedAssign" Text="Transfer" Grid.Column="2" Grid.Row="0"/>
+            <maincrmv2:StyledButton Clicked="onClickedCreate" Text="Create" Grid.Column="3" Grid.Row="0"/>
+            <Entry x:Name="SearchEntry" HorizontalOptions="FillAndExpand" Placeholder="Search For" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3"/>
+            <maincrmv2:StyledButton Clicked="onClickedSearch" Text="Search"  Grid.Column="3" Grid.Row="1"/>
+        </Grid>
+        <Grid x:Name="TSection" BackgroundColor="Black">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="85*"/>
+                <ColumnDefinition Width="15*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+    </StackLayout>
 </ContentPage>

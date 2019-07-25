@@ -94,6 +94,7 @@ namespace MainCRMV2
             BackgroundColor = Color.AliceBlue;
             BorderColor = Color.Black;
             BorderWidth = 2;
+            TextColor = Color.Black;
         }
     }
     public class DataEntry : Entry

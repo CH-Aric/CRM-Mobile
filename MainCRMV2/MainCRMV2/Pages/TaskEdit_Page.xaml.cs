@@ -26,8 +26,8 @@ namespace MainCRMV2.Pages
             {
                 for (int i = 0; i < dictionary["Index"].Count; i++)
                 {
-                    DataPair dataPair = new DataPair(int.Parse(dictionary["FID"][i]), dictionary["value"][i], dictionary["Index"][i]);
-                    dataPair.Value.Text = dictionary["value"][i];
+                    DataPair dataPair = new DataPair(int.Parse(dictionary["IDKey"][i]), dictionary["Value"][i], dictionary["Index"][i]);
+                    dataPair.Value.Text = dictionary["Value"][i];
                     dataPair.Value.Placeholder = "Value here";
                     dataPair.Value.FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label));
                     dataPair.Value.VerticalOptions = LayoutOptions.CenterAndExpand;
@@ -42,11 +42,12 @@ namespace MainCRMV2.Pages
                     {
                         Orientation = StackOrientation.Horizontal
                     };
-                    stackLayout.Children.Add(dataPair.Index);
-                    stackLayout.Children.Add(dataPair.Value);
-                    viewCell.View = stackLayout;
-                    this.TSection.Add(viewCell);
                     this.entryDict.Add(dataPair);
+
+                    List<View> list = new List<View>();
+                    list.Add(dataPair.Value);
+                    list.Add(dataPair.Index);
+                    GridFiller.rapidFillPremadeObjects(list, TSection, new bool[] { true, true });
                 }
             }
         }
@@ -56,30 +57,13 @@ namespace MainCRMV2.Pages
             {
                 if (dataPair.isNew)
                 {
-                    DatabaseFunctions.SendToPhp(string.Concat(new object[]
-                    {
-                        "INSERT INTO taskfields (cusfields.Value,cusfields.Index,CusID) VALUES('",
-                        dataPair.Value.Text,
-                        "','",
-                        dataPair.Index.Text,
-                        "','",
-                        this.task,
-                        "')"
-                    }));
+                    DatabaseFunctions.SendToPhp(
+                        "INSERT INTO taskfields (taskfields.Value,taskfields.Index,TaskID) VALUES('" + dataPair.Value.Text+ "','"+dataPair.Index.Text+"','"+this.task+"')");
                     dataPair.isNew = false;
                 }
                 else if (dataPair.Index.Text != dataPair.Index.GetInit())
                 {
-                    DatabaseFunctions.SendToPhp(string.Concat(new object[]
-                    {
-                        "UPDATE taskfields SET Value = '",
-                        dataPair.Value.Text,
-                        "',Index='",
-                        dataPair.Index.Text,
-                        "' WHERE (IDKey= '",
-                        dataPair.Index.GetInt(),
-                        "');"
-                    }));
+                    DatabaseFunctions.SendToPhp("UPDATE taskfields SET Value = '"+dataPair.Value.Text+"',Index='"+ dataPair.Index.Text+"' WHERE (IDKey= '"+dataPair.Index.GetInt()+"');");
                 }
             }
         }
@@ -102,10 +86,10 @@ namespace MainCRMV2.Pages
             {
                 Orientation = StackOrientation.Horizontal
             };
-            stackLayout.Children.Add(dataPair.Index);
-            stackLayout.Children.Add(dataPair.Value);
-            viewCell.View = stackLayout;
-            this.TSection.Add(viewCell);
+            List<View> list = new List<View>();
+            list.Add(dataPair.Value);
+            list.Add(dataPair.Index);
+            GridFiller.rapidFillPremadeObjects(list, TSection, new bool[] { true, true });
             this.entryDict.Add(dataPair);
         }
     }

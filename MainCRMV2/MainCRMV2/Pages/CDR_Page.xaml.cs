@@ -66,7 +66,7 @@ namespace MainCRMV2.Pages
             {
                 for (int i = 0; i < dictionary["uniqueid"].Count; i++)
                 {
-                    string text = dictionary["calldate"][i] + " : " + dictionary["cnam"][i];
+                    string text = dictionary["calldate"][i] + " : " + FormatFunctions.PrettyPhone(dictionary["cnam"][i]);
                     SecurityButton dataButton = new SecurityButton(int.Parse(Regex.Replace(dictionary["uniqueid"][i], "^[^.]+.", "")),new string[]{ "Manager"})
                     {
                         Text = text,

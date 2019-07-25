@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xamarin.Forms;
 
@@ -88,6 +89,34 @@ namespace MainCRMV2
                 Grid.SetColumnSpan(l, Spacing[r]);
                 i += Spacing[r];
                 r++;
+            }
+        }
+        public static void rapidFillPremadeObjects(List<View> Objects,Grid g,bool[] boxoff)
+        {
+            int i = 0;
+            Color c = ClientData.getGridColor();
+            g.RowDefinitions.Add(new RowDefinition { Height = new GridLength(10, GridUnitType.Star) });
+            foreach (View s in Objects)
+            {
+                if (boxoff[i])
+                {
+                    BoxView b = new BoxView() { BackgroundColor = c, Margin = ClientData.GridMargin };
+                    g.Children.Add(b, i, g.RowDefinitions.Count - 1);
+                }
+                g.Children.Add(s, i, g.RowDefinitions.Count - 1);
+                i++;
+            }
+        }
+        public static void PurgeGrid(Grid g)
+        {
+            var children = g.Children.ToList();
+            foreach (var child in children.Where(child => Grid.GetRow(child) != 0))
+            {
+                g.Children.Remove(child);
+            }
+            while (g.RowDefinitions.Count > 1)
+            {
+                g.RowDefinitions.RemoveAt(0);
             }
         }
     }

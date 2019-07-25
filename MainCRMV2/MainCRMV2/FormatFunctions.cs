@@ -14,6 +14,10 @@ namespace MainCRMV2
         {
             return FormatFunctions.digitsOnly.Replace(phone, "");
         }
+        public static string PrettyPhone(string phone)
+        {
+            return string.Format("({0}) {1}-{2}", phone.Substring(0, 3), phone.Substring(3, 3), phone.Substring(6));
+        }
         public static string[] CleanDate(string datein)
         {
             return datein.Split(' ')[0].Split('-');

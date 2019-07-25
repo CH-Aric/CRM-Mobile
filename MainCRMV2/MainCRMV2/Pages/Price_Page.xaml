@@ -6,7 +6,6 @@
              xmlns:maincrmv2="clr-namespace:MainCRMV2"
              mc:Ignorable="d"
              x:Class="MainCRMV2.Pages.Price_Page">
-
     <StackLayout Orientation="Vertical">
         <Grid BackgroundColor="Black" ColumnSpacing="1" RowSpacing="1" x:Name="HeaderGrid">
             <Grid.ColumnDefinitions>
@@ -32,7 +31,7 @@
             <BoxView BackgroundColor="White" Margin="1" Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2"/>
             <Picker x:Name="BrandPicker" HorizontalOptions="FillAndExpand" Title="Brand" Grid.Column="2" Grid.ColumnSpan="2">
             </Picker>
-            <maincrmv2:StyledButton Text="View" Clicked="onClicked" HorizontalOptions="FillAndExpand" Grid.Column="4"/>
+            <maincrmv2:StyledButton Text="View" Clicked="onClicked" HorizontalOptions="FillAndExpand" Grid.Column="4" Grid.ColumnSpan="2"/>
         </Grid>
         <ScrollView>
             <Grid x:Name="TSection" BackgroundColor="Black" ColumnSpacing="1" RowSpacing="1">

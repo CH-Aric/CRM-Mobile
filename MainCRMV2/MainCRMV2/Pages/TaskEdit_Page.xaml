@@ -1,13 +1,22 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maincrmv2="clr-namespace:MainCRMV2"
              x:Class="MainCRMV2.Pages.TaskEdit_Page">
-
-    <TableView>
-        <TableSection x:Name="TSection">
-            <ViewCell>
-
-            </ViewCell>
-        </TableSection>
-    </TableView>
+    <StackLayout>
+        <Grid BackgroundColor="Black">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <maincrmv2:StyledButton  Text="Add a Field" Clicked="onClickAddFields" Grid.Column="0" Grid.Row="0"/>
+            <maincrmv2:StyledButton  Text="Save Changes" Clicked="onClicked" Grid.Column="1" Grid.Row="0"/>
+        </Grid>
+        <Grid x:Name="TSection" BackgroundColor="Black">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+    </StackLayout>
 </ContentPage>

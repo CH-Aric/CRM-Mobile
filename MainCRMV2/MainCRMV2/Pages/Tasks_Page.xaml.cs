@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using MainCRMV2.Pages;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -60,7 +61,7 @@ namespace MainCRMV2.Pages
                             Text = text,
                             FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
                             VerticalOptions = LayoutOptions.CenterAndExpand,
-                            HorizontalOptions = LayoutOptions.EndAndExpand
+                            HorizontalOptions = LayoutOptions.FillAndExpand
                         };
                         DataSwitch item = new DataSwitch(int.Parse(this.dict["IDKey"][i]))
                         {
@@ -70,13 +71,10 @@ namespace MainCRMV2.Pages
                         dataButton.Clicked += this.onClicked;
                         buttonDict.Add(this.dict["IDKey"][i], dataButton);
                         switchDict.Add(item);
-                        ViewCell viewCell = new ViewCell();
-                        StackLayout stackLayout = new StackLayout { Orientation = StackOrientation.Horizontal };
-                        stackLayout.Children.Add(item);
-                        stackLayout.Children.Add(dataButton);
-                        viewCell.View = stackLayout;
-                        views.Add(viewCell);
-                        TSection.Add(viewCell);
+                        List<View> list = new List<View>();
+                        list.Add(dataButton);
+                        list.Add(item);
+                        GridFiller.rapidFillPremadeObjects(list,TSection,new bool[]{ true,true});
                     }
                     else
                     {
@@ -153,7 +151,7 @@ namespace MainCRMV2.Pages
         }
         public void onClickedSearch(object sender, EventArgs e)
         {
-            this.PurgeCells();
+            GridFiller.PurgeGrid(TSection);
             string text = "%" + SearchEntry.Text + "%";
             string statement = string.Concat(new object[]
             {
@@ -167,13 +165,6 @@ namespace MainCRMV2.Pages
             });
             TaskCallback call = new TaskCallback(populateList);
             DatabaseFunctions.SendToPhp(false, statement, call);
-        }
-        public void PurgeCells()
-        {
-            foreach (ViewCell item in views)
-            {
-                this.TSection.Remove(item);
-            }
         }
         public void onToggledGroup(object sender, EventArgs e)
         {

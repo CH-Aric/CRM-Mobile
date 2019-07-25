@@ -45,7 +45,7 @@ namespace MainCRMV2.Pages
                     {
                         c = "No";
                     }
-                    string[] s = new string[3] { dictionary["cid_num"][i], dictionary["eventtime"][i] ,c};
+                    string[] s = new string[3] { FormatFunctions.PrettyPhone(dictionary["cid_num"][i]), dictionary["eventtime"][i] ,c};
                     GridFiller.rapidFillColorized(s, TSection,CC);
                 }
             }
