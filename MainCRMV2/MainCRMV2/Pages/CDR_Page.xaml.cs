@@ -9,11 +9,9 @@ namespace MainCRMV2.Pages
 {
     public partial class CDR_Page : ContentPage
     {
-        private List<ViewCell> views;
         public CDR_Page(bool Searchmode, string Searchfor)
         {
 
-            views = new List<ViewCell>();
             this.InitializeComponent();
             if (!Searchmode)
             {
@@ -24,12 +22,6 @@ namespace MainCRMV2.Pages
                 TaskCallback call = new TaskCallback(this.performSearch3);
                 DatabaseFunctions.SendToPhp(false, text, call);
             }
-        }
-        public void PerformSearch()
-        {
-            string statement = "SELECT DISTINCT CusID FROM cusfields WHERE Value LIKE '%" + this.SearchEntry.Text + "%'";
-            TaskCallback call = new TaskCallback(this.performSearch2);
-            DatabaseFunctions.SendToPhp(false, statement, call);
         }
         public void performSearch2(string result)
         {
@@ -60,7 +52,6 @@ namespace MainCRMV2.Pages
         public void populateResults(string result)
         {
             this.PurgeCells();
-            this.views = new List<ViewCell>();
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result),true);
             if (dictionary.Count > 1)
             {
@@ -77,15 +68,9 @@ namespace MainCRMV2.Pages
                     dataButton.Clicked += onClicked;
                     dataButton.String = dictionary["calldate"][i];
                     dataButton.String2 = dictionary["recordingfile"][i];
-                    ViewCell viewCell = new ViewCell();
-                    StackLayout stackLayout = new StackLayout
-                    {
-                        Orientation = StackOrientation.Horizontal
-                    };
-                    stackLayout.Children.Add(dataButton);
-                    viewCell.View = stackLayout;
-                    this.views.Add(viewCell);
-                    this.TSection.Add(viewCell);
+                    List<View> list = new List<View>();
+                    list.Add(dataButton);
+                    GridFiller.rapidFillPremadeObjects(list,TSection,new bool[]{ true});
                 }
             }
         }
@@ -102,7 +87,9 @@ namespace MainCRMV2.Pages
         }
         public void onClickedSearch(object sender, EventArgs e)
         {
-            this.PerformSearch();
+            string statement = "SELECT DISTINCT CusID FROM cusfields WHERE Value LIKE '%" + this.SearchEntry.Text + "%'";
+            TaskCallback call = new TaskCallback(this.performSearch2);
+            DatabaseFunctions.SendToPhp(false, statement, call);
         }
         public void onClickedExplicitySearch(object sender, EventArgs e)
         {
@@ -115,13 +102,7 @@ namespace MainCRMV2.Pages
         }
         public void PurgeCells()
         {
-            if (this.views.Count > 0)
-            {
-                foreach (ViewCell item in this.views)
-                {
-                    this.TSection.Remove(item);
-                }
-            }
+            GridFiller.PurgeGrid(TSection);
         }
     }
 }

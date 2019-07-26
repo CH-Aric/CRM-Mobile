@@ -3,15 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:maincrmv2="clr-namespace:MainCRMV2"
              x:Class="MainCRMV2.Pages.CDR_Page">
-    <TableView>
-        <TableSection x:Name="TSection">
-            <ViewCell>
-                <StackLayout Orientation="Horizontal">
-                    <Entry x:Name="SearchEntry" HorizontalOptions="FillAndExpand"/>
-                    <maincrmv2:StyledButton x:Name="SearchButton" Text="Search" Clicked="onClickedSearch"/>
-                    <maincrmv2:StyledButton Text="D-Search" Clicked="onClickedExplicitySearch"/>
-                </StackLayout>
-            </ViewCell>
-        </TableSection>
-    </TableView>
+    <StackLayout Orientation="Vertical">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Entry x:Name="SearchEntry" HorizontalOptions="FillAndExpand" Grid.Column="0"/>
+            <maincrmv2:StyledButton x:Name="SearchButton" Text="Search" Clicked="onClickedSearch" Grid.Column="1"/>
+            <maincrmv2:StyledButton Text="D-Search" Clicked="onClickedExplicitySearch" Grid.Column="2"/>
+        </Grid>
+        <Grid x:Name="TSection" BackgroundColor="Black" ColumnSpacing="1" RowSpacing="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+    </StackLayout>
+
 </ContentPage>
