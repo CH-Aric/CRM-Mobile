@@ -68,8 +68,10 @@ namespace MainCRMV2.Pages
                     dataButton.Clicked += onClicked;
                     dataButton.String = dictionary["calldate"][i];
                     dataButton.String2 = dictionary["recordingfile"][i];
-                    List<View> list = new List<View>();
-                    list.Add(dataButton);
+                    List<View> list = new List<View>
+                    {
+                        dataButton
+                    };
                     GridFiller.rapidFillPremadeObjects(list,TSection,new bool[]{ true});
                 }
             }

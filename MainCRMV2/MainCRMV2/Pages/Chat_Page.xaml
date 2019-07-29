@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:maincrmv2="clr-namespace:MainCRMV2"
              x:Class="MainCRMV2.Pages.Chat_Page">
+    
     <TableView HasUnevenRows="True">
         <TableSection x:Name="TSection">
             <ViewCell Height="500">
