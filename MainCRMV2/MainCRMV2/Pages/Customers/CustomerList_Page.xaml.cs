@@ -7,7 +7,7 @@ namespace MainCRMV2.Pages.Customers
     public partial class CustomerList_Page : ContentPage
     {
         private List<ViewCell> views;
-        int stageSearch=0;
+        int stageSearch = 0;
         public CustomerList_Page()
         {
             this.InitializeComponent();
@@ -32,12 +32,12 @@ namespace MainCRMV2.Pages.Customers
                     if (!dictionary2.ContainsKey(dictionary["IDKey"][i]))
                     {
                         string text = dictionary["Name"][i] + ": " + dictionary["Value"][i];
-                        SecurityButton dataButton = new SecurityButton(int.Parse(dictionary["IDKey"][i]),new string[] { "Employee"})
+                        SecurityButton dataButton = new SecurityButton(int.Parse(dictionary["IDKey"][i]), new string[] { "Employee" })
                         {
                             Text = text,
                             FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
                             VerticalOptions = LayoutOptions.CenterAndExpand,
-                            HorizontalOptions = LayoutOptions.CenterAndExpand
+                            HorizontalOptions = LayoutOptions.FillAndExpand
                         };
                         dataButton.Clicked += this.onClicked;
                         dataButton.Integer2 = int.Parse(dictionary["Stage"][i]);
@@ -45,7 +45,7 @@ namespace MainCRMV2.Pages.Customers
                         StackLayout stackLayout = new StackLayout
                         {
                             Orientation = StackOrientation.Horizontal,
-                            HorizontalOptions = LayoutOptions.Start
+                            HorizontalOptions = LayoutOptions.FillAndExpand
                         };
                         stackLayout.Children.Add(dataButton);
                         viewCell.View = stackLayout;
@@ -68,7 +68,8 @@ namespace MainCRMV2.Pages.Customers
             if (dataButton.GetInt2() == 0)
             {
                 App.MDP.Detail.Navigation.PushAsync(new CustomerDetail_Page(dataButton.Integer));
-            }else if (dataButton.GetInt2() == 1)
+            }
+            else if (dataButton.GetInt2() == 1)
             {
                 App.MDP.Detail.Navigation.PushAsync(new Request_Page(dataButton.Integer));
             }
@@ -76,7 +77,7 @@ namespace MainCRMV2.Pages.Customers
             {
                 App.MDP.Detail.Navigation.PushAsync(new Booking_Page(dataButton.Integer));
             }
-            else if (dataButton.GetInt2() > 2&& dataButton.GetInt2() < 9)
+            else if (dataButton.GetInt2() > 2 && dataButton.GetInt2() < 9)
             {
                 App.MDP.Detail.Navigation.PushAsync(new Quote_Page(dataButton.Integer, stageSearch));
             }
@@ -84,14 +85,14 @@ namespace MainCRMV2.Pages.Customers
         public void onClickedSearch(object sender, EventArgs e)
         {
             string text = "%" + SearchEntry.Text + "%";
-            string statement ="SELECT DISTINCT cusindex.IDKey FROM cusindex INNER JOIN cusfields ON cusindex.IDKey=cusfields.CusID WHERE (cusfields.Value LIKE '"+ text+"' OR cusindex.Name LIKE '"+ text+"')";
-            statement+= appendPickerResult(); 
+            string statement = "SELECT DISTINCT cusindex.IDKey FROM cusindex INNER JOIN cusfields ON cusindex.IDKey=cusfields.CusID WHERE (cusfields.Value LIKE '" + text + "' OR cusindex.Name LIKE '" + text + "')";
+            statement += appendPickerResult();
             TaskCallback call = new TaskCallback(this.PerformSearch);
             DatabaseFunctions.SendToPhp(false, statement, call);
         }
         public void onClickedCreate(object sender, EventArgs e)
         {
-            string sql = "INSERT INTO cusindex (Stage) VALUES ('"+(NewPicker.SelectedIndex+1)+"')";
+            string sql = "INSERT INTO cusindex (Stage) VALUES ('" + (NewPicker.SelectedIndex + 1) + "')";
             DatabaseFunctions.SendToPhp(sql);
             System.Threading.Thread.Sleep(500);
             string sql2 = "SELECT IDKey,Stage FROM cusindex ORDER BY IDKey Desc LIMIT 1";
@@ -101,10 +102,10 @@ namespace MainCRMV2.Pages.Customers
         public void OpenPage(string result)
         {
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
-            SecurityButton x = new SecurityButton(int.Parse(dictionary["IDKey"][0]),new string[] { "Employee"});
+            SecurityButton x = new SecurityButton(int.Parse(dictionary["IDKey"][0]), new string[] { "Employee" });
             x.Integer2 = int.Parse(dictionary["Stage"][0]);
             EventArgs y = new EventArgs();
-            onClicked(x,y);
+            onClicked(x, y);
         }
         public void PerformSearch(string result)
         {

@@ -36,7 +36,8 @@ namespace MainCRMV2.Pages.Customers
                 WidthRequest = 960,
                 VerticalOptions = LayoutOptions.FillAndExpand
             };
-            mapStack.Children.Add(map);
+            HeadData.Children.Add(map,0,3);
+            Grid.SetColumnSpan(map, 2);
         }
         public async void onClickNavigate(object sender,EventArgs e)
         {

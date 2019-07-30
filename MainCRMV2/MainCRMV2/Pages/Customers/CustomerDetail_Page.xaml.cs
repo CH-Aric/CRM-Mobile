@@ -39,15 +39,10 @@ namespace MainCRMV2.Pages.Customers
                     dataPair.Index.FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label));
                     dataPair.Index.VerticalOptions = LayoutOptions.CenterAndExpand;
                     dataPair.Index.HorizontalOptions = LayoutOptions.EndAndExpand;
-                    ViewCell viewCell = new ViewCell();
-                    StackLayout stackLayout = new StackLayout
-                    {
-                        Orientation = StackOrientation.Horizontal
-                    };
-                    stackLayout.Children.Add(dataPair.Index);
-                    stackLayout.Children.Add(dataPair.Value);
-                    viewCell.View = stackLayout;
-                    this.TSection.Add(viewCell);
+                    List<View> list = new List<View>() { dataPair.Index, dataPair.Value };
+                    int[] space=new int[]{ 2,2};
+                    bool[] box = new bool[] { true,true};
+                    GridFiller.rapidFillSpacedPremadeObjects(list, mainGrid,space, box);
                     this.entryDict.Add(dataPair);
                 }
             }
@@ -68,11 +63,7 @@ namespace MainCRMV2.Pages.Customers
                         HorizontalOptions = LayoutOptions.CenterAndExpand
                     };
                     dataButton.Clicked += this.onFileButton;
-                    ViewCell item = new ViewCell();
-                    StackLayout stackLayout = new StackLayout();
-                    stackLayout.Orientation = StackOrientation.Horizontal;
-                    stackLayout.Children.Add(dataButton);
-                    this.TSection.Add(item);
+                    GridFiller.rapidFillPremadeObjects(new List<View>() { dataButton }, mainGrid,new bool[]{ false});
                 }
             }
         }
@@ -128,10 +119,7 @@ namespace MainCRMV2.Pages.Customers
             {
                 Orientation = StackOrientation.Horizontal
             };
-            stackLayout.Children.Add(dataPair.Index);
-            stackLayout.Children.Add(dataPair.Value);
-            viewCell.View = stackLayout;
-            this.TSection.Add(viewCell);
+            GridFiller.rapidFillPremadeObjects(new List<View>() { dataPair.Index,dataPair.Value }, mainGrid, new bool[] { true,true});
             this.entryDict.Add(dataPair);
         }
         public void onFileButton(object sender, EventArgs e)

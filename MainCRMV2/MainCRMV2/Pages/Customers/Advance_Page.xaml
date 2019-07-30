@@ -5,6 +5,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="MainCRMV2.Pages.Customers.Advance_Page">
+    <StackLayout>
+        
+    </StackLayout>
     <ContentPage.Content>
         <TableView>
             <TableSection x:Name="TSection">
@@ -22,6 +25,5 @@
                 </ViewCell>
             </TableSection>
         </TableView>
-       
     </ContentPage.Content>
 </ContentPage>

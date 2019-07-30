@@ -6,27 +6,26 @@
              xmlns:maincrmv2="clr-namespace:MainCRMV2"
              mc:Ignorable="d"
              x:Class="MainCRMV2.Pages.Customers.Booking_Page">
-    <ContentPage.Content>
-        <TableView HasUnevenRows="true">
-            <TableSection>
-                <ViewCell Height="150" x:Name="textView">
-                    <StackLayout x:Name="textStack" Orientation="Vertical">
-                        <Label Text="Name" HorizontalOptions="FillAndExpand" x:Name="nameLabel"/>
-                        <maincrmv2:AwesomeHyperLinkLabel Text="Phone" HorizontalOptions="FillAndExpand" x:Name="phoneLabel"/>
-                        <Label Text="Time" HorizontalOptions="FillAndExpand" x:Name="bookLabel"/>
-                    </StackLayout>
-                </ViewCell>
-                <ViewCell Height="50" x:Name="navView">
-                    <StackLayout x:Name="navStack" Orientation="Vertical">
-                        <maincrmv2:StyledButton Text="Navigate To" Clicked="onClickNavigate" HorizontalOptions="FillAndExpand" x:Name="navButton"/>
-                    </StackLayout>
-                </ViewCell>
-                <ViewCell x:Name="mapView" Height="500">
-                    <StackLayout x:Name="mapStack">
-                        <!-- Map is inserted programmatically here-->
-                    </StackLayout>
-                </ViewCell>
-            </TableSection>
-        </TableView>
-    </ContentPage.Content>
+    <StackLayout>
+        <Grid x:Name="HeadData" BackgroundColor="Black">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="500"/>
+            </Grid.RowDefinitions>
+            <BoxView BackgroundColor="White" Margin="1" Grid.Column="0" Grid.Row="0"/>
+            <BoxView BackgroundColor="White" Margin="1" Grid.Column="0" Grid.Row="1"/>
+            <BoxView BackgroundColor="White" Margin="1" Grid.Column="1" Grid.Row="1"/>
+            <Label Grid.Column="0" Text="Name" HorizontalOptions="FillAndExpand" x:Name="nameLabel"/>
+            <maincrmv2:AwesomeHyperLinkLabel Grid.Column="0" Grid.Row="1" Text="Phone" HorizontalOptions="FillAndExpand" x:Name="phoneLabel"/>
+            <Label Grid.Column="1" Grid.Row="1" Text="Time" HorizontalOptions="FillAndExpand" x:Name="bookLabel"/>
+            <maincrmv2:StyledButton Grid.Row="2" Grid.ColumnSpan="2" Text="Navigate To" Clicked="onClickNavigate" HorizontalOptions="FillAndExpand" x:Name="navButton"/>
+            <maincrmv2:StyledButton Grid.Row="0" Grid.Column="1" Text="Advance" Clicked="onClickAdvance" HorizontalOptions="FillAndExpand" x:Name="advButton"/>
+        </Grid>
+    </StackLayout>
 </ContentPage>

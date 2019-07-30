@@ -73,6 +73,26 @@ namespace MainCRMV2
                 r++;
             }
         }
+        public static void rapidFillSpacedPremadeObjects(List<View> Objects, Grid g, int[] Spacing, bool[] boxoff)
+        {
+            int i = 0;
+            int r = 0;
+            Color c = ClientData.getGridColor();
+            g.RowDefinitions.Add(new RowDefinition { Height = new GridLength(10, GridUnitType.Star) });
+            foreach (View s in Objects)
+            {
+                if (boxoff[i])
+                {
+                    BoxView b = new BoxView() { BackgroundColor = c, Margin = ClientData.GridMargin };
+                    g.Children.Add(b, i, g.RowDefinitions.Count - 1);
+                    Grid.SetColumnSpan(b, Spacing[r]);
+                }                
+                g.Children.Add(s, i, g.RowDefinitions.Count - 1);
+                Grid.SetColumnSpan(s, Spacing[r]);
+                i += Spacing[r];
+                r++;
+            }
+        }
         public static void rapidFillSpacedRowHeightLocked(string[] strings, Grid g, int[] Spacing, int[] rowHeigtWidth)
         {
             int i = 0;
@@ -96,6 +116,22 @@ namespace MainCRMV2
             int i = 0;
             Color c = ClientData.getGridColor();
             g.RowDefinitions.Add(new RowDefinition { Height = new GridLength(10, GridUnitType.Star) });
+            foreach (View s in Objects)
+            {
+                if (boxoff[i])
+                {
+                    BoxView b = new BoxView() { BackgroundColor = c, Margin = ClientData.GridMargin };
+                    g.Children.Add(b, i, g.RowDefinitions.Count - 1);
+                }
+                g.Children.Add(s, i, g.RowDefinitions.Count - 1);
+                i++;
+            }
+        }
+        public static void rapidFillPremadeObjectsStandardHeight(List<View> Objects, Grid g, bool[] boxoff,int Height)
+        {
+            int i = 0;
+            Color c = ClientData.getGridColor();
+            g.RowDefinitions.Add(new RowDefinition { Height = new GridLength(Height, GridUnitType.Absolute) });
             foreach (View s in Objects)
             {
                 if (boxoff[i])
