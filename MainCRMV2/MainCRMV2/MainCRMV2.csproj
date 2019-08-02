@@ -13,6 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Independentsoft.Sip" Version="1.0.530" />
     <PackageReference Include="itext7" Version="7.1.7" />
     <PackageReference Include="Plugin.FacebookClient" Version="1.6.0" />
     <PackageReference Include="Plugin.Permissions" Version="3.0.0.12" />
@@ -27,6 +28,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Pages\Call_Page.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Pages\Check_Page.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

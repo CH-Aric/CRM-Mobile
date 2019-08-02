@@ -125,6 +125,9 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Independentsoft.Sip">
+      <Version>1.0.530</Version>
+    </PackageReference>
     <PackageReference Include="itext7">
       <Version>7.1.7</Version>
     </PackageReference>

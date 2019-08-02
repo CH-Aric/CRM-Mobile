@@ -50,6 +50,10 @@ namespace MainCRMV2.Pages
             {
                 App.MDP.Detail.Navigation.PushAsync(new Toolbox_Page("Not Implemented! Pick again!"));
             }
+            else if (b.Text.Equals("Place a Call"))
+            {
+                App.MDP.Detail.Navigation.PushAsync(new Call_Page());
+            }
         }
     }
 }

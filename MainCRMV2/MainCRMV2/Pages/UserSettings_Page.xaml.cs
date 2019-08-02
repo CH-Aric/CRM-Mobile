@@ -53,6 +53,11 @@ namespace MainCRMV2.Pages
         }
         public async void setPermissions()
         {
+            var Callstatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Phone);
+            if (Callstatus != PermissionStatus.Granted)
+            {
+                Dictionary<Permission, PermissionStatus> Callx = await CrossPermissions.Current.RequestPermissionsAsync(new Permission[] { Permission.Phone });
+            }
             var Locstatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
             if (Locstatus != PermissionStatus.Granted)
             {
@@ -62,6 +67,17 @@ namespace MainCRMV2.Pages
             if (Calstatus != PermissionStatus.Granted)
             {
                 Dictionary<Permission, PermissionStatus> Calx = await CrossPermissions.Current.RequestPermissionsAsync(new Permission[] { Permission.Calendar });
+            }
+            
+            var Medstatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.MediaLibrary);
+            if (Medstatus != PermissionStatus.Granted)
+            {
+                Dictionary<Permission, PermissionStatus> Medx = await CrossPermissions.Current.RequestPermissionsAsync(new Permission[] { Permission.Phone });
+            }
+            var Sensstatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Sensors);
+            if (Sensstatus != PermissionStatus.Granted)
+            {
+                Dictionary<Permission, PermissionStatus> Sensx = await CrossPermissions.Current.RequestPermissionsAsync(new Permission[] { Permission.Phone });
             }
         }
     }
