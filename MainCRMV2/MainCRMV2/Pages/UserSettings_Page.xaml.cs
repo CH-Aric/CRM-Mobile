@@ -29,16 +29,7 @@ namespace MainCRMV2.Pages
         }
         public async void onClicked(object sender, EventArgs e)
         {
-            DatabaseFunctions.SendToPhp(string.Concat(new object[]
-            {
-                "UPDATE agents SET Username='",
-                this.UsernameEntry.Text,
-                "' ,Password='",
-                this.PasswordEntry.Text,
-                "' WHERE IDKey='",
-                ClientData.AgentIDK,
-                "'"
-            }));
+            DatabaseFunctions.SendToPhp( "UPDATE agents SET Username='"+ this.UsernameEntry.Text+"' ,Password='"+ this.PasswordEntry.Text+ "' WHERE IDKey='"+ ClientData.AgentIDK+"'");
             TaskCallback c = new TaskCallback(this.voidCall);
             DatabaseFunctions.client.writeUserDataToFile(this.UsernameEntry.Text, this.PasswordEntry.Text);
             await PopupNavigation.Instance.PushAsync(new Notification_Popup("Your settings have been saved", "OK", c), true);

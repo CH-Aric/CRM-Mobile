@@ -36,14 +36,12 @@ namespace MainCRMV2.Pages
             client.ReceiveRequest += new ReceiveRequestEventHandler(OnReceiveRequest);
             client.ReceiveResponse += new ReceiveResponseEventHandler(OnReceiveResponse);
 
-            //IPHostEntry localhost = Dns.Resolve("mycomputer"); 
+            //IPHostEntry localhost = Dns.Resolve("mycomputer");
             //client.LocalIPEndPoint = new IPEndPoint(localhost.AddressList[0],5060);
 
             System.Net.IPAddress localAddress = Dns.GetHostAddresses(Dns.GetHostName()).FirstOrDefault();
             client.LocalIPEndPoint = new System.Net.IPEndPoint(localAddress, 5060);
-
             client.Connect();
-
             client.Register("sip:coolheatcrm.duckdns.org", "sip:800@coolheatcrm.duckdns.org", "sip:800@" + client.LocalIPEndPoint.ToString());
 
             SessionDescription session = new SessionDescription();
