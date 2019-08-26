@@ -54,6 +54,10 @@ namespace MainCRMV2.Pages
             {
                 App.MDP.Detail.Navigation.PushAsync(new Call_Page());
             }
+            else if (b.Text.Equals("Punch Clock"))
+            {
+                App.MDP.Detail.Navigation.PushAsync(new Punch_Page());
+            }
         }
     }
 }

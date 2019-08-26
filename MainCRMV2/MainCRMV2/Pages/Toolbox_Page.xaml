@@ -20,6 +20,7 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
 
             <maincrmv2:StyledButton Text="Pricing Guide" Clicked="onClickAccess" Grid.Column="1" Grid.Row="0" />
@@ -29,6 +30,7 @@
             <maincrmv2:StyledButton Grid.Column="1" Grid.Row="2" Text="Inventory" Clicked="onClickAccess"/>
             <maincrmv2:StyledButton Grid.Column="2" Grid.Row="2" Text="Perform an Audit" Clicked="onClickAccess"/>
             <maincrmv2:StyledButton Grid.Column="1" Grid.Row="3" Text="Place a Call" Clicked="onClickAccess"/>
+            <maincrmv2:StyledButton Grid.Column="2" Grid.Row="3" Text="Punch Clock" Clicked="onClickAccess"/>
         </Grid>
         
     </RelativeLayout>

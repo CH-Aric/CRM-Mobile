@@ -65,6 +65,67 @@ namespace MainCRMV2
                 Console.WriteLine("--->" + str);
             }
         }
+        public static void SendBatchToPHP(List<string> statementList)
+        {
+            try
+            {
+                string[] statements = statementList.ToArray();
+                string text = JsonClass.JSONSerialize<DatabaseFunctions.dataArray>(new DatabaseFunctions.dataArray
+                {
+                    BatchLength = statements.Length,
+                    statements = statements
+                });
+                HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://coolheatcrm.duckdns.org/CRM-2/accessBatched.php");
+                httpWebRequest.Method = "POST";
+                string s = text;
+                byte[] bytes = Encoding.UTF8.GetBytes(s);
+                httpWebRequest.ContentType = "application/x-www-form-urlencoded";
+                httpWebRequest.ContentLength = (long)bytes.Length;
+                httpWebRequest.GetRequestStream().Write(bytes, 0, bytes.Length);
+            }
+            catch (WebException ex)
+            {
+                string str = ex.ToString();
+                Console.WriteLine("--->" + str);
+            }
+        }
+        public static void SendBatchToPHP(bool PBX, List<string> statement, List<TaskCallback> call)
+        {
+            for (int j = 0; j < statement.Count; j++)
+            {
+                try
+                {
+                    data d = new data();
+                    d.df_text1 = statement[j];
+                    string requestUriString;
+                    if (PBX)
+                    {
+                        requestUriString = "http://coolheatcrm.duckdns.org/CRM-2/accessPBX.php";
+                    }
+                    else
+                    {
+                        requestUriString = "http://coolheatcrm.duckdns.org/CRM-2/access.php";
+                    }
+                    string text = JsonClass.JSONSerialize<DatabaseFunctions.data>(d);
+                    byte[] bytes = Encoding.UTF8.GetBytes(text);
+                    HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(requestUriString);
+                    httpWebRequest.Method = "POST";
+                    httpWebRequest.ContentType = "application/x-www-form-urlencoded";
+                    httpWebRequest.ContentLength = (long)bytes.Length;
+                    httpWebRequest.GetRequestStream().Write(bytes, 0, bytes.Length);
+                    Stream responseStream = ((HttpWebResponse)httpWebRequest.GetResponse()).GetResponseStream();
+                    StreamReader streamReader = new StreamReader(responseStream);
+                    call[j](streamReader.ReadToEnd());
+                    streamReader.Close();
+                    responseStream.Close();
+                }
+                catch (WebException ex)
+                {
+                    string str = ex.ToString();
+                    Console.WriteLine("--->" + str);
+                }
+            }
+        }
         public static string[] getCustomerFileList(string name)
         {
             string s = JsonClass.JSONSerialize<DatabaseFunctions.data>(new DatabaseFunctions.data
@@ -145,6 +206,42 @@ namespace MainCRMV2
             }
             return null;
         }
+        public static DataDoubleSwitch findDDataSwitchinList(List<DataDoubleSwitch> switches, int intToFind, int intToFind2)
+        {
+            foreach (DataDoubleSwitch dataSwitch in switches)
+            {
+                if (dataSwitch.GetInt() == intToFind && dataSwitch.getSecondInt() == intToFind2)
+                {
+                    return dataSwitch;
+                }
+            }
+            return null;
+        }
+        public static List<string> findUnique(List<string> input)
+        {
+            List<string> results = new List<string>();
+            foreach (string s in input)
+            {
+                if (!results.Contains(s))
+                {
+                    results.Add(s);
+                }
+            }
+            return results;
+        }
+        public static int findIndexInList(List<string> list, string index)
+        {
+            int count = 0;
+            foreach (string x in list)
+            {
+                if (x == index)
+                {
+                    return count;
+                }
+                count++;
+            }
+            return 0;
+        }
         public static ClientData client = new ClientData();
         public class data
         {
@@ -152,7 +249,8 @@ namespace MainCRMV2
         }
         public class dataArray
         {
-            public string[] df_text1 { get; set; }
+            public int BatchLength { get; set; }
+            public string[] statements { get; set; }
         }
     }
 }

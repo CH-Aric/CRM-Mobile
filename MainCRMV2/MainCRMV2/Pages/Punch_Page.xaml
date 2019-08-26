@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:crmdesktop="clr-namespace:MainCRMV2"
+             mc:Ignorable="d"
+             x:Class="MainCRMV2.Pages.Punch_Page">
+    <StackLayout>
+
+        <Grid BackgroundColor="Black">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="0.6*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <BoxView BackgroundColor="White" Grid.Column="1" Margin="1"/>
+            <BoxView BackgroundColor="White" Grid.Column="2" Margin="1"/>
+            <crmdesktop:StyledButton Text="Perform Punch" Clicked="onclick"/>
+            <crmdesktop:StyledButton Text="Perform Location Punch" Clicked="onClickStateless" Grid.Column="1"/>
+            <Label x:Name="ClockState" Text="Current State: Clocked Out" Grid.Column="2" VerticalTextAlignment="Center" TextColor="Black"/>
+            <!--<TextBlock Text="Weekly Hours:" Grid.Column="2" VerticalAlignment="Center" Foreground="Black"/>-->
+        </Grid>
+        <ScrollView x:Name="scroll">
+            <Grid BackgroundColor="Black" x:Name="logGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                </Grid.RowDefinitions>
+
+                <BoxView BackgroundColor="White" Grid.Column="0" Margin="1"/>
+                <BoxView BackgroundColor="White" Grid.Column="1" Margin="1"/>
+                <BoxView BackgroundColor="White" Grid.Column="2" Margin="1"/>
+
+                <Label Text="Current State:" Grid.Column="0" VerticalTextAlignment="Center" TextColor="Black"/>
+                <Label Text="Time" Grid.Column="1" VerticalTextAlignment="Center" TextColor="Black"/>
+                <Label Text="Punch State" Grid.Column="2" VerticalTextAlignment="Center" TextColor="Black"/>
+            </Grid>
+        </ScrollView>
+
+    </StackLayout>
+</ContentPage>

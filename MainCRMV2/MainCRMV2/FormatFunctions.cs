@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace MainCRMV2
 {
@@ -26,16 +27,34 @@ namespace MainCRMV2
         {
             return datein.Split(' ')[0].Split('-');
         }
+        public static string CleanDateNew(string Date)
+        {
+            string s1 = Date.Replace(",", "@");
+            string s2 = s1.Replace(":", "!");
+            return s2;
+        }
+        public static string PrettyDate(string Date)
+        {
+            string s1 = Date.Replace("@", ",");
+            string s2 = s1.Replace("!", ":");
+            return s2;
+        }
+        public static string stripper(string intake)
+        {
+            string intake2 = intake;
+            intake2 = intake2.Replace("\"", "");
+            intake2 = intake2.Replace("\\", "");
+            intake2 = intake2.Replace("[", "");
+            intake2 = intake2.Replace("]", "");
+            intake2 = intake2.Replace("{", "");
+            intake2 = intake2.Replace("}", "");
+            intake2 = intake2.Replace("[", "");
+            intake2 = intake2.Replace("NewRow:", "");
+            return intake2;
+        }
         public static string[] SplitToPairs(string input)
         {
-            input = input.Replace("\"", "");
-            input = input.Replace("\\", "");
-            input = input.Replace("[", "");
-            input = input.Replace("]", "");
-            input = input.Replace("{", "");
-            input = input.Replace("}", "");
-            input = input.Replace("[", "");
-            input = input.Replace("NewRow:", "");
+            input = stripper(input);
             return input.Split(',');
         }
         public static Dictionary<string, List<string>> createValuePairs(string[] input)
@@ -60,7 +79,7 @@ namespace MainCRMV2
             }
             return dictionary;
         }
-        public static Dictionary<string, List<string>> createValuePairs(string[] input,bool TimeOverload)
+        public static Dictionary<string, List<string>> createValuePairs(string[] input, bool TimeOverload)
         {
             Dictionary<string, List<string>> dictionary = new Dictionary<string, List<string>>();
             for (int i = 0; i < input.Length; i++)
@@ -74,8 +93,9 @@ namespace MainCRMV2
                 {
                     if (array.Length == 4)
                     {
-                        dictionary[array[0]].Add(array[1] +":"+ array[2] + ":" + array[3]);
-                    }else
+                        dictionary[array[0]].Add(array[1] + ":" + array[2] + ":" + array[3]);
+                    }
+                    else
                     {
                         dictionary[array[0]].Add(array[1]);
                     }
@@ -95,17 +115,17 @@ namespace MainCRMV2
             }
             return dictionary;
         }
-        public async static Task<string> smartsearch(string term,string table)
+        public async static Task<string> smartsearch(string term, string table)
         {
             Responded = false;
             TaskCallback call = boolSetter;
-            string sql = "SELECT smartStatement FROM smartsearch WHERE table='"+table+"' AND term='"+term+"';";
+            string sql = "SELECT smartStatement FROM smartsearch WHERE table='" + table + "' AND term='" + term + "';";
             DatabaseFunctions.SendToPhp(false, sql, call);
             while (!Responded)
             {
                 await Task.Delay(50);
             }
-            string toReturn="";
+            string toReturn = "";
             if (dict.Count > 0)
             {
                 foreach (string s in dict["smartStatement"])
@@ -120,6 +140,34 @@ namespace MainCRMV2
             string[] input = FormatFunctions.SplitToPairs(result);
             dict = FormatFunctions.createValuePairs(input);
             Responded = true;
+        }
+        public static List<View> scrubOutUnwanted(List<View> listToScrub, View example)
+        {
+            List<View> returnList = new List<View>();
+            foreach (View x in listToScrub)
+            {
+                if (!x.GetType().Equals(example.GetType()))
+                {
+                    returnList.Add(x);
+                }
+            }
+            return returnList;
+        }
+        public static List<View> scrubOutUnlessWanted(List<View> listToScrub, View example, List<Label> scrubList)
+        {
+            List<View> returnList = new List<View>();
+            foreach (View x in listToScrub)
+            {
+                if (x.GetType().Equals(example.GetType()))
+                {
+                    returnList.Add(x);
+                }
+                else
+                {
+                    scrubList.Add((Label)x);
+                }
+            }
+            return returnList;
         }
     }
 }

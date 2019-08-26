@@ -155,5 +155,32 @@ namespace MainCRMV2
                 g.RowDefinitions.RemoveAt(0);
             }
         }
+        public static void PurgeAllGrid(Grid g)
+        {
+            var children = g.Children.OfType<View>().ToArray();
+            foreach (View child in children)
+            {
+                g.Children.Remove(child);
+            }
+            while (g.RowDefinitions.Count > 0)
+            {
+                g.RowDefinitions.RemoveAt(0);
+            }
+        }
+        public static void PurgeHeader(Grid g)
+        {
+            var children = g.Children.OfType<View>().ToArray();
+            foreach (View child in children)
+            {
+                if (Grid.GetRow(child) == 1)
+                {
+                    g.Children.Remove(child);
+                }
+            }
+            while (g.RowDefinitions.Count > 1)
+            {
+                g.RowDefinitions.RemoveAt(0);
+            }
+        }
     }
 }
