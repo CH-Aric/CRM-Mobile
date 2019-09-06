@@ -55,7 +55,7 @@ namespace MainCRMV2.Pages
                 createPunchOnResult = false;
                 var request = new GeolocationRequest(GeolocationAccuracy.Medium);
                 var location = await Geolocation.GetLocationAsync(request);
-                string sql = "INSERT INTO punchclock (AgentID,Timestamp,Coordinates,State) VALUES('" + ClientData.AgentIDK + "','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString()) + "','" + location.Latitude + "/" + location.Longitude + "','" + !PunchedIn + "')";
+                string sql = "INSERT INTO punchclock (AgentID,Timestamp,Coordinates,State) VALUES('" + ClientData.AgentIDK + "','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "','" + location.Latitude + "/" + location.Longitude + "','" + !PunchedIn + "')";
                 DatabaseFunctions.SendToPhp(sql);
             }
             if (statelessPunch)
@@ -63,7 +63,7 @@ namespace MainCRMV2.Pages
                 statelessPunch = false;
                 var request = new GeolocationRequest(GeolocationAccuracy.Medium);
                 var location = await Geolocation.GetLocationAsync(request);
-                string sql = "INSERT INTO punchclock (AgentID,Timestamp,Coordinates,State,Note) VALUES('" + ClientData.AgentIDK + "','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString()) + "','"+location.Latitude+"/"+location.Longitude+"','less','" + TextEntry.Text + "')";
+                string sql = "INSERT INTO punchclock (AgentID,Timestamp,Coordinates,State,Note) VALUES('" + ClientData.AgentIDK + "','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "','"+location.Latitude+"/"+location.Longitude+"','less','" + TextEntry.Text + "')";
                 DatabaseFunctions.SendToPhp(sql);
             }
             getPunches();

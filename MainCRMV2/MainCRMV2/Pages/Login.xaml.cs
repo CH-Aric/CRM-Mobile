@@ -24,10 +24,11 @@ namespace MainCRMV2.Pages
             }
             if (taskAwaiter.GetResult())
             {
+                string WelcomeMsg="Welcome to the CoolHeat CRM";
                 App.MDP = new MasterDetailPage
                 {
                     Master = new home(),
-                    Detail = new NavigationPage(new LinkPage(App.WelcomeMsg))
+                    Detail = new NavigationPage(new Toolbox_Page(WelcomeMsg))
                 };
                 Application.Current.MainPage = App.MDP;
             }
