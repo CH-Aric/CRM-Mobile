@@ -23,6 +23,12 @@
                         <Label Text="Ready?" HorizontalOptions="EndAndExpand"/>
                     </StackLayout>
                 </ViewCell>
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Desired Quote Option to Carry Forward:(Install Only)"/>
+                        <Picker x:Name="QuotePicker"/>
+                    </StackLayout>
+                </ViewCell>
             </TableSection>
         </TableView>
     </ContentPage.Content>

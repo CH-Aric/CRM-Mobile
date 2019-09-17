@@ -48,13 +48,14 @@ namespace MainCRMV2.Pages.Customers
         public void searchCustomerData()
         {
             string sql = "SELECT cusfields.Index,cusfields.Value,cusindex.Name FROM crm2.cusfields INNER JOIN crm2.cusindex ON cusfields.CusID=cusindex.IDKey WHERE (cusfields.Index LIKE '%phone%' OR cusfields.Index LIKE '%address%' OR cusfields.Index LIKE '%book%') AND cusfields.CusID='"+customerID+"';";
-            TaskCallback call = populateCustomerData;
+            TaskCallback call = populatePage;
             DatabaseFunctions.SendToPhp(false, sql, call);
         }
-        public void populateCustomerData(string result)
+        public void populatePage(string result)
         {
-            string address = "2591 Ottawa Regional Road 174";
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
+            entryDict = new List<DataPair>();
+            string address = "";
             if (dictionary.Count > 0)
             {
                 nameLabel.Text = dictionary["Name"][0];
@@ -62,21 +63,38 @@ namespace MainCRMV2.Pages.Customers
                 {
                     if (dictionary["Index"][i].Contains("hone"))
                     {
-                        phoneLabel.Text = dictionary["Value"][i];
+                        phoneLabel.Text = FormatFunctions.PrettyDate(dictionary["Value"][i]);
                     }
-                    else if (dictionary["Index"][i].Contains("ook"))
+                    else if (dictionary["Index"][i].Contains("otes"))
                     {
-                        bookLabel.Text = "Booked For: "+dictionary["Value"][i];
+                        noteLabel.Text = FormatFunctions.PrettyDate(dictionary["Value"][i]);
                     }
-                    else if (dictionary["Index"][i].Contains("ress"))
+                    else if (dictionary["Index"][i].Contains("ookin"))
                     {
-                        address = dictionary["Value"][i];
-                        navButton.Text += dictionary["Value"][i];
-                        address = dictionary["Value"][i];
+                        bookLabel.Date = DateTime.Parse(FormatFunctions.PrettyDate(dictionary["Value"][i]));
+                    }
+                    else
+                    {
+                        DataPair dataPair = new DataPair(int.Parse(dictionary["FID"][i]), dictionary["Value"][i], dictionary["Index"][i]);
+                        dataPair.Value.Text = FormatFunctions.PrettyDate(dictionary["Value"][i]);
+                        dataPair.Index.Text = FormatFunctions.PrettyDate(dictionary["Index"][i]);
+                        StackLayout stackLayout = new StackLayout
+                        {
+                            Orientation = StackOrientation.Horizontal
+                        };
+                        stackLayout.Children.Add(dataPair.Index);
+                        stackLayout.Children.Add(dataPair.Value);
+                        BodyGrid.Children.Add(stackLayout);
+                        entryDict.Add(dataPair);
+                        if (dictionary["Index"][i].Contains("dress"))
+                        {
+                            address = FormatFunctions.PrettyDate(dictionary["Value"][i]);
+                        }
                     }
                 }
             }
             renderBookingMap(address);
+            //populateFileList();
         }
         public void onClicked(object sender, EventArgs e)
         {
@@ -89,21 +107,40 @@ namespace MainCRMV2.Pages.Customers
                     batch.Add(s);
                     dataPair.isNew = false;
                 }
-                else if (!dataPair.Index.Text.Equals(dataPair.Index.GetInit()))
+                else if (!dataPair.Index.Text.Equals(dataPair.Index.GetInit()) || !dataPair.Value.Text.Equals(dataPair.Value.GetInit()))
                 {
                     string s = "UPDATE cusfields SET cusfields.Value = '" + FormatFunctions.CleanDateNew(dataPair.Value.Text) + "',cusfields.Index='" + FormatFunctions.CleanDateNew(dataPair.Index.Text) + "' WHERE (IDKey= '" + dataPair.Index.GetInt() + "');";
                     batch.Add(s);
                 }
             }
+            string sql = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(noteLabel.Text) + "' WHERE cusfields.Index LIKE'%otes%' AND CusID= '" + customerID + "'";
+            batch.Add(sql);
             string sql2 = "UPDATE cusindex SET Name='" + FormatFunctions.CleanDateNew(nameLabel.Text) + "' WHERE IDKey= '" + customerID + "'";
             batch.Add(sql2);
-            //string sql3 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(BookingDate.Text) + "' WHERE cusfields.Index LIKE '%ookin%' AND CusID= '" + customerID + "'";
-            //batch.Add(sql3);
+            string sql3 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(bookLabel.Date.ToString("yyyy/M/d h:mm:ss")) + "' WHERE cusfields.Index LIKE '%ookin%' AND CusID= '" + customerID + "'";
+            batch.Add(sql3);
             string sql4 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(phoneLabel.Text) + "' WHERE cusfields.Index LIKE '%hone%' AND CusID= '" + customerID + "'";
             batch.Add(sql4);
             string sql5 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "' WHERE cusfields.Index LIKE '%odified On%' AND CusID= '" + customerID + "'";//'Modified On','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "'
             batch.Add(sql5);
             DatabaseFunctions.SendBatchToPHP(batch);
+        }
+        public void onClickAddFields(object sender, EventArgs e)
+        {
+            DataPair dataPair = new DataPair(0, "", "");
+            dataPair.setNew();
+            dataPair.Value.Text = "";
+            dataPair.Value.Placeholder = "Index here";
+            dataPair.Index.Text = "";
+            dataPair.Index.Placeholder = "Value here";
+            StackLayout stackLayout = new StackLayout
+            {
+                Orientation = StackOrientation.Horizontal
+            };
+            stackLayout.Children.Add(dataPair.Index);
+            stackLayout.Children.Add(dataPair.Value);
+            BodyGrid.Children.Add(stackLayout);
+            entryDict.Add(dataPair);
         }
     }
 }

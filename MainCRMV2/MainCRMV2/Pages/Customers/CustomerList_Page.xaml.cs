@@ -16,7 +16,7 @@ namespace MainCRMV2.Pages.Customers
         public void loadFromDatabase()
         {
             TaskCallback call = populateList;
-            string sql = "SELECT cusindex.Name,cusindex.IDKey,cusfields.Value,cusfields.Index,cusindex.Stage FROM cusindex INNER JOIN cusfields ON cusindex.IDKey=cusfields.CusID WHERE (cusfields.Index LIKE '%Address%' OR cusfields.Index LIKE '%Phone%')";
+            string sql = "SELECT cusindex.Name,cusindex.IDKey,cusfields.Value,cusfields.Index,cusindex.Stage FROM cusindex INNER JOIN cusfields ON cusindex.IDKey=cusfields.CusID WHERE (cusfields.Index LIKE '%Phone%')";
             sql += appendPickerResult();
             DatabaseFunctions.SendToPhp(false, sql, call);
         }
@@ -24,14 +24,13 @@ namespace MainCRMV2.Pages.Customers
         {
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
             Dictionary<string, SecurityButton> dictionary2 = new Dictionary<string, SecurityButton>();
-            this.views = new List<ViewCell>();
             if (dictionary.Count > 0)
             {
                 for (int i = 0; i < dictionary["Name"].Count; i++)
                 {
                     if (!dictionary2.ContainsKey(dictionary["IDKey"][i]))
                     {
-                        string text = dictionary["Name"][i] + ": " + dictionary["Value"][i];
+                        string text = dictionary["Name"][i] + " ," + dictionary["Value"][i];
                         SecurityButton dataButton = new SecurityButton(int.Parse(dictionary["IDKey"][i]), new string[] { "Employee" })
                         {
                             Text = text,
@@ -41,22 +40,15 @@ namespace MainCRMV2.Pages.Customers
                         };
                         dataButton.Clicked += this.onClicked;
                         dataButton.Integer2 = int.Parse(dictionary["Stage"][i]);
-                        ViewCell viewCell = new ViewCell();
-                        StackLayout stackLayout = new StackLayout
-                        {
-                            Orientation = StackOrientation.Horizontal,
-                            HorizontalOptions = LayoutOptions.FillAndExpand
-                        };
-                        stackLayout.Children.Add(dataButton);
-                        viewCell.View = stackLayout;
-                        this.TSection.Add(viewCell);
-                        this.views.Add(viewCell);
+                        List<View> list = new List<View>() { dataButton };
+                        bool[] box = new bool[] { false };
+                        GridFiller.rapidFillPremadeObjectsStandardHeight(list, dataGrid, box, 25);
                         dictionary2.Add(dictionary["IDKey"][i], dataButton);
                     }
                     else
                     {
                         SecurityButton dataButton2 = dictionary2[dictionary["IDKey"][i]];
-                        dataButton2.Text = dataButton2.Text + ", " + dictionary["Value"][i];
+                        dataButton2.Text = dataButton2.Text + " ," + dictionary["Value"][i];
                     }
                 }
             }
@@ -77,9 +69,13 @@ namespace MainCRMV2.Pages.Customers
             {
                 App.MDP.Detail.Navigation.PushAsync(new Booking_Page(dataButton.Integer));
             }
-            else if (dataButton.GetInt2() > 2 && dataButton.GetInt2() < 9)
+            else if (dataButton.GetInt2() == 3)
             {
                 App.MDP.Detail.Navigation.PushAsync(new Quote_Page(dataButton.Integer, stageSearch));
+            }
+            else if (dataButton.GetInt2() > 3 && dataButton.GetInt2() < 9)
+            {
+                App.MDP.Detail.Navigation.PushAsync(new Install_Page(dataButton.Integer, stageSearch));
             }
         }
         public void onClickedSearch(object sender, EventArgs e)
@@ -98,6 +94,44 @@ namespace MainCRMV2.Pages.Customers
             string sql2 = "SELECT IDKey,Stage FROM cusindex ORDER BY IDKey Desc LIMIT 1";
             TaskCallback call = OpenPage;
             DatabaseFunctions.SendToPhp(false, sql2, call);
+        }
+        public void onCreateStageSpecificData(string cusID)
+        {
+            List<string> batch = new List<string>();
+            string noteSQL = "INSERT INTO cusfields (cusfields.Index,cusfields.Value,CusID) VALUES ('Notes:','','" + cusID + "'),('Created On','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "','" + cusID + "'),('Modified On','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "','" + cusID + "')";//'"+ClientData.AgentIDK+"','"+FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss"))+"'
+            batch.Add(noteSQL);
+            if (NewPicker.SelectedIndex == 0)//For creating leads
+            {
+                //BookingDate, Notes
+                string sql = "INSERT INTO cusfields (cusfields.Index,cusfields.Value,CusID) VALUES ('BookingDate','','" + cusID + "'),('PhoneNumber','','" + cusID + "')";
+                batch.Add(sql);
+            }
+            else if (NewPicker.SelectedIndex == 1)//Booked!
+            {
+                string sql = "INSERT INTO cusfields (cusfields.Index,cusfields.Value,CusID) VALUES ('BookingDate','','" + cusID + "'),('PhoneNumber','','" + cusID + "'),('Salesman','','" + cusID + "')";
+                batch.Add(sql);
+            }
+            else if (NewPicker.SelectedIndex == 2)//Quoted!
+            {
+                string sql = "INSERT INTO cusfields (cusfields.Index,cusfields.Value,CusID) VALUES ('BookingDate','','" + cusID + "'),('PhoneNumber','','" + cusID + "'),('Salesman','','" + cusID + "'),('QuoteTotal','','" + cusID + "'),('Signature','False','" + cusID + "'),('Deposit Received','False','" + cusID + "'),('Payment Method','Fill Me Out!','" + cusID + "')";
+                batch.Add(sql);
+            }
+            else if (NewPicker.SelectedIndex == 3)//Followup on Quote
+            {
+                string sql = "INSERT INTO cusfields (cusfields.Index,cusfields.Value,CusID) VALUES ('BookingDate','','" + cusID + "'),('PhoneNumber','','" + cusID + "'),('Salesman','','" + cusID + "'),('QuoteTotal','','" + cusID + "'),('Signature','False','" + cusID + "'),('Deposit Received','False','" + cusID + "'),('Payment Method','Fill Me Out!','" + cusID + "'),('LastContact','mm/dd','" + cusID + "')";
+                batch.Add(sql);
+            }
+            else if (NewPicker.SelectedIndex == 4)//Sold!
+            {
+                string sql = "INSERT INTO cusfields (cusfields.Index,cusfields.Value,CusID) VALUES ('BookingDate','','" + cusID + "'),('PhoneNumber','','" + cusID + "'),('Salesman','','" + cusID + "'),('QuoteTotal','','" + cusID + "'),('Signature','True','" + cusID + "'),('Deposit Received','True','" + cusID + "'),('Payment Method','Fill Me Out!','" + cusID + "')";
+                batch.Add(sql);
+            }
+            else if (NewPicker.SelectedIndex == 5)//Install!
+            {
+                string sql = "INSERT INTO cusfields (cusfields.Index,cusfields.Value,CusID) VALUES ('PhoneNumber','','" + cusID + "'),('Salesman','','" + cusID + "'),('QuoteTotal','','" + cusID + "'),('Signature','True','" + cusID + "'),('Deposit Received','True','" + cusID + "'),('Payment Method','Fill Me Out!','" + cusID + "'),('InstallDate','','" + cusID + "')";
+                batch.Add(sql);
+            }
+            DatabaseFunctions.SendBatchToPHP(batch);
         }
         public void OpenPage(string result)
         {
@@ -125,10 +159,7 @@ namespace MainCRMV2.Pages.Customers
         }
         public void PurgeCells()
         {
-            foreach (ViewCell item in this.views)
-            {
-                this.TSection.Remove(item);
-            }
+            GridFiller.PurgeAllGrid(dataGrid);
         }
         public string appendPickerResult()
         {
