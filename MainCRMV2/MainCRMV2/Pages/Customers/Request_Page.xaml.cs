@@ -56,12 +56,10 @@ namespace MainCRMV2.Pages.Customers
                     else
                     {
                         DataPair dataPair = new DataPair(int.Parse(dictionary["FID"][i]), dictionary["value"][i], dictionary["Index"][i]);
-                        dataPair.Value.Text = dictionary["value"][i];
                         dataPair.Value.Placeholder = "Value here";
                         dataPair.Value.FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label));
                         dataPair.Value.VerticalOptions = LayoutOptions.CenterAndExpand;
                         dataPair.Value.HorizontalOptions = LayoutOptions.StartAndExpand;
-                        dataPair.Index.Text = dictionary["Index"][i];
                         dataPair.Index.Placeholder = "Index here";
                         dataPair.Index.FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label));
                         dataPair.Index.VerticalOptions = LayoutOptions.CenterAndExpand;

@@ -14,6 +14,7 @@ namespace MainCRMV2.Pages.Customers
     {
         Location place;
         int customerID;
+        private List<DataPair> entryDict;
         public Booking_Page(int cusID)
         {
             customerID = cusID;
@@ -76,6 +77,33 @@ namespace MainCRMV2.Pages.Customers
                 }
             }
             renderBookingMap(address);
+        }
+        public void onClicked(object sender, EventArgs e)
+        {
+            List<string> batch = new List<string>();
+            foreach (DataPair dataPair in this.entryDict)
+            {
+                if (dataPair.isNew)
+                {
+                    string s = "INSERT INTO cusfields (cusfields.Value,cusfields.Index,CusID) VALUES('" + FormatFunctions.CleanDateNew(dataPair.Value.Text) + "','" + FormatFunctions.CleanDateNew(dataPair.Index.Text) + "','" + this.customerID + "')";
+                    batch.Add(s);
+                    dataPair.isNew = false;
+                }
+                else if (!dataPair.Index.Text.Equals(dataPair.Index.GetInit()))
+                {
+                    string s = "UPDATE cusfields SET cusfields.Value = '" + FormatFunctions.CleanDateNew(dataPair.Value.Text) + "',cusfields.Index='" + FormatFunctions.CleanDateNew(dataPair.Index.Text) + "' WHERE (IDKey= '" + dataPair.Index.GetInt() + "');";
+                    batch.Add(s);
+                }
+            }
+            string sql2 = "UPDATE cusindex SET Name='" + FormatFunctions.CleanDateNew(nameLabel.Text) + "' WHERE IDKey= '" + customerID + "'";
+            batch.Add(sql2);
+            //string sql3 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(BookingDate.Text) + "' WHERE cusfields.Index LIKE '%ookin%' AND CusID= '" + customerID + "'";
+            //batch.Add(sql3);
+            string sql4 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(phoneLabel.Text) + "' WHERE cusfields.Index LIKE '%hone%' AND CusID= '" + customerID + "'";
+            batch.Add(sql4);
+            string sql5 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "' WHERE cusfields.Index LIKE '%odified On%' AND CusID= '" + customerID + "'";//'Modified On','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "'
+            batch.Add(sql5);
+            DatabaseFunctions.SendBatchToPHP(batch);
         }
     }
 }

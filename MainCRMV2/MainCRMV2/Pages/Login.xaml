@@ -13,6 +13,10 @@
             <ViewCell>
                 <StackLayout Orientation="Horizontal">
                     <Entry x:Name="userN" Placeholder="Username" HorizontalOptions="FillAndExpand"/>
+                </StackLayout>
+            </ViewCell>
+            <ViewCell>
+                <StackLayout Orientation="Horizontal">
                     <Entry x:Name="pass" Placeholder="Password" IsPassword="True"  HorizontalOptions="FillAndExpand"/>
                 </StackLayout>
             </ViewCell>

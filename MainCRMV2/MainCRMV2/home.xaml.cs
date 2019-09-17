@@ -16,42 +16,12 @@ namespace MainCRMV2
         }
         public void MDPMain()
         {
-            base.Content = new StackLayout
+            baseMDP.Padding = Padding = new Thickness(0.0, 10.0, 0.0, 0.0);//Controls Menu Button Layout
+            List<View> v = new List<View>(){new MainLink("Chat") ,new MainLink("Tasks") ,new MainLink("Customers") ,new MainLink("CDR"),new MainLink("Account"), new MainLink("Coupon Checker") ,new MainLink("Inventory") ,new MainLink("Calls Received") ,new MainLink("Price Guide"),new MainLink("Logout") };
+            foreach( View n in v)
             {
-                Padding = new Thickness(0.0, 10.0, 0.0, 0.0),//Controls Menu Button Layout
-                Children = {
-                {
-                    new MainLink("Chat")
-                },
-                {
-                    new MainLink("Tasks")
-                },
-                {
-                    new MainLink("Customers")
-                },
-                {
-                    new MainLink("CDR")
-                },
-                {
-                    new MainLink("Account")
-                },
-                {
-                    new MainLink("Coupon Checker")
-                },
-                {
-                    new MainLink("Inventory")
-                },
-                 {
-                    new MainLink("Calls Received")
-                },
-                 {
-                    new MainLink("Price Guide")
-                },
-                {
-                    new MainLink("Logout")
-                }
-                }
-            };
+                baseMDP.Children.Add(n);
+            }
             base.Title = "Master";
             base.BackgroundColor = Color.Gray.WithLuminosity(0.9);
         }

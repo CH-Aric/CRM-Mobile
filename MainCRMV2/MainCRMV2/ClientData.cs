@@ -130,7 +130,11 @@ namespace MainCRMV2
         public void loadSecurityKeys(string result)
         {
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
-            SecurityKeys = dictionary["PermissionGranted"];
+            SecurityKeys = new List<string>();
+            if (dictionary.Count > 0)
+            {
+                SecurityKeys = dictionary["PermissionGranted"];
+            }
         }
         public static bool hasSecurityKey(string Key)
         {
