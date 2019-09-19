@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using PostToPhp;
+using Xamarin.Essentials;
 
 namespace MainCRMV2
 {
@@ -149,17 +150,18 @@ namespace MainCRMV2
             requestStream.Close();
             return result;
         }
-        public static string getFile(string Date, string filename, TaskCallback call)
+        public static string getCallFile(string Date, string filename, TaskCallback call)
         {
             string[] array = FormatFunctions.CleanDate(Date);
             string df_text = string.Concat(new string[]
             {
+                @"CDR\",
                 array[0],
-                "/",
+                @"\",
                 array[1],
-                "/",
+                @"\",
                 array[2],
-                "/",
+                @"\",
                 filename
             });
             string s = JsonClass.JSONSerialize<DatabaseFunctions.data>(new DatabaseFunctions.data
@@ -183,6 +185,33 @@ namespace MainCRMV2
                 fileStream.Write(buffer, 0, count);
             }
             return "CHStreamFile" + filename;
+        }
+        public static async void getFile(string filename)
+        {
+            /*string df_text = @"\Root\Files\Customer Files\CoolHeat Comfort Customer List\Residential Customers\" + filename;
+            string s = JsonClass.JSONSerialize<DatabaseFunctions.data>(new DatabaseFunctions.data
+            {
+                df_text1 = df_text
+            });
+            byte[] bytes = Encoding.UTF8.GetBytes(s);
+            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://coolheatcrm.duckdns.org/crm-2/getCusFile.php");
+            httpWebRequest.Method = "POST";
+            httpWebRequest.ContentType = "application/x-www-form-urlencoded";
+            httpWebRequest.ContentLength = (long)bytes.Length;
+            httpWebRequest.GetRequestStream().Write(bytes, 0, bytes.Length);
+            Stream responseStream = ((HttpWebResponse)httpWebRequest.GetResponse()).GetResponseStream();
+            int num = 1024;
+            byte[] buffer = new byte[num];
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            FileStream fileStream = File.Create(path + "CHStreamFile" + filename);
+            int count;
+            while ((count = responseStream.Read(buffer, 0, num)) != 0)
+            {
+                fileStream.Write(buffer, 0, count);
+            }
+            call("CHStreamFile" + filename);*/
+            await Browser.OpenAsync(filename, BrowserLaunchMode.SystemPreferred);
+
         }
         public static string lookupInDictionary(string Index, string ToFinditIn, string ToReturn, Dictionary<string, List<string>> DictionaryToUse)
         {
