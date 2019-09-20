@@ -21,6 +21,7 @@ namespace MainCRMV2
         private bool Responded;
         private Dictionary<string, List<string>> dict;
         private static List<string> SecurityKeys;
+        private static List<string> Roles;
         public static Color getGridColor()
         {
             LastColor++;
@@ -125,6 +126,9 @@ namespace MainCRMV2
                 string sql = "SELECT PermissionGranted FROM agentpermissions WHERE AgentID='" + AgentIDK+"'";
                 TaskCallback call = loadSecurityKeys;
                 DatabaseFunctions.SendToPhp(false,sql,call);
+                string sql2 = "SELECT AgentRole FROM agentroles WHERE AgentID='" + AgentIDK + "'";
+                TaskCallback call2 = loadSecurityKeys;
+                DatabaseFunctions.SendToPhp(false, sql2, call2);
             }
         }
         public void loadSecurityKeys(string result)
@@ -143,6 +147,19 @@ namespace MainCRMV2
                 return true;
             }
             return SecurityKeys.Contains(Key);
+        }
+        public void loadRoles(string result)
+        {
+            Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
+            SecurityKeys = new List<string>();
+            if (dictionary.Count > 0)
+            {
+                Roles = dictionary["AgentRole"];
+            }
+        }
+        public static bool hasRole(string Key)//Role 0=Salesman, 1=Installer
+        {
+            return Roles.Contains(Key);
         }
     }
 }

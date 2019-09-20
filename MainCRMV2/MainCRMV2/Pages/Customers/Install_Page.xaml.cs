@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MainCRMV2.Pages.Popup_Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -249,7 +250,8 @@ namespace MainCRMV2.Pages.Customers
         }
         public void onFileButton(object sender, EventArgs e)
         {
-
+            SecurityButton sb = (SecurityButton)sender;
+            App.MDP.Detail.Navigation.PushAsync(new FileDisplay(sb.Text, customer));
         }
         public void onClickCDR(object sender, EventArgs e)
         {

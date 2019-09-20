@@ -85,7 +85,7 @@ namespace MainCRMV2.Pages
             TaskCallback c = new TaskCallback(this.populateLastIDK);
             await PopupNavigation.Instance.PushAsync(new Notification_Popup("Your template has been saved", "OK", c), true);
         }
-        public async void populateLastIDK(string result)
+        public void populateLastIDK(string result)
         {
             DatabaseFunctions.SendToPhp(string.Concat(new string[]
             {

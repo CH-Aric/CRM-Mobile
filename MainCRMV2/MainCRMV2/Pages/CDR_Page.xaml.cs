@@ -84,7 +84,7 @@ namespace MainCRMV2.Pages
         {
             SecurityButton dataButton = (SecurityButton)sender;
             TaskCallback call = new TaskCallback(this.openFile);
-            string loadedfile=DatabaseFunctions.getFile(dataButton.String, dataButton.String2, call);
+            string loadedfile=DatabaseFunctions.getCallFile(dataButton.String, dataButton.String2, call);
             await PopupNavigation.Instance.PushAsync(new Audio_Popup(loadedfile), true);
         }
         public void onClickedSearch(object sender, EventArgs e)

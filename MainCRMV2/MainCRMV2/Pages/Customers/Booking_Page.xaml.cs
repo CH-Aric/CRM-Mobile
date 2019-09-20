@@ -6,6 +6,7 @@ using Xamarin.Forms.Xaml;
 using Xamarin.Forms.Maps;
 using System;
 using System.Collections.Generic;
+using MainCRMV2.Pages.Popup_Pages;
 
 namespace MainCRMV2.Pages.Customers
 {
@@ -141,6 +142,28 @@ namespace MainCRMV2.Pages.Customers
             stackLayout.Children.Add(dataPair.Value);
             BodyGrid.Children.Add(stackLayout);
             entryDict.Add(dataPair);
+        }
+        public void populateFileList()
+        {
+            string[] customerFileList = DatabaseFunctions.getCustomerFileList(nameLabel.Text);
+            foreach (string text in customerFileList)
+            {
+                if ((text != "." || text != "..") && customerFileList.Length > 1)
+                {
+                    SecurityButton dataButton = new SecurityButton(nameLabel.Text + "/" + text, new string[] { "Sales" })
+                    {
+                        Text = text
+                    };
+                    dataButton.Clicked += onFileButton;
+                    List<View> list = new List<View>() { dataButton };
+                    GridFiller.rapidFillPremadeObjects(list, fileGrid, new bool[] { true, true });
+                }
+            }
+        }
+        public void onFileButton(object sender, EventArgs e)
+        {
+            SecurityButton sb = (SecurityButton)sender;
+            App.MDP.Detail.Navigation.PushAsync(new FileDisplay(sb.Text, customerID));
         }
     }
 }

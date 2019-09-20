@@ -9,14 +9,20 @@
                 <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
             <maincrmv2:StyledButton  Text="Add a Field" Clicked="onClickAddFields" Grid.Column="0" Grid.Row="0"/>
             <maincrmv2:StyledButton  Text="Save Changes" Clicked="onClicked" Grid.Column="1" Grid.Row="0"/>
+            <DatePicker x:Name="DateSelection" Grid.Column="1"/>
         </Grid>
         <Grid x:Name="TSection" BackgroundColor="Black">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
+            
         </Grid>
     </StackLayout>
 </ContentPage>

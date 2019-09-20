@@ -59,5 +59,45 @@ namespace MainCRMV2.Pages
                 App.MDP.Detail.Navigation.PushAsync(new Punch_Page());
             }
         }
+        public void displayDailyTasks()
+        {
+            if (ClientData.hasRole("1"))
+            {
+                TaskCallback call = populateList;
+                DatabaseFunctions.SendToPhp(false,"SELECT * FROM Tasks WHERE AgentID='"+ClientData.AgentIDK+"' OR GroupID IN(SELECT GroupID FROM crm2.groupmembers WHERE MemberID='"+ClientData.AgentIDK+ "');", call);
+            }
+            else
+            {
+                tasksList.IsVisible = false;
+            }
+        }
+        public void populateList(string result)
+        {
+            Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
+            if (dictionary.Count > 1)
+            {
+                for (int i = 0; i < dictionary["Name"].Count; i++)
+                {
+                    string text = dictionary["Name"][i] ?? "";
+                    SecurityButton dataButton = new SecurityButton(int.Parse(dictionary["IDKey"][i]), new string[] { "Employee" })
+                    {
+                        Text = text,
+                        FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
+                        VerticalOptions = LayoutOptions.CenterAndExpand,
+                        HorizontalOptions = LayoutOptions.FillAndExpand
+                    };
+                    dataButton.Clicked += this.onClicked;
+                    List<View> list = new List<View>();
+                    list.Add(dataButton);
+                    GridFiller.rapidFillPremadeObjects(list, tasksList, new bool[] { true, true });
+                }
+            }
+        }
+        public void onClicked(object sender, EventArgs e)
+        {
+            SecurityButton dataButton = (SecurityButton)sender;
+            App.MDP.Detail.Navigation.PushAsync(new TaskEdit_Page(dataButton.Integer));
+            App.MDP.IsPresented = false;
+        }
     }
 }

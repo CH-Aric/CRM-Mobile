@@ -32,5 +32,10 @@
         </Grid>
         <StackLayout x:Name="BodyGrid" Orientation="Vertical">
         </StackLayout>
+        <Grid x:Name="fileGrid" BackgroundColor="Black">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
     </StackLayout>
 </ContentPage>
