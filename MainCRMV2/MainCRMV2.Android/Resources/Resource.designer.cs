@@ -26,6 +26,7 @@ namespace MainCRMV2.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::ModernHttpClient.Resource.String.library_name = global::MainCRMV2.Droid.Resource.String.library_name;
 			global::Plugin.InputKit.Resource.Animation.abc_fade_in = global::MainCRMV2.Droid.Resource.Animation.abc_fade_in;
 			global::Plugin.InputKit.Resource.Animation.abc_fade_out = global::MainCRMV2.Droid.Resource.Animation.abc_fade_out;
 			global::Plugin.InputKit.Resource.Animation.abc_grow_fade_in_from_bottom = global::MainCRMV2.Droid.Resource.Animation.abc_grow_fade_in_from_bottom;
@@ -9589,17 +9590,20 @@ namespace MainCRMV2.Droid
 			// aapt resource value: 0x7f0a0056
 			public const int fab_transformation_sheet_behavior = 2131361878;
 			
-			// aapt resource value: 0x7f0a0060
-			public const int facebook_app_id = 2131361888;
-			
-			// aapt resource value: 0x7f0a005f
-			public const int facebook_app_name = 2131361887;
-			
 			// aapt resource value: 0x7f0a0061
-			public const int fb_login_protocol_scheme = 2131361889;
+			public const int facebook_app_id = 2131361889;
+			
+			// aapt resource value: 0x7f0a0060
+			public const int facebook_app_name = 2131361888;
+			
+			// aapt resource value: 0x7f0a0062
+			public const int fb_login_protocol_scheme = 2131361890;
 			
 			// aapt resource value: 0x7f0a0057
 			public const int hide_bottom_view_on_scroll_behavior = 2131361879;
+			
+			// aapt resource value: 0x7f0a005f
+			public const int library_name = 2131361887;
 			
 			// aapt resource value: 0x7f0a0011
 			public const int messenger_send_button_text = 2131361809;
@@ -11239,7 +11243,10 @@ namespace MainCRMV2.Droid
 		{
 			
 			// aapt resource value: 0x7f080000
-			public const int xamarin_essentials_fileprovider_file_paths = 2131230720;
+			public const int file_paths = 2131230720;
+			
+			// aapt resource value: 0x7f080001
+			public const int xamarin_essentials_fileprovider_file_paths = 2131230721;
 			
 			static Xml()
 			{

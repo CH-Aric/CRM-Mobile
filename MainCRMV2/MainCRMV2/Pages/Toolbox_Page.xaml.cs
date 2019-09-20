@@ -58,6 +58,10 @@ namespace MainCRMV2.Pages
             {
                 App.MDP.Detail.Navigation.PushAsync(new Punch_Page());
             }
+            else if (b.Text.Equals("Upload File"))
+            {
+                App.MDP.Detail.Navigation.PushAsync(new FileUpload());
+            }
         }
         public void displayDailyTasks()
         {
