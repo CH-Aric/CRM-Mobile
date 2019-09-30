@@ -42,7 +42,7 @@ namespace MainCRMV2.Pages.Customers
                         dataButton.Integer2 = int.Parse(dictionary["Stage"][i]);
                         List<View> list = new List<View>() { dataButton };
                         bool[] box = new bool[] { false };
-                        GridFiller.rapidFillPremadeObjectsStandardHeight(list, dataGrid, box, 25);
+                        GridFiller.rapidFillPremadeObjectsStandardHeight(list, dataGrid, box, 50);
                         dictionary2.Add(dictionary["IDKey"][i], dataButton);
                     }
                     else

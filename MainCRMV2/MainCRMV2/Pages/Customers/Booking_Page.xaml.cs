@@ -29,17 +29,20 @@ namespace MainCRMV2.Pages.Customers
         }
         public async void renderBookingMap(string Address)
         {
-            var geoloc = await Geocoding.GetLocationsAsync(Address);
-            place = geoloc.FirstOrDefault();
-            Xamarin.Forms.Maps.Map map=new Xamarin.Forms.Maps.Map(MapSpan.FromCenterAndRadius(new Position(place.Latitude,place.Longitude),Distance.FromKilometers(1)))
+            if(Address != "")
             {
-                IsShowingUser = true,
-                HeightRequest = 100,
-                WidthRequest = 960,
-                VerticalOptions = LayoutOptions.FillAndExpand
-            };
-            HeadData.Children.Add(map,0,3);
-            Grid.SetColumnSpan(map, 2);
+                var geoloc = await Geocoding.GetLocationsAsync(Address);
+                place = geoloc.FirstOrDefault();
+                Xamarin.Forms.Maps.Map map = new Xamarin.Forms.Maps.Map(MapSpan.FromCenterAndRadius(new Position(place.Latitude, place.Longitude), Distance.FromKilometers(1)))
+                {
+                    IsShowingUser = true,
+                    HeightRequest = 100,
+                    WidthRequest = 960,
+                    VerticalOptions = LayoutOptions.FillAndExpand
+                };
+                HeadData.Children.Add(map, 0, 3);
+                Grid.SetColumnSpan(map, 2);
+            }
         }
         public async void onClickNavigate(object sender,EventArgs e)
         {
@@ -48,7 +51,7 @@ namespace MainCRMV2.Pages.Customers
         }
         public void searchCustomerData()
         {
-            string sql = "SELECT cusfields.Index,cusfields.Value,cusindex.Name FROM crm2.cusfields INNER JOIN crm2.cusindex ON cusfields.CusID=cusindex.IDKey WHERE (cusfields.Index LIKE '%phone%' OR cusfields.Index LIKE '%address%' OR cusfields.Index LIKE '%book%') AND cusfields.CusID='"+customerID+"';";
+            string sql = "SELECT cusfields.Index,cusfields.Value,cusindex.Name,cusfields.IDKey AS FID FROM crm2.cusfields INNER JOIN crm2.cusindex ON cusfields.CusID=cusindex.IDKey WHERE cusfields.CusID='" + customerID+"';";
             TaskCallback call = populatePage;
             DatabaseFunctions.SendToPhp(false, sql, call);
         }
@@ -70,7 +73,7 @@ namespace MainCRMV2.Pages.Customers
                     {
                         noteLabel.Text = FormatFunctions.PrettyDate(dictionary["Value"][i]);
                     }
-                    else if (dictionary["Index"][i].Contains("ookin"))
+                    else if (dictionary["Index"][i].Contains("ookin") && dictionary["Value"][i] != "")
                     {
                         bookLabel.Date = DateTime.Parse(FormatFunctions.PrettyDate(dictionary["Value"][i]));
                     }
@@ -79,13 +82,8 @@ namespace MainCRMV2.Pages.Customers
                         DataPair dataPair = new DataPair(int.Parse(dictionary["FID"][i]), dictionary["Value"][i], dictionary["Index"][i]);
                         dataPair.Value.Text = FormatFunctions.PrettyDate(dictionary["Value"][i]);
                         dataPair.Index.Text = FormatFunctions.PrettyDate(dictionary["Index"][i]);
-                        StackLayout stackLayout = new StackLayout
-                        {
-                            Orientation = StackOrientation.Horizontal
-                        };
-                        stackLayout.Children.Add(dataPair.Index);
-                        stackLayout.Children.Add(dataPair.Value);
-                        BodyGrid.Children.Add(stackLayout);
+                        List<View> list = new List<View>() { dataPair.Index, dataPair.Value };
+                        GridFiller.rapidFillPremadeObjects(list, BodyGrid, new bool[] { true, true });
                         entryDict.Add(dataPair);
                         if (dictionary["Index"][i].Contains("dress"))
                         {

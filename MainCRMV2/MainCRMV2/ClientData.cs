@@ -127,7 +127,7 @@ namespace MainCRMV2
                 TaskCallback call = loadSecurityKeys;
                 DatabaseFunctions.SendToPhp(false,sql,call);
                 string sql2 = "SELECT AgentRole FROM agentroles WHERE AgentID='" + AgentIDK + "'";
-                TaskCallback call2 = loadSecurityKeys;
+                TaskCallback call2 = loadRoles;
                 DatabaseFunctions.SendToPhp(false, sql2, call2);
             }
         }
@@ -151,7 +151,7 @@ namespace MainCRMV2
         public void loadRoles(string result)
         {
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
-            SecurityKeys = new List<string>();
+            Roles = new List<string>();
             if (dictionary.Count > 0)
             {
                 Roles = dictionary["AgentRole"];

@@ -240,5 +240,9 @@ namespace MainCRMV2.Pages.Customers
         {
             App.MDP.Detail.Navigation.PushAsync(new CDR_Page(false, customer + ""));
         }
+        public void onClickedFiles(object sender, EventArgs e)
+        {
+            App.MDP.Detail.Navigation.PushAsync(new FileUpload(customer));
+        }
     }
 }

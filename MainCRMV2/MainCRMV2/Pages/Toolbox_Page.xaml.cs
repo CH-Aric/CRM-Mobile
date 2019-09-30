@@ -17,6 +17,7 @@ namespace MainCRMV2.Pages
         {
             base.Title = Title;
             InitializeComponent();
+            DatabaseFunctions.SendToDebug("Creating Toolbox!");
         }
 
         public void onClickAccess(object sender,EventArgs e)
@@ -58,13 +59,11 @@ namespace MainCRMV2.Pages
             {
                 App.MDP.Detail.Navigation.PushAsync(new Punch_Page());
             }
-            else if (b.Text.Equals("Upload File"))
-            {
-                App.MDP.Detail.Navigation.PushAsync(new FileUpload());
-            }
+            DatabaseFunctions.SendToDebug("Access Clicked");
         }
         public void displayDailyTasks()
         {
+            DatabaseFunctions.SendToDebug("Beginning display of daily tasks");
             if (ClientData.hasRole("1"))
             {
                 TaskCallback call = populateList;
@@ -74,9 +73,11 @@ namespace MainCRMV2.Pages
             {
                 tasksList.IsVisible = false;
             }
+            DatabaseFunctions.SendToDebug("Completed display of daily tasks");
         }
         public void populateList(string result)
         {
+            DatabaseFunctions.SendToDebug("Beginning populating daily tasks");
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
             if (dictionary.Count > 1)
             {
@@ -96,6 +97,7 @@ namespace MainCRMV2.Pages
                     GridFiller.rapidFillPremadeObjects(list, tasksList, new bool[] { true, true });
                 }
             }
+            DatabaseFunctions.SendToDebug("Finsihed populating daily tasks");
         }
         public void onClicked(object sender, EventArgs e)
         {

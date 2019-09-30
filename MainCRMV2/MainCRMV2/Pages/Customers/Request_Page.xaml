@@ -7,26 +7,40 @@
              mc:Ignorable="d"
              x:Class="MainCRMV2.Pages.Customers.Request_Page">
     <ContentPage.Content>
-        <TableView HasUnevenRows="true">
-            <TableSection x:Name="TSection">
-                <ViewCell Height="75" x:Name="v1">
-                    <StackLayout x:Name="nameStack" Orientation="Horizontal">
-                        <Entry x:Name="nameLabel" Text="NameHere" HorizontalOptions="StartAndExpand"/>
-                        <MainCRMV2:StyledButton x:Name="StageButton" Text="Advance" HorizontalOptions="EndAndExpand" Clicked="onClickAdvance"/>
-                    </StackLayout>
-                </ViewCell>
-                <ViewCell Height="75" x:Name="v2">
-                    <StackLayout x:Name="phoneStack" Orientation="Horizontal">
-                        <MainCRMV2:AwesomeHyperLinkLabel x:Name="phoneLabel" Text="PhoneHere" HorizontalOptions="StartAndExpand"/>
-                        <Entry x:Name="contactLabel" Text="ContactHere" HorizontalOptions="EndAndExpand"/>
-                    </StackLayout>
-                </ViewCell>
-                <ViewCell Height="300" x:Name="v3">
-                    <StackLayout x:Name="noteStack" Orientation="Vertical">
-                        <Editor x:Name="noteLabel" Text="" HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand"/>
-                    </StackLayout>
-                </ViewCell>
-            </TableSection>
-        </TableView>
+        <ScrollView>
+            <StackLayout>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="250"/>
+                </Grid.RowDefinitions>
+                <!-- Row 1-->
+                <MainCRMV2:StyledButton Grid.Column="0" Text="Upload" Clicked="onClickedFiles"/>
+                <MainCRMV2:StyledButton Grid.Column="1" Text="Save" Clicked="onClicked"/>
+                <MainCRMV2:StyledButton Grid.Column="2" x:Name="StageButton" Text="Advance" Clicked="onClickAdvance"/>
+
+
+                <Entry x:Name="nameLabel" Grid.Column="0" Grid.Row="1" Text="NameHere"/>
+                <MainCRMV2:AwesomeHyperLinkLabel Grid.Column="1" Grid.Row="1" x:Name="phoneLabel" Text="PhoneHere" HorizontalOptions="StartAndExpand"/>
+                <Entry x:Name="contactLabel" Grid.Column="2" Grid.Row="1" Text="ContactHere" HorizontalOptions="EndAndExpand"/>
+
+                <DatePicker x:Name="datePicker" Grid.Column="0" Grid.Row="2"/>
+                <TimePicker x:Name="timePicker" Grid.Column="1" Grid.Row="2"/>
+
+                <Editor x:Name="noteLabel" Text="" HorizontalOptions="FillAndExpand" Grid.Row="3" Grid.ColumnSpan="3" VerticalOptions="FillAndExpand" BackgroundColor="LightGray" Placeholder="Notes:"/>
+            </Grid>
+                <Grid x:Name="bodyGrid">
+
+                </Grid>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

@@ -17,27 +17,42 @@ namespace MainCRMV2
         }
         public static string PrettyPhone(string phone)
         {
-            if (phone.ToCharArray().Length < 10)
+            if (phone.Length < 10)
             {
                 return phone;
             }
             return string.Format("({0}) {1}-{2}", phone.Substring(0, 3), phone.Substring(3, 3), phone.Substring(6));
         }
-        public static string[] CleanDate(string datein)
-        {
-            return datein.Split(' ')[0].Split('-');
-        }
         public static string CleanDateNew(string Date)
         {
-            string s1 = Date.Replace(",", "@");
-            string s2 = s1.Replace(":", "!");
-            return s2;
+            if (Date != null)
+            {
+                string s1 = Date.Replace(",", "^");
+                string s2 = s1.Replace(":", "<");
+                string s3 = s2.Replace(",", ">");
+                return s3;
+            }
+            return "";
+        }
+        public static string purgeSpace(string Date)
+        {
+            if (Date != null)
+            {
+                string s1 = Date.Replace(" ", "^");
+                return s1;
+            }
+            return "";
         }
         public static string PrettyDate(string Date)
         {
-            string s1 = Date.Replace("@", ",");
-            string s2 = s1.Replace("!", ":");
+            string s1 = Date.Replace("^", ",");
+            string s2 = s1.Replace("<", ":");
+            string s3 = s2.Replace(">", ",");
             return s2;
+        }
+        public static string[] CleanDate(string datein)
+        {
+            return datein.Split(' ')[0].Split('-');
         }
         public static string stripper(string intake)
         {
@@ -168,6 +183,20 @@ namespace MainCRMV2
                 }
             }
             return returnList;
+        }
+        public static string getRelevantDates(DateTime d)
+        {
+            string day = d.ToString("yyyy / M / d");
+            string[] x = day.Split(' ');
+            string r = "TimeStamp LIKE '%" + x[0] + "%'";
+            for (int i = 0; i < 6; i++)
+            {
+                d.AddDays(1);
+                day = d.ToString("yyyy / M / d");
+                x = day.Split(' ');
+                r += " OR TimeStamp LIKE '%" + x[0] + "%'";
+            }
+            return r;
         }
     }
 }

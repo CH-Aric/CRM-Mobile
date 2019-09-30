@@ -15,14 +15,25 @@ namespace MainCRMV2.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FileUpload : ContentPage
     {
-        public FileUpload()
-        {
-            InitializeComponent();
-            setupUploader();
-        }
+        string cusFilename = "";
         Queue<string> paths = new Queue<string>();
         string filePath = string.Empty;
         bool isBusy = false;
+        int cusID;
+        public FileUpload(int customerID)
+        {
+            InitializeComponent();
+            cusID = customerID;
+            setupUploader();
+            /*string sql= "SELECT cusindex.Name,cusindex.IDKey,cusfields.Value,cusfields.Index,cusindex.Stage FROM cusindex INNER JOIN cusfields ON cusindex.IDKey=cusfields.CusID WHERE (cusfields.Index LIKE '%ress%') AND cusfields.CusID='"+customerID+"'";
+            TaskCallback call = recordFileName;
+            DatabaseFunctions.SendToPhp(false,sql,call);*/
+        }/*
+        public void recordFileName(string results)
+        {
+            Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(results));
+            cusFilename = FormatFunctions.purgeSpace(dictionary["Value"][0] + " - " +dictionary["Name"][0]);
+        }*/
         public void setupUploader()
         {
             takePhoto.Clicked += async (sender, args) =>
@@ -164,7 +175,8 @@ namespace MainCRMV2.Pages
                 return;
             isBusy = true;
             progress.IsVisible = true;
-            CrossFileUploader.Current.UploadFileAsync("http://coolheatcrm.duckdns.org/CRM-2/accessFile.php", new FilePathItem("TestFile", filePath), new Dictionary<string, string>()
+            string x = "http://coolheatcrm.duckdns.org/accessFile.php/?cus=" + cusID;
+            CrossFileUploader.Current.UploadFileAsync(x, new FilePathItem("TestFile", filePath), new Dictionary<string, string>()
             {
             });
         }

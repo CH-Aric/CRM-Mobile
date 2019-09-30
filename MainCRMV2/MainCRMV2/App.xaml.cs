@@ -11,6 +11,8 @@ namespace MainCRMV2
         public App()
         {
             InitializeComponent();
+            DatabaseFunctions.SendToDebug("Starting nav page");
+            
             base.MainPage = new NavigationPage();
             if (DatabaseFunctions.client.attemptSavedLoginAsync().GetAwaiter().GetResult())
             {
@@ -23,6 +25,9 @@ namespace MainCRMV2
                 return;
             }
             base.MainPage.Navigation.PushAsync(new Login());
+
+            //MainPage = new NavigationPage(new CouponChecker_Page());
+            DatabaseFunctions.SendToDebug("Pushing mainpage to navigation");
         }
         private void Clicked_Task(object sender, EventArgs e)
         {

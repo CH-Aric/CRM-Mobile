@@ -26,7 +26,7 @@ namespace MainCRMV2.Pages.Customers
         public void searchCustomers()
         {
             TaskCallback call2 =populatePage;
-            DatabaseFunctions.SendToPhp(false, "SELECT cusindex.Name,cusfields.IDKey AS FID,cusindex.IDKey,cusfields.value,cusfields.Index FROM cusfields INNER JOIN cusindex ON cusfields.cusID=cusindex.IDKey WHERE cusfields.CusID='" + customer + "';", call2);
+            DatabaseFunctions.SendToPhp(false, "SELECT cusindex.Name,cusfields.IDKey AS FID,cusindex.IDKey,cusfields.Value,cusfields.Index FROM cusfields INNER JOIN cusindex ON cusfields.cusID=cusindex.IDKey WHERE cusfields.CusID='" + customer + "';", call2);
         }
         public void onClickAdvance(object sender,EventArgs e)
         {
@@ -39,70 +39,38 @@ namespace MainCRMV2.Pages.Customers
             entryDict = new List<DataPair>();
             if (dictionary.Count > 0)
             {
+                nameLabel.Text = dictionary["Name"][0];
                 for (int i = 0; i < dictionary["Index"].Count; i++)
                 {
                     if (dictionary["Index"][i].Contains("hone"))
                     {
-                        phoneLabel.Text = dictionary["value"][i];
+                        phoneLabel.Text = dictionary["Value"][i];
                     }
-                    else if (dictionary["Index"][i].Contains("ook"))
+                    else if (dictionary["Index"][i].Contains("ook")&& dictionary["Value"][i]!="")
                     {
-                        nameLabel.Text = "Booked For: " + dictionary["value"][i];
+                        datePicker.Date = DateTime.Parse(FormatFunctions.PrettyDate(dictionary["Value"][i]));
                     }
-                    else if (dictionary["Index"][i].Contains("OTES"))
+                    else if (dictionary["Index"][i].Contains("otes:"))
                     {
-                        address = dictionary["value"][i];
-                        noteLabel.Text += dictionary["value"][i];
+                        address = dictionary["Value"][i];
+                        noteLabel.Text += dictionary["Value"][i];
                     }
                     else
                     {
-                        DataPair dataPair = new DataPair(int.Parse(dictionary["FID"][i]), dictionary["value"][i], dictionary["Index"][i]);
+                        DataPair dataPair = new DataPair(int.Parse(dictionary["FID"][i]), dictionary["Value"][i], dictionary["Index"][i]);
+                        dataPair.Value.Text = dictionary["Value"][i];
                         dataPair.Value.Placeholder = "Value here";
-                        dataPair.Value.FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label));
-                        dataPair.Value.VerticalOptions = LayoutOptions.CenterAndExpand;
-                        dataPair.Value.HorizontalOptions = LayoutOptions.StartAndExpand;
+                        dataPair.Index.Text = dictionary["Index"][i];
                         dataPair.Index.Placeholder = "Index here";
-                        dataPair.Index.FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label));
-                        dataPair.Index.VerticalOptions = LayoutOptions.CenterAndExpand;
-                        dataPair.Index.HorizontalOptions = LayoutOptions.EndAndExpand;
-                        ViewCell viewCell = new ViewCell();
-                        StackLayout stackLayout = new StackLayout
-                        {
-                            Orientation = StackOrientation.Horizontal
-                        };
-                        stackLayout.Children.Add(dataPair.Index);
-                        stackLayout.Children.Add(dataPair.Value);
-                        viewCell.View = stackLayout;
-                        TSection.Add(viewCell);
+                        List<View> list = new List<View>() { dataPair.Index, dataPair.Value};
+                        GridFiller.rapidFillPremadeObjectsStandardHeight(list, bodyGrid, new bool[] { true, true },50);
                         entryDict.Add(dataPair);
                     }
                 }
             }
-            populateFileList();
+            //populateFileList();
         }
-        public void populateFileList()
-        {
-            string[] customerFileList = DatabaseFunctions.getCustomerFileList(nameLabel.Text);
-            foreach (string text in customerFileList)
-            {
-                if ((text != "." || text != "..") && customerFileList.Length > 1)
-                {
-                    SecurityButton dataButton = new SecurityButton(nameLabel.Text + "/" + text,new string[] { "Employee"})
-                    {
-                        Text = text,
-                        FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
-                        VerticalOptions = LayoutOptions.CenterAndExpand,
-                        HorizontalOptions = LayoutOptions.CenterAndExpand
-                    };
-                    dataButton.Clicked += onFileButton;
-                    ViewCell item = new ViewCell();
-                    StackLayout stackLayout = new StackLayout();
-                    stackLayout.Orientation = StackOrientation.Horizontal;
-                    stackLayout.Children.Add(dataButton);
-                    TSection.Add(item);
-                }
-            }
-        }
+        //TODO Add Populate File list here
         public void onClicked(object sender, EventArgs e)
         {
             foreach (DataPair dataPair in this.entryDict)
@@ -135,24 +103,11 @@ namespace MainCRMV2.Pages.Customers
             dataPair.setNew();
             dataPair.Value.Text = "";
             dataPair.Value.Placeholder = "Index here";
-            dataPair.Value.FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label));
-            dataPair.Value.VerticalOptions = LayoutOptions.CenterAndExpand;
-            dataPair.Value.HorizontalOptions = LayoutOptions.StartAndExpand;
             dataPair.Index.Text = "";
             dataPair.Index.Placeholder = "Value here";
-            dataPair.Index.FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label));
-            dataPair.Index.VerticalOptions = LayoutOptions.CenterAndExpand;
-            dataPair.Index.HorizontalOptions = LayoutOptions.EndAndExpand;
-            ViewCell viewCell = new ViewCell();
-            StackLayout stackLayout = new StackLayout
-            {
-                Orientation = StackOrientation.Horizontal
-            };
-            stackLayout.Children.Add(dataPair.Index);
-            stackLayout.Children.Add(dataPair.Value);
-            viewCell.View = stackLayout;
-           TSection.Add(viewCell);
-           entryDict.Add(dataPair);
+            List<View> list = new List<View>() { dataPair.Index, dataPair.Value };
+            GridFiller.rapidFillPremadeObjects(list, bodyGrid, new bool[] { true, true });
+            entryDict.Add(dataPair);
         }
         public void onFileButton(object sender, EventArgs e)
         {
@@ -162,6 +117,10 @@ namespace MainCRMV2.Pages.Customers
         public void onClickCDR(object sender, EventArgs e)
         {
             App.MDP.Detail.Navigation.PushAsync(new CDR_Page(false, customer + ""));
+        }
+        public void onClickedFiles(object sender, EventArgs e)
+        {
+            App.MDP.Detail.Navigation.PushAsync(new FileUpload(customer));
         }
     }
 }
