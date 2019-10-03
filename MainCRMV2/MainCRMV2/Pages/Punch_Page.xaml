@@ -21,13 +21,13 @@
             </Grid.RowDefinitions>
             <BoxView BackgroundColor="White" Grid.Column="1" Margin="1"/>
             <BoxView BackgroundColor="White" Grid.Column="2" Margin="1"/>
-            <crmdesktop:StyledButton Text="Perform Punch" Clicked="onclick"/>
-            <crmdesktop:StyledButton Text="Perform Location Punch" Clicked="onClickStateless" Grid.Column="1"/>
+            <crmdesktop:StyledButton Text="Log Punch" Clicked="onclick"/>
+            <crmdesktop:StyledButton Text="Log Break or Note" Clicked="onClickStateless" Grid.Column="1"/>
             <Label x:Name="ClockState" Text="Current State: Clocked Out" Grid.Column="2" VerticalTextAlignment="Center" TextColor="Black"/>
 
 
             <BoxView BackgroundColor="White" Grid.ColumnSpan="3" Grid.Row="1" Margin="1"/>
-            <Entry x:Name="TextEntry" Grid.ColumnSpan="3" Grid.Row="1" Placeholder="Notes:"/>
+            <Entry x:Name="TextEntry" Grid.ColumnSpan="3" Grid.Row="1" Placeholder="Notes to record with Log:"/>
             <!--<TextBlock Text="Weekly Hours:" Grid.Column="2" VerticalAlignment="Center" Foreground="Black"/>-->
         </Grid>
         <ScrollView x:Name="scroll">

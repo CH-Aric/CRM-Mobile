@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -54,8 +55,10 @@ namespace MainCRMV2.Pages
             {
                 createPunchOnResult = false;
                 var request = new GeolocationRequest(GeolocationAccuracy.Medium);
-                var location = await Geolocation.GetLocationAsync(request);
-                string sql = "INSERT INTO punchclock (AgentID,Timestamp,Coordinates,State) VALUES('" + ClientData.AgentIDK + "','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "','" + location.Latitude + "/" + location.Longitude + "','" + !PunchedIn + "')";
+                Location location = await Geolocation.GetLocationAsync(request);
+                var placemark = await Geocoding.GetPlacemarksAsync(location.Latitude, location.Longitude);
+                var x = placemark?.FirstOrDefault();
+                string sql = "INSERT INTO punchclock (AgentID,Timestamp,Coordinates,State,Note) VALUES('" + ClientData.AgentIDK + "','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "','" + x.SubLocality + "< " + x.SubThoroughfare + x.Thoroughfare +"< "+ x.PostalCode + "','" + !PunchedIn + "','" + TextEntry.Text + "')";
                 DatabaseFunctions.SendToPhp(sql);
             }
             if (statelessPunch)
@@ -63,7 +66,9 @@ namespace MainCRMV2.Pages
                 statelessPunch = false;
                 var request = new GeolocationRequest(GeolocationAccuracy.Medium);
                 var location = await Geolocation.GetLocationAsync(request);
-                string sql = "INSERT INTO punchclock (AgentID,Timestamp,Coordinates,State,Note) VALUES('" + ClientData.AgentIDK + "','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "','"+location.Latitude+"/"+location.Longitude+"','less','" + TextEntry.Text + "')";
+                var placemark = await Geocoding.GetPlacemarksAsync(location.Latitude, location.Longitude);
+                var x = placemark?.FirstOrDefault();
+                string sql = "INSERT INTO punchclock (AgentID,Timestamp,Coordinates,State,Note) VALUES('" + ClientData.AgentIDK + "','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "','" + x.SubLocality + "< " + x.SubThoroughfare + x.Thoroughfare + "< " + x.PostalCode + "','less','" + TextEntry.Text + "')";
                 DatabaseFunctions.SendToPhp(sql);
             }
             getPunches();
