@@ -29,8 +29,8 @@
 
 
                 <Entry x:Name="nameLabel" Grid.Column="0" Grid.Row="1" Text="NameHere"/>
-                <MainCRMV2:AwesomeHyperLinkLabel Grid.Column="1" Grid.Row="1" x:Name="phoneLabel" Text="PhoneHere" HorizontalOptions="StartAndExpand"/>
-                <Entry x:Name="contactLabel" Grid.Column="2" Grid.Row="1" Text="ContactHere" HorizontalOptions="EndAndExpand"/>
+                <MainCRMV2:AwesomeHyperLinkLabel Grid.Column="1" Grid.Row="1" x:Name="phoneLabel" Text="PhoneHere"/>
+                <Entry x:Name="contactLabel" Grid.Column="2" Grid.Row="1" Text="ContactHere"/>
 
                 <DatePicker x:Name="datePicker" Grid.Column="0" Grid.Row="2"/>
                 <TimePicker x:Name="timePicker" Grid.Column="1" Grid.Row="2"/>

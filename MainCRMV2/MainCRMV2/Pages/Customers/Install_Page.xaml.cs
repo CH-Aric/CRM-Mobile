@@ -72,8 +72,7 @@ namespace MainCRMV2.Pages.Customers
                         dataPair.Index.Text = FormatFunctions.PrettyDate(dictionary["Index"][i]); ;
                         dataPair.Index.Placeholder = "Index here";
                         List<View> list = new List<View>() { dataPair.Index, dataPair.Value };
-                        int[] j = new int[] { 2, 4 };
-                        GridFiller.rapidFillSpacedPremadeObjects(list, bottomStack, j, new bool[] { true, true });
+                        GridFiller.rapidFillPremadeObjects(list, bottomStack, new bool[] { true, true });
                         entryDict.Add(dataPair);
                         if (dictionary["Index"][i].Contains("dress"))
                         {
@@ -114,8 +113,7 @@ namespace MainCRMV2.Pages.Customers
                     dataPair.Index.Text = dictionary["AdvValue"][i];
                     dataPair.Index.Placeholder = "Amount";
                     List<View> list = new List<View>() { dataPair.Index, dataPair.Value };
-                    int[] j = new int[] { 2, 4 };
-                    GridFiller.rapidFillSpacedPremadeObjects(list, quoteStack, j, new bool[] { true, true });
+                    GridFiller.rapidFillPremadeObjects(list, quoteStack, new bool[] { true, true });
                     entryDictQ.Add(dataPair);
                 }
             }
@@ -178,8 +176,7 @@ namespace MainCRMV2.Pages.Customers
             dataPair.Index.Placeholder = "Value here";
 
             List<View> list = new List<View>() { dataPair.Index, dataPair.Value };
-            int[] i = new int[] { 2, 4 };
-            GridFiller.rapidFillSpacedPremadeObjects(list, bottomStack, i, new bool[] { true, true });
+            GridFiller.rapidFillPremadeObjects(list, bottomStack, new bool[] { true, true });
             entryDictQ.Add(dataPair);
             entryDict.Add(dataPair);
             Button x = (Button)sender;
@@ -210,8 +207,7 @@ namespace MainCRMV2.Pages.Customers
             dataPair.Value.Text = "";
             dataPair.Value.Placeholder = "Amount";
             List<View> list = new List<View>() { dataPair.Index, dataPair.Value };
-            int[] i = new int[] { 3, 3 };
-            GridFiller.rapidFillSpacedPremadeObjects(list, quoteStack, i, new bool[] { true, true });
+            GridFiller.rapidFillPremadeObjects(list, quoteStack, new bool[] { true, true });
             entryDictQ.Add(dataPair);
         }
         public void onClickAddPrefilledFieldsQ(object sender, EventArgs e)
@@ -223,8 +219,7 @@ namespace MainCRMV2.Pages.Customers
             dataPair.Value.Text = prices[PriceGuidecombo.SelectedIndex];
             dataPair.Value.Placeholder = "Amount";
             List<View> list = new List<View>() { dataPair.Index, dataPair.Value };
-            int[] i = new int[] { 3, 3 };
-            GridFiller.rapidFillSpacedPremadeObjects(list, quoteStack, i, new bool[] { true, true });
+            GridFiller.rapidFillPremadeObjects(list, quoteStack, new bool[] { true, true });
             entryDictQ.Add(dataPair);
         }
         public void fillPriceGuideComboBox()

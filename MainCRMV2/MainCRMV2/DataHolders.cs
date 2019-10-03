@@ -115,6 +115,14 @@ namespace MainCRMV2
         public int Integer;
         public string InitValue;
     }
+    public class FlaggedDataPair : DataPair
+    {
+        public int Flag = 0;
+        public FlaggedDataPair(int i, string I, string V, int j) : base(i, I, V)
+        {
+            Flag = j;
+        }
+    }
     public class DataPair
     {
         public DataPair(int i, string I, string V)

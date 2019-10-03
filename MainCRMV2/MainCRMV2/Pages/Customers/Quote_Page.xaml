@@ -7,46 +7,132 @@
              mc:Ignorable="d"
              x:Class="MainCRMV2.Pages.Customers.Quote_Page">
     <ContentPage.Content>
-        <TableView HasUnevenRows="true">
-            <TableSection x:Name="TSection">
-                <ViewCell Height="50" x:Name="v1">
-                    <StackLayout x:Name="nameStack" Orientation="Horizontal">
-                        <Entry x:Name="nameLabel" Text="NameHere" HorizontalOptions="StartAndExpand"/>
-                        <MainCRMV2:StyledButton x:Name="StageButton" Text="Advance" HorizontalOptions="EndAndExpand" Clicked="onClickAdvance"/>
-                    </StackLayout>
-                </ViewCell>
-                <ViewCell Height="50" x:Name="v2">
-                    <StackLayout x:Name="phoneStack" Orientation="Horizontal">
-                        <MainCRMV2:AwesomeHyperLinkLabel x:Name="phoneLabel" Text="PhoneHere" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
-                        <Entry x:Name="contactLabel" Text="ContactHere" HorizontalOptions="FillAndExpand"/>
-                    </StackLayout>
-                </ViewCell>
-                <ViewCell Height="500" x:Name="v3">
-                    <StackLayout x:Name="quoteStack" Orientation="Vertical">
-                        <StackLayout Orientation="Horizontal">
-                            <MainCRMV2:StyledButton Text="Save Changes" Clicked="onClicked"/>
-                            <MainCRMV2:StyledButton Text="Add Item" Clicked="onClickAddFieldsQ"/>
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="Salesman:" HorizontalOptions="Start"/>
-                            <Picker x:Name="Salesman" HorizontalOptions="FillAndExpand"/>
-                        </StackLayout>
-                    </StackLayout>
-                </ViewCell>
-                <ViewCell>
-                    <StackLayout Orientation="Vertical">
-                        <StackLayout Orientation="Horizontal">
-                            <MainCRMV2:StyledButton Text="Add Row" Clicked="onClickAddFields" x:Name="row"/>
-                            <MainCRMV2:StyledButton Text="Add Signature" Clicked="onClickAddFields" x:Name="sig"/>
-                            <MainCRMV2:StyledButton Text="Add Deposit Field" Clicked="onClickAddFields" x:Name="fie"/>
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <MainCRMV2:StyledButton Text="Add Payment Method" Clicked="onClickAddFields" x:Name="met"/>
-                            <MainCRMV2:StyledButton Text="Save Changes" Clicked="onClicked"/>
-                        </StackLayout>
-                    </StackLayout>
-                </ViewCell>
-            </TableSection>
-        </TableView>
+        <ScrollView>
+            <StackLayout>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <!-- Row 1-->
+                    <MainCRMV2:StyledButton Grid.Column="0" Text="Upload" Clicked="onClickedFiles"/>
+                    <MainCRMV2:StyledButton Text="Save Changes" Clicked="onClicked" Grid.Column="1"/>
+                    <MainCRMV2:StyledButton Text="Advance" Clicked="onClickAdvance" Grid.Column="2"/>
+
+                    <!-- Row 2-->
+                    <Entry x:Name="nameLabel" Text="NameHere" Grid.Column="0" Grid.Row="1"/>
+                    <MainCRMV2:AwesomeHyperLinkLabel x:Name="phoneLabel" Text="PhoneHere" Grid.Column="1" Grid.Row="1"/>
+                    <Entry x:Name="contactLabel" Placeholder="ContactHere" Grid.Column="2" Grid.Row="1"/>
+
+                    <!-- Row 3-->
+                    <Label Text="Salesman:"  Grid.Column="0" Grid.Row="2"/>
+                    <Picker x:Name="SalemanCombo" Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2"/>
+                    <!-- Row 4-->
+
+                    <Picker x:Name="PriceGuide" Grid.Column="0" Grid.Row="3"/>
+                    <MainCRMV2:StyledButton Text="Add Price Guide" Clicked="onClickAddPrefilledFieldsQ" Grid.Row="3" Grid.Column="1"/>
+                    <MainCRMV2:StyledButton Text="Add Item" Clicked="onClickAddFieldsQ" Grid.Row="3" Grid.Column="2"/>
+                </Grid>
+                <!-- Row 5 Tab view for Quotes-->
+                <StackLayout Orientation="Horizontal">
+                    <MainCRMV2:StyledButton x:Name="Quote1" Text="Quote 1" Clicked="onClickedChangeQuoteRender"/>
+                    <MainCRMV2:StyledButton x:Name="Quote2" Text="Quote 2" Clicked="onClickedChangeQuoteRender"/>
+                    <MainCRMV2:StyledButton x:Name="Quote3" Text="Quote 3" Clicked="onClickedChangeQuoteRender"/>
+                    <MainCRMV2:StyledButton x:Name="Quote4" Text="Quote 4" Clicked="onClickedChangeQuoteRender"/>
+                    <MainCRMV2:StyledButton x:Name="Quote5" Text="Quote 5" Clicked="onClickedChangeQuoteRender"/>
+                </StackLayout>
+                <Grid x:Name="QuoteGrid1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Text="Item"/>
+                    <Label Grid.Row="1" Text="Price" Grid.Column="1"/>
+                </Grid>
+                <Grid x:Name="QuoteGrid2" IsVisible="False">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Text="Item"/>
+                    <Label Grid.Row="1" Text="Price" Grid.Column="1"/>
+                </Grid>
+                <Grid x:Name="QuoteGrid3" IsVisible="False">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Text="Item"/>
+                    <Label Grid.Row="1" Text="Price" Grid.Column="1"/>
+                </Grid>
+                <Grid x:Name="QuoteGrid4" IsVisible="False">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Text="Item"/>
+                    <Label Grid.Row="1" Text="Price" Grid.Column="1"/>
+                </Grid>
+                <Grid x:Name="QuoteGrid5" IsVisible="False">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Text="Item"/>
+                    <Label Grid.Row="1" Text="Price" Grid.Column="1"/>
+                </Grid>
+                <!-- Row 6 Tab Standard Printout for index/Value pairs-->
+                <Grid x:Name="BodyGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+
+                    <MainCRMV2:StyledButton Text="Add Row" Clicked="onClickAddFields"/>
+                    <MainCRMV2:StyledButton Text="Save Changes" Clicked="onClicked" Grid.Column="1"/>
+                    <!-- Row 7-->
+                    <Label Grid.Row="1" Text="Index"/>
+                    <Label Grid.Row="1" Text="Value" Grid.Column="1"/>
+                </Grid>
+                <!-- Row 8 File Display-->
+                <Grid x:Name="FileGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Row 9 Header-->
+                    <Label Text="Associated Files"/>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
