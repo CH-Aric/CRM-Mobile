@@ -58,7 +58,7 @@ namespace MainCRMV2.Pages
                 Location location = await Geolocation.GetLocationAsync(request);
                 var placemark = await Geocoding.GetPlacemarksAsync(location.Latitude, location.Longitude);
                 var x = placemark?.FirstOrDefault();
-                string sql = "INSERT INTO punchclock (AgentID,Timestamp,Coordinates,State,Note) VALUES('" + ClientData.AgentIDK + "','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "','" + x.SubLocality + "< " + x.SubThoroughfare + x.Thoroughfare +"< "+ x.PostalCode + "','" + !PunchedIn + "','" + TextEntry.Text + "')";
+                string sql = "INSERT INTO punchclock (AgentID,Timestamp,Coordinates,State,Note) VALUES('" + ClientData.AgentIDK + "','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d HH:mm:ss")) + "','" + x.SubLocality + "< " + x.SubThoroughfare + x.Thoroughfare +"< "+ x.PostalCode + "','" + !PunchedIn + "','" + TextEntry.Text + "')";
                 DatabaseFunctions.SendToPhp(sql);
             }
             if (statelessPunch)
@@ -68,7 +68,7 @@ namespace MainCRMV2.Pages
                 var location = await Geolocation.GetLocationAsync(request);
                 var placemark = await Geocoding.GetPlacemarksAsync(location.Latitude, location.Longitude);
                 var x = placemark?.FirstOrDefault();
-                string sql = "INSERT INTO punchclock (AgentID,Timestamp,Coordinates,State,Note) VALUES('" + ClientData.AgentIDK + "','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "','" + x.SubLocality + "< " + x.SubThoroughfare + x.Thoroughfare + "< " + x.PostalCode + "','less','" + TextEntry.Text + "')";
+                string sql = "INSERT INTO punchclock (AgentID,Timestamp,Coordinates,State,Note) VALUES('" + ClientData.AgentIDK + "','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d HH:mm:ss")) + "','" + x.SubLocality + "< " + x.SubThoroughfare + x.Thoroughfare + "< " + x.PostalCode + "','less','" + TextEntry.Text + "')";
                 DatabaseFunctions.SendToPhp(sql);
             }
             getPunches();

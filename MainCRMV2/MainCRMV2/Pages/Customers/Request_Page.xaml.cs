@@ -42,18 +42,18 @@ namespace MainCRMV2.Pages.Customers
                 nameLabel.Text = dictionary["Name"][0];
                 for (int i = 0; i < dictionary["Index"].Count; i++)
                 {
-                    if (dictionary["Index"][i].Contains("hone"))
-                    {
-                        phoneLabel.Text = dictionary["Value"][i];
-                    }
-                    else if (dictionary["Index"][i].Contains("ook")&& dictionary["Value"][i]!="")
+                    if (dictionary["Index"][i].Contains("ook")&& dictionary["Value"][i]!="")
                     {
                         datePicker.Date = DateTime.Parse(FormatFunctions.PrettyDate(dictionary["Value"][i]));
                     }
-                    else if (dictionary["Index"][i].Contains("otes:"))
+                    else if (dictionary["Index"][i].Contains("otes"))
+                    {
+                        noteLabel.Text += dictionary["Value"][i];
+                    }
+                    else if (dictionary["Index"][i].Contains("dress"))
                     {
                         address = dictionary["Value"][i];
-                        noteLabel.Text += dictionary["Value"][i];
+                        addressLabel.Text = dictionary["Value"][i];
                     }
                     else
                     {
@@ -65,6 +65,10 @@ namespace MainCRMV2.Pages.Customers
                         List<View> list = new List<View>() { dataPair.Index, dataPair.Value};
                         GridFiller.rapidFillPremadeObjectsStandardHeight(list, bodyGrid, new bool[] { true, true },50);
                         entryDict.Add(dataPair);
+                        if (dictionary["Index"][i].Contains("hone"))
+                        {
+                            phoneLabel.Text = dictionary["Value"][i];
+                        }
                     }
                 }
             }
@@ -73,6 +77,7 @@ namespace MainCRMV2.Pages.Customers
         //TODO Add Populate File list here
         public void onClicked(object sender, EventArgs e)
         {
+            List<string> batch = new List<string>();
             foreach (DataPair dataPair in this.entryDict)
             {
                 if (dataPair.isNew)
@@ -94,8 +99,17 @@ namespace MainCRMV2.Pages.Customers
                     DatabaseFunctions.SendToPhp(string.Concat(new object[]{"UPDATE cusfields SET Value = '", dataPair.Value.Text,  "',Index='", dataPair.Index.Text, "' WHERE (IDKey= '", dataPair.Index.GetInt(), "');"}));
                 }
             }
-            string sql = "UPDATE cusfields SET cusfields.value='"+noteLabel.Text+"' WHERE cusfields.Index='Notes:'";
-            DatabaseFunctions.SendToPhp(sql);
+            string sql = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(noteLabel.Text) + "' WHERE cusfields.Index LIKE'%otes%' AND CusID= '" + customer + "'";
+            batch.Add(sql);
+            string sql2 = "UPDATE cusindex SET Name='" + FormatFunctions.CleanDateNew(nameLabel.Text) + "' WHERE IDKey= '" + customer + "'";
+            batch.Add(sql2);
+            string sql3 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(addressLabel.Text) + "' WHERE cusfields.Index LIKE '%dress%' AND CusID= '" + customer + "'";
+            batch.Add(sql3);
+            string sql4 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(phoneLabel.Text) + "' WHERE cusfields.Index LIKE '%hone%' AND CusID= '" + customer + "'";
+            batch.Add(sql4);
+            string sql5 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "' WHERE cusfields.Index LIKE '%odified On%' AND CusID= '" + customer + "'";//'Modified On','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "'
+            batch.Add(sql5);
+            DatabaseFunctions.SendBatchToPHP(batch);
         }
         public void onClickAddFields(object sender, EventArgs e)
         {
