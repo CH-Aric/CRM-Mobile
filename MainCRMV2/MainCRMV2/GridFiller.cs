@@ -183,4 +183,40 @@ namespace MainCRMV2
             }
         }
     }
+    public class FileList : Grid
+    {
+        
+        public FileList(int cusID) : base()
+        {
+            string sql = "SELECT cusfields.Value,cusindex.Name FROM cusfields INNER JOIN cusindex ON cusfields.CusID=cusindex.IDKey WHERE cusindex.IDKey='"+cusID+"' AND cusfields.Index LIKE '%dress%'";
+            TaskCallback call = populateGrid;
+            DatabaseFunctions.SendToPhp(false,sql,call);
+            GridFiller.rapidFill(new string[] { "Associated Files"},this);
+        }
+        public void populateGrid(string result)
+        {
+            Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
+
+            string filepath = dictionary["Value"][0]+" - "+dictionary["Name"][0];
+            string[] customerFileList = DatabaseFunctions.getCustomerFileList(filepath);
+            foreach (string text in customerFileList)
+            {
+                if ((text != "." || text != "..") && customerFileList.Length > 1)
+                {
+                    SecurityButton dataButton = new SecurityButton(text, new string[] { "Sales" })
+                    {
+                        Text = text,
+                        FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label))
+                    };
+                    dataButton.Clicked += onFileButton;
+                    List<View> list = new List<View>() { dataButton };
+                    GridFiller.rapidFillPremadeObjects(list, this, new bool[] { false });
+                }
+            }
+        }
+        public void onFileButton(object sender, EventArgs e)
+        {
+
+        }
+    }
 }

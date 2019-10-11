@@ -8,7 +8,7 @@
              x:Class="MainCRMV2.Pages.Customers.Request_Page">
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout>
+            <StackLayout x:Name="GridHolder">
 
                 <Grid BackgroundColor="Black">
                     <Grid.ColumnDefinitions>

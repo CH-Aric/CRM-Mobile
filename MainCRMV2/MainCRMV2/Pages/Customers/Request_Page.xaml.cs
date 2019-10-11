@@ -72,7 +72,8 @@ namespace MainCRMV2.Pages.Customers
                     }
                 }
             }
-            //populateFileList();
+            FileList fl = new FileList(customer);
+            GridHolder.Children.Add(fl);
         }
         //TODO Add Populate File list here
         public void onClicked(object sender, EventArgs e)

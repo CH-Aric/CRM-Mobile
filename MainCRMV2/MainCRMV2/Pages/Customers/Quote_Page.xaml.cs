@@ -27,7 +27,6 @@ namespace MainCRMV2.Pages.Customers
             stage = stageIn;
             InitializeComponent();
             searchCustomers();
-            populateFileList();
             fillPriceGuideComboBox();
         }
         public void searchCustomers()
@@ -46,13 +45,15 @@ namespace MainCRMV2.Pages.Customers
         {
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
             entryDict = new List<DataPair>();
+            nameLabel.Text = dictionary["Name"][0];
             if (dictionary.Count > 0)
             {
                 for (int i = 0; i < dictionary["Index"].Count; i++)
                 {
-                    if (dictionary["Index"][i].Contains("hone"))
+                    if (dictionary["Index"][i].Contains("dress"))
                     {
-                        phoneLabel.Text = dictionary["Value"][i];
+                        address = dictionary["Value"][i];
+                        contactLabel.Text = dictionary["Value"][i];
                     }
                     else
                     {
@@ -66,27 +67,15 @@ namespace MainCRMV2.Pages.Customers
                         List<View> list = new List<View>() { dataPair.Index,dataPair.Value};
                         GridFiller.rapidFillPremadeObjects(list,BodyGrid,new bool[]{ true,true});
                         entryDict.Add(dataPair);
+                        if (dictionary["Index"][i].Contains("hone"))
+                        {
+                            phoneLabel.Text = dictionary["Value"][i];
+                        }
                     }
                 }
             }
-        }
-        public void populateFileList()
-        {
-            string[] customerFileList = DatabaseFunctions.getCustomerFileList(nameLabel.Text);
-            foreach (string text in customerFileList)
-            {
-                if ((text != "." || text != "..") && customerFileList.Length > 1)
-                {
-                    SecurityButton dataButton = new SecurityButton(nameLabel.Text + "/" + text,new string[] { "Sales"})
-                    {
-                        Text = text,
-                        FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label))
-                    };
-                    dataButton.Clicked += onFileButton;
-                    List<View> list = new List<View>() { dataButton};
-                    GridFiller.rapidFillPremadeObjects(list,FileGrid,new bool[] { false});
-                }
-            }
+            FileList fl = new FileList(customer);
+            GridHolder.Children.Add(fl);
         }
         public void populateQuoteList(string result)
         {

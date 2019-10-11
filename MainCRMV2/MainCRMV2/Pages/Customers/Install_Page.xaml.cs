@@ -81,23 +81,8 @@ namespace MainCRMV2.Pages.Customers
                     }
                 }
             }
-        }
-        public void populateFileList()
-        {
-            string[] customerFileList = DatabaseFunctions.getCustomerFileList(nameLabel.Text);
-            foreach (string text in customerFileList)
-            {
-                if ((text != "." || text != "..") && customerFileList.Length > 1)
-                {
-                    SecurityButton dataButton = new SecurityButton(nameLabel.Text + "/" + text, new string[] { "Sales" })
-                    {
-                        Text = text
-                    };
-                    dataButton.Clicked += onFileButton;
-                    List<View> list = new List<View>() { dataButton };
-                    GridFiller.rapidFillPremadeObjects(list, fileGrid, new bool[] { true, true });
-                }
-            }
+            FileList fl = new FileList(customer);
+            GridHolder.Children.Add(fl);
         }
         public void populateQuoteList(string result)
         {
@@ -180,23 +165,6 @@ namespace MainCRMV2.Pages.Customers
             entryDictQ.Add(dataPair);
             entryDict.Add(dataPair);
             Button x = (Button)sender;
-            if (x != row)
-            {
-                if (x == sig)
-                {
-                    dataPair.Index.Text = "Signature";
-                    dataPair.Value.Text = "True";
-                }
-                if (x == fie)
-                {
-                    dataPair.Index.Text = "Deposit Received";
-                    dataPair.Value.Text = "True";
-                }
-                if (x == met)
-                {
-                    dataPair.Index.Text = "Payment Method";
-                }
-            }
         }
         public void onClickAddFieldsQ(object sender, EventArgs e)
         {

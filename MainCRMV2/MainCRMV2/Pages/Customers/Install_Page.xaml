@@ -7,80 +7,64 @@
              mc:Ignorable="d"
              x:Class="MainCRMV2.Pages.Customers.Install_Page">
     <ScrollView x:Name="scroll">
-        <StackLayout>
+        <StackLayout x:Name="GridHolder">
             <Grid BackgroundColor="Black" x:Name="quoteStack">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="10*"/>
                     <ColumnDefinition Width="10*"/>
                     <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="10*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
                 <!--First row-->
                 <BoxView BackgroundColor="White" Grid.Row="0" Grid.Column="0" Margin="2"/>
                 <BoxView BackgroundColor="White" Grid.Row="0" Grid.Column="1" Margin="2"/>
                 <BoxView BackgroundColor="White" Grid.Row="0" Grid.Column="2" Margin="2"/>
-                <BoxView BackgroundColor="White" Grid.Row="0" Grid.Column="3" Margin="2"/>
-                <BoxView BackgroundColor="White" Grid.Row="0" Grid.Column="4" Margin="2"/>
-                <BoxView BackgroundColor="White" Grid.Row="0" Grid.Column="5" Margin="2"/>
                 <Entry x:Name="nameLabel" Text="NameHere" TextColor="Black" Margin="2"/>
-                <Label Text="Lead Installer:" Grid.Row="0" Grid.Column="1" Margin="2" />
+                <Label Text="Lead Installer:" Grid.Row="0" Grid.Column="1" Margin="2" HorizontalTextAlignment="End" VerticalTextAlignment="Center"/>
                 <Picker x:Name="SalemanCombo" Grid.Row="0" Grid.Column="2"/>
-                <Entry x:Name="contactLabel" Text="ContactHere" Grid.Row="0" Grid.Column="3" Margin="2"/>
-                <Entry x:Name="phoneLabel" Text="PhoneHere" Grid.Row="0" Grid.Column="4"/>
-                <MainCRMV2:StyledButton x:Name="StageButton" Text="Advance" Clicked="onClickAdvance" Grid.Row="0" Grid.Column="5"/>
+                
                 <!--Second row-->
                 <BoxView BackgroundColor="White" Grid.Row="1" Grid.Column="0" Margin="2"/>
                 <BoxView BackgroundColor="White" Grid.Row="1" Grid.Column="1" Margin="2"/>
                 <BoxView BackgroundColor="White" Grid.Row="1" Grid.Column="2" Margin="2"/>
-                <BoxView BackgroundColor="White" Grid.Row="1" Grid.Column="3" Margin="2"/>
-                <BoxView BackgroundColor="White" Grid.Row="1" Grid.Column="4" Margin="2"/>
-                <BoxView BackgroundColor="White" Grid.Row="1" Grid.Column="5" Margin="2"/>
+                <Entry x:Name="contactLabel" Placeholder="Last Contact" Grid.Row="1" Grid.Column="0" Margin="2"/>
+                <Entry x:Name="phoneLabel" Text="PhoneHere" Grid.Row="1" Grid.Column="1"/>
+                <MainCRMV2:StyledButton x:Name="StageButton" Text="Advance" Clicked="onClickAdvance" Grid.Row="1" Grid.Column="2"/>
 
-                <Label Text="Invoice Total:" Grid.Row="1" Grid.Column="0" Margin="2" />
-                <Entry x:Name="QuoteTotal" Grid.Row="1" Grid.Column="1" Margin="2"/>
-                <Picker x:Name="PriceGuidecombo" Grid.Row="1" Grid.Column="2"/>
-                <MainCRMV2:StyledButton Text="Add PriceGuide Item" Clicked="onClickAddPrefilledFieldsQ" Grid.Row="1" Grid.Column="3"/>
-                <MainCRMV2:StyledButton Text="Add Blank Item" Clicked="onClickAddFieldsQ" Grid.Row="1" Grid.Column="4"/>
-
-                <MainCRMV2:StyledButton Text="Save Changes" Clicked="onClicked" Grid.Row="1" Grid.Column="5"/>
+                <!--Third row-->
+                <BoxView BackgroundColor="White" Grid.Row="2" Grid.Column="0" Margin="2"/>
+                <BoxView BackgroundColor="White" Grid.Row="2" Grid.Column="1" Margin="2"/>
+                <BoxView BackgroundColor="White" Grid.Row="2" Grid.Column="2" Margin="2"/>
+                <Label Text="Invoice Total:" Grid.Row="2" Grid.Column="0" Margin="2" HorizontalTextAlignment="End" VerticalTextAlignment="Center"/>
+                <Entry x:Name="QuoteTotal" Grid.Row="2" Grid.Column="1" Margin="2"/>
+                <MainCRMV2:StyledButton Text="Save Changes" Clicked="onClicked" Grid.Row="2" Grid.Column="2"/>
+                <!--Fourth row-->
+                <BoxView BackgroundColor="White" Grid.Row="3" Grid.Column="0" Margin="2"/>
+                <BoxView BackgroundColor="White" Grid.Row="3" Grid.Column="1" Margin="2"/>
+                <BoxView BackgroundColor="White" Grid.Row="3" Grid.Column="2" Margin="2"/>
+                <Picker x:Name="PriceGuidecombo" Grid.Row="3" Grid.Column="0"/>
+                <MainCRMV2:StyledButton Text="Add PriceGuide Item" Clicked="onClickAddPrefilledFieldsQ" Grid.Row="3" Grid.Column="1"/>
+                <MainCRMV2:StyledButton Text="Add Blank Item" Clicked="onClickAddFieldsQ" Grid.Row="3" Grid.Column="2"/>
             </Grid>
             <Grid BackgroundColor="Black" x:Name="bottomStack">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="10*"/>
                     <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="10*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
                 <!--First row-->
                 <BoxView BackgroundColor="White"  Grid.Row="0" Grid.Column="0" Margin="2"/>
                 <BoxView BackgroundColor="White"  Grid.Row="0" Grid.Column="1" Margin="2"/>
-                <BoxView BackgroundColor="White"  Grid.Row="0" Grid.Column="2" Margin="2"/>
-                <BoxView BackgroundColor="White"  Grid.Row="0" Grid.Column="3" Margin="2"/>
-                <BoxView BackgroundColor="White"  Grid.Row="0" Grid.Column="4" Margin="2"/>
-                <BoxView BackgroundColor="White"  Grid.Row="0" Grid.Column="5" Margin="2"/>
 
                 <MainCRMV2:StyledButton Text="Add Field" Clicked="onClickAddFields" x:Name="row"/>
-                <MainCRMV2:StyledButton Text="Add Signature" Clicked="onClickAddFields" x:Name="sig" Grid.Row="0" Grid.Column="1"/>
-                <MainCRMV2:StyledButton Text="Add Deposit Field" Clicked="onClickAddFields" x:Name="fie" Grid.Row="0" Grid.Column="2"/>
-                <MainCRMV2:StyledButton Text="Add Payment Method" Clicked="onClickAddFields" x:Name="met" Grid.Row="0" Grid.Column="3"/>
-                <MainCRMV2:StyledButton Text="View/Modify Files" Clicked="onFileButton" Grid.Row="0" Grid.Column="4"/>
-                <MainCRMV2:StyledButton Text="Save Changes" Clicked="onClicked" Grid.Row="0" Grid.Column="5"/>
-            </Grid>
-            <Grid x:Name="fileGrid" BackgroundColor="Black">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10*"/>
-                </Grid.ColumnDefinitions>
+                <MainCRMV2:StyledButton Text="Save Changes" Clicked="onClicked" Grid.Column="1"/>
             </Grid>
         </StackLayout>
     </ScrollView>

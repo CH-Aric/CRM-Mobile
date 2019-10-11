@@ -7,7 +7,7 @@
              mc:Ignorable="d"
              x:Class="MainCRMV2.Pages.Customers.Booking_Page">
     <ScrollView>
-        <StackLayout>
+        <StackLayout x:Name="GridHolder">
             <Grid x:Name="HeadData" BackgroundColor="Black">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="50*"/>
@@ -35,11 +35,6 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30*"/>
                     <ColumnDefinition Width="50*"/>
-                </Grid.ColumnDefinitions>
-            </Grid>
-            <Grid x:Name="fileGrid" BackgroundColor="Black">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10*"/>
                 </Grid.ColumnDefinitions>
             </Grid>
         </StackLayout>

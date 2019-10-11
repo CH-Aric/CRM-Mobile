@@ -14,18 +14,18 @@ namespace MainCRMV2.Pages.Customers
     public partial class Booking_Page : ContentPage
     {
         Location place;
-        int customerID;
+        int customer;
         private List<DataPair> entryDict;
         public Booking_Page(int cusID)
         {
-            customerID = cusID;
+            customer = cusID;
             InitializeComponent();
             searchCustomerData();
         }
         public void onClickAdvance(object sender, EventArgs e)
         {
             App.MDP.Detail.Navigation.PopToRootAsync();
-            App.MDP.Detail.Navigation.PushAsync(new Advance_Page(customerID));
+            App.MDP.Detail.Navigation.PushAsync(new Advance_Page(customer));
         }
         public async void renderBookingMap(string Address)
         {
@@ -51,7 +51,7 @@ namespace MainCRMV2.Pages.Customers
         }
         public void searchCustomerData()
         {
-            string sql = "SELECT cusfields.Index,cusfields.Value,cusindex.Name,cusfields.IDKey AS FID FROM crm2.cusfields INNER JOIN crm2.cusindex ON cusfields.CusID=cusindex.IDKey WHERE cusfields.CusID='" + customerID+"';";
+            string sql = "SELECT cusfields.Index,cusfields.Value,cusindex.Name,cusfields.IDKey AS FID FROM crm2.cusfields INNER JOIN crm2.cusindex ON cusfields.CusID=cusindex.IDKey WHERE cusfields.CusID='" + customer+"';";
             TaskCallback call = populatePage;
             DatabaseFunctions.SendToPhp(false, sql, call);
         }
@@ -93,7 +93,8 @@ namespace MainCRMV2.Pages.Customers
                 }
             }
             renderBookingMap(address);
-            //populateFileList();
+            FileList fl = new FileList(customer);
+            GridHolder.Children.Add(fl);
         }
         public void onClicked(object sender, EventArgs e)
         {
@@ -102,7 +103,7 @@ namespace MainCRMV2.Pages.Customers
             {
                 if (dataPair.isNew)
                 {
-                    string s = "INSERT INTO cusfields (cusfields.Value,cusfields.Index,CusID) VALUES('" + FormatFunctions.CleanDateNew(dataPair.Value.Text) + "','" + FormatFunctions.CleanDateNew(dataPair.Index.Text) + "','" + this.customerID + "')";
+                    string s = "INSERT INTO cusfields (cusfields.Value,cusfields.Index,CusID) VALUES('" + FormatFunctions.CleanDateNew(dataPair.Value.Text) + "','" + FormatFunctions.CleanDateNew(dataPair.Index.Text) + "','" + this.customer + "')";
                     batch.Add(s);
                     dataPair.isNew = false;
                 }
@@ -112,15 +113,15 @@ namespace MainCRMV2.Pages.Customers
                     batch.Add(s);
                 }
             }
-            string sql = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(noteLabel.Text) + "' WHERE cusfields.Index LIKE'%otes%' AND CusID= '" + customerID + "'";
+            string sql = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(noteLabel.Text) + "' WHERE cusfields.Index LIKE'%otes%' AND CusID= '" + customer + "'";
             batch.Add(sql);
-            string sql2 = "UPDATE cusindex SET Name='" + FormatFunctions.CleanDateNew(nameLabel.Text) + "' WHERE IDKey= '" + customerID + "'";
+            string sql2 = "UPDATE cusindex SET Name='" + FormatFunctions.CleanDateNew(nameLabel.Text) + "' WHERE IDKey= '" + customer + "'";
             batch.Add(sql2);
-            string sql3 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(bookLabel.Date.ToString("yyyy/M/d h:mm:ss")) + "' WHERE cusfields.Index LIKE '%ookin%' AND CusID= '" + customerID + "'";
+            string sql3 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(bookLabel.Date.ToString("yyyy/M/d h:mm:ss")) + "' WHERE cusfields.Index LIKE '%ookin%' AND CusID= '" + customer + "'";
             batch.Add(sql3);
-            string sql4 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(phoneLabel.Text) + "' WHERE cusfields.Index LIKE '%hone%' AND CusID= '" + customerID + "'";
+            string sql4 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(phoneLabel.Text) + "' WHERE cusfields.Index LIKE '%hone%' AND CusID= '" + customer + "'";
             batch.Add(sql4);
-            string sql5 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "' WHERE cusfields.Index LIKE '%odified On%' AND CusID= '" + customerID + "'";//'Modified On','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "'
+            string sql5 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "' WHERE cusfields.Index LIKE '%odified On%' AND CusID= '" + customer + "'";//'Modified On','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "'
             batch.Add(sql5);
             DatabaseFunctions.SendBatchToPHP(batch);
         }
@@ -141,27 +142,10 @@ namespace MainCRMV2.Pages.Customers
             BodyGrid.Children.Add(stackLayout);
             entryDict.Add(dataPair);
         }
-        public void populateFileList()
-        {
-            string[] customerFileList = DatabaseFunctions.getCustomerFileList(nameLabel.Text);
-            foreach (string text in customerFileList)
-            {
-                if ((text != "." || text != "..") && customerFileList.Length > 1)
-                {
-                    SecurityButton dataButton = new SecurityButton(nameLabel.Text + "/" + text, new string[] { "Sales" })
-                    {
-                        Text = text
-                    };
-                    dataButton.Clicked += onFileButton;
-                    List<View> list = new List<View>() { dataButton };
-                    GridFiller.rapidFillPremadeObjects(list, fileGrid, new bool[] { true, true });
-                }
-            }
-        }
         public void onFileButton(object sender, EventArgs e)
         {
             SecurityButton sb = (SecurityButton)sender;
-            App.MDP.Detail.Navigation.PushAsync(new FileDisplay(sb.Text, customerID));
+            App.MDP.Detail.Navigation.PushAsync(new FileDisplay(sb.Text, customer));
         }
     }
 }
