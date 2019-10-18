@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:maincrmv2="clr-namespace:MainCRMV2"
+             mc:Ignorable="d"
+             x:Class="MainCRMV2.Pages.PunchAdmin">
+    <StackLayout Orientation="Vertical">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+            <maincrmv2:StyledButton Text="View Live Data" Clicked="onLive"/>
+            <maincrmv2:StyledButton Text="Approve Punches" Clicked="onApprove"/>
+            <DatePicker x:Name="DayPicker"/>
+            <maincrmv2:StyledButton Text="View Weekly Report" Clicked="onWeekly"/>
+        </Grid>
+    </StackLayout>
+</ContentPage>

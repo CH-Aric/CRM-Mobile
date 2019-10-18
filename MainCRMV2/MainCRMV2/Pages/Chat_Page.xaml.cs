@@ -66,7 +66,7 @@ namespace MainCRMV2.Pages
                     {
                         Text = string.Concat(new string[]
                         {
-                            dictionary["Timestamp"][i],
+                            FormatFunctions.PrettyDate(dictionary["Timestamp"][i]),
                             ":",
                             dictionary["FName"][i],
                             ":",
@@ -101,7 +101,7 @@ namespace MainCRMV2.Pages
         {
             int num = int.Parse(DatabaseFunctions.lookupInDictionary((string)Target.SelectedItem, "Name", "IDKey", this.pickerIndex));
             int num2 = int.Parse(DatabaseFunctions.lookupInDictionary((string)Target.SelectedItem, "Name", "g", this.pickerIndex));
-            string text = DateTime.Now.ToString("yyyy'-'MM'-'dd HH':'mm':'ss");
+            string text = FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d HH:mm:ss"));
             string sql = "INSERT INTO chat (Message,AgentID,TargetID,Global,Timestamp) VALUES ('" + Message.Text + "','" + ClientData.AgentIDK + "','" + num + "','" + num2 + "','" + text + "')";
             DatabaseFunctions.SendToPhp(sql);
             this.getChatMessages();

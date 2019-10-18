@@ -88,8 +88,8 @@ namespace MainCRMV2.Pages
                 string[] list = new string[3];
                 for (int i = 0; i < dictionary["IDKey"].Count; i++)
                 {
-                    list[0] = dictionary["Note"][i];
-                    list[2] = dictionary["State"][i];
+                    list[0] = FormatFunctions.PrettyDate(dictionary["Note"][i]);
+                    list[2] = FormatFunctions.PrettyDate(dictionary["State"][i]);
                     list[1] = FormatFunctions.PrettyDate(dictionary["TimeStamp"][i]);
                     if (list[2] != "less")
                     {

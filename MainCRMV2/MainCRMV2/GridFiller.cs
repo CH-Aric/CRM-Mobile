@@ -196,21 +196,23 @@ namespace MainCRMV2
         public void populateGrid(string result)
         {
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
-
-            string filepath = dictionary["Value"][0]+" - "+dictionary["Name"][0];
-            string[] customerFileList = DatabaseFunctions.getCustomerFileList(filepath);
-            foreach (string text in customerFileList)
+            if (dictionary.Count > 0)
             {
-                if ((text != "." || text != "..") && customerFileList.Length > 1)
+                string filepath = dictionary["Value"][0] + " - " + dictionary["Name"][0];
+                string[] customerFileList = DatabaseFunctions.getCustomerFileList(filepath);
+                foreach (string text in customerFileList)
                 {
-                    SecurityButton dataButton = new SecurityButton(text, new string[] { "Sales" })
+                    if ((text != "." || text != "..") && customerFileList.Length > 1)
                     {
-                        Text = text,
-                        FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label))
-                    };
-                    dataButton.Clicked += onFileButton;
-                    List<View> list = new List<View>() { dataButton };
-                    GridFiller.rapidFillPremadeObjects(list, this, new bool[] { false });
+                        SecurityButton dataButton = new SecurityButton(text, new string[] { "Sales" })
+                        {
+                            Text = text,
+                            FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label))
+                        };
+                        dataButton.Clicked += onFileButton;
+                        List<View> list = new List<View>() { dataButton };
+                        GridFiller.rapidFillPremadeObjects(list, this, new bool[] { false });
+                    }
                 }
             }
         }

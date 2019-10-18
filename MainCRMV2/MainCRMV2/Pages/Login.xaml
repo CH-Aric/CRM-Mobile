@@ -29,7 +29,7 @@
             </ViewCell>
             <ViewCell>
                 <StackLayout Orientation="Horizontal">
-                    <Label x:Name="Message" Text="YAR" HorizontalOptions="CenterAndExpand"/>
+                    <Label x:Name="Message" Text="" HorizontalOptions="CenterAndExpand"/>
                 </StackLayout>
             </ViewCell>
         </TableSection>

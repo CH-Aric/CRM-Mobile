@@ -6,8 +6,8 @@
              xmlns:maincrmv2="clr-namespace:MainCRMV2"
              mc:Ignorable="d"
              x:Class="MainCRMV2.Pages.Toolbox_Page">
-    <RelativeLayout BackgroundColor="LightPink">
-        <Image Source="@mipmap/background" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+    <RelativeLayout>
+        <!--<Image Source="@mipmap/background" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/> -->
         <StackLayout>
             <Grid ColumnSpacing="8" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent" VerticalOptions="Center">
                 <Grid.ColumnDefinitions>
