@@ -28,5 +28,9 @@ namespace MainCRMV2.Pages
         {
 
         }
+        public void onTardy(object sender, EventArgs e)
+        {
+
+        }
     }
 }

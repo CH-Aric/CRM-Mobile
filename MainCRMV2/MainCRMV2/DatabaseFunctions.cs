@@ -35,6 +35,7 @@ namespace MainCRMV2
                 Stream responseStream = ((HttpWebResponse)httpWebRequest.GetResponse()).GetResponseStream();
                 StreamReader streamReader = new StreamReader(responseStream);
                 call(streamReader.ReadToEnd());
+                httpWebRequest.Abort();
                 streamReader.Close();
                 responseStream.Close();
             }
@@ -59,6 +60,7 @@ namespace MainCRMV2
                 httpWebRequest.ContentType = "application/x-www-form-urlencoded";
                 httpWebRequest.ContentLength = (long)bytes.Length;
                 httpWebRequest.GetRequestStream().Write(bytes, 0, bytes.Length);
+                httpWebRequest.Abort();
             }
             catch (WebException ex)
             {
@@ -81,6 +83,7 @@ namespace MainCRMV2
                 httpWebRequest.ContentType = "application/x-www-form-urlencoded";
                 httpWebRequest.ContentLength = (long)bytes.Length;
                 httpWebRequest.GetRequestStream().Write(bytes, 0, bytes.Length);
+                httpWebRequest.Abort();
             }
             catch (WebException ex)
             {
@@ -105,6 +108,7 @@ namespace MainCRMV2
                 httpWebRequest.ContentType = "application/x-www-form-urlencoded";
                 httpWebRequest.ContentLength = (long)bytes.Length;
                 httpWebRequest.GetRequestStream().Write(bytes, 0, bytes.Length);
+                httpWebRequest.Abort();
             }
             catch (WebException ex)
             {
@@ -139,6 +143,7 @@ namespace MainCRMV2
                     Stream responseStream = ((HttpWebResponse)httpWebRequest.GetResponse()).GetResponseStream();
                     StreamReader streamReader = new StreamReader(responseStream);
                     call[j](streamReader.ReadToEnd());
+                    httpWebRequest.Abort();
                     streamReader.Close();
                     responseStream.Close();
                 }
@@ -166,6 +171,7 @@ namespace MainCRMV2
             Stream responseStream = response.GetResponseStream();
             StreamReader streamReader = new StreamReader(responseStream);
             string[] result = FormatFunctions.SplitToPairs(streamReader.ReadToEnd());
+            httpWebRequest.Abort();
             streamReader.Close();
             responseStream.Close();
             response.Close();
@@ -206,6 +212,7 @@ namespace MainCRMV2
             {
                 fileStream.Write(buffer, 0, count);
             }
+            httpWebRequest.Abort();
             return "CHStreamFile" + filename;
         }
         public static async void getFile(string filename)
