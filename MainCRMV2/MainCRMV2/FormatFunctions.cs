@@ -184,19 +184,65 @@ namespace MainCRMV2
             }
             return returnList;
         }
-        public static string getRelevantDates(DateTime d)
+        public static string getRelevantDates(DateTime d, string fieldname)
         {
-            string day = d.ToString("yyyy / M / d");
+            string day = d.ToString("yyyy/M/d");
+            string dayalt = d.ToString("yyyy-M-d");
             string[] x = day.Split(' ');
-            string r = "TimeStamp LIKE '%" + x[0] + "%'";
+            string[] y = dayalt.Split(' ');
+            string r = fieldname + " LIKE '%" + x[0] + "%' OR " + fieldname + " LIKE '%" + y[0] + "%'";
             for (int i = 0; i < 6; i++)
             {
-                d.AddDays(1);
-                day = d.ToString("yyyy / M / d");
+                d = d.AddDays(1);
+                day = d.ToString("yyyy/M/d");
+                dayalt = d.ToString("yyyy-M-d");
                 x = day.Split(' ');
-                r += " OR TimeStamp LIKE '%" + x[0] + "%'";
+                y = dayalt.Split(' ');
+                r += " OR " + fieldname + " LIKE '%" + x[0] + "%' OR " + fieldname + " LIKE '%" + y[0] + "%'";
             }
             return r;
+        }
+        public static string getAgeOfTimestamp(string time)
+        {
+            DateTime d = DateTime.Parse(time);
+            string result = string.Empty;
+            var timeSpan = DateTime.Now.Subtract(d);
+
+            if (timeSpan <= TimeSpan.FromSeconds(60))
+            {
+                result = string.Format("{0} seconds ago", timeSpan.Seconds);
+            }
+            else if (timeSpan <= TimeSpan.FromMinutes(60))
+            {
+                result = timeSpan.Minutes > 1 ?
+                    String.Format("about {0} minutes ago", timeSpan.Minutes) :
+                    "about a minute ago";
+            }
+            else if (timeSpan <= TimeSpan.FromHours(24))
+            {
+                result = timeSpan.Hours > 1 ?
+                    String.Format("about {0} hours ago", timeSpan.Hours) :
+                    "about an hour ago";
+            }
+            else if (timeSpan <= TimeSpan.FromDays(30))
+            {
+                result = timeSpan.Days > 1 ?
+                    String.Format("about {0} days ago", timeSpan.Days) :
+                    "yesterday";
+            }
+            else if (timeSpan <= TimeSpan.FromDays(365))
+            {
+                result = timeSpan.Days > 30 ?
+                    String.Format("about {0} months ago", timeSpan.Days / 30) :
+                    "about a month ago";
+            }
+            else
+            {
+                result = timeSpan.Days > 365 ?
+                    String.Format("about {0} years ago", timeSpan.Days / 365) :
+                    "about a year ago";
+            }
+            return result;
         }
     }
 }

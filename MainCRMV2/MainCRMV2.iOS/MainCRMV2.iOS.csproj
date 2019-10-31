@@ -126,7 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Independentsoft.Sip">
-      <Version>1.0.530</Version>
+      <Version>1.0.540</Version>
     </PackageReference>
     <PackageReference Include="itext7">
       <Version>7.1.7</Version>

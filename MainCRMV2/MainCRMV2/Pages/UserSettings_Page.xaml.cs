@@ -64,6 +64,11 @@ namespace MainCRMV2.Pages
             {
                 Dictionary<Permission, PermissionStatus> Sensx = await CrossPermissions.Current.RequestPermissionsAsync(new Permission[] { Permission.Phone });
             }
+            var Micstatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Microphone);
+            if (Micstatus != PermissionStatus.Granted)
+            {
+                Dictionary<Permission, PermissionStatus> Micx = await CrossPermissions.Current.RequestPermissionsAsync(new Permission[] { Permission.Microphone });
+            }
         }
     }
 }

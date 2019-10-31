@@ -16,6 +16,10 @@ namespace MainCRMV2.Pages
         {
             InitializeComponent();
         }
+        public void onClickedChangeRender(object sender, EventArgs e)
+        {
+
+        }
         public void onLive(object sender, EventArgs e)
         {
 
@@ -29,6 +33,10 @@ namespace MainCRMV2.Pages
 
         }
         public void onTardy(object sender, EventArgs e)
+        {
+
+        }
+        public void onClickView(object sender, EventArgs e)
         {
 
         }

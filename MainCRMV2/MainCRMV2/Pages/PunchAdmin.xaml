@@ -7,20 +7,79 @@
              mc:Ignorable="d"
              x:Class="MainCRMV2.Pages.PunchAdmin">
     <StackLayout Orientation="Vertical">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
-            </Grid.RowDefinitions>
-            <maincrmv2:StyledButton Text="View Live Data" Clicked="onLive"/>
-            <maincrmv2:StyledButton Text="Approve Punches" Clicked="onApprove"/>
-            <DatePicker x:Name="DayPicker"/>
-            <maincrmv2:StyledButton Text="View Weekly Report" Clicked="onWeekly"/>
-        </Grid>
+        <StackLayout Orientation="Horizontal" BackgroundColor="Black">
+            <maincrmv2:StyledButton x:Name="Hours" Text="Hours" Clicked="onClickedChangeRender"/>
+            <maincrmv2:StyledButton x:Name="Live" Text="Live" Clicked="onClickedChangeRender"/>
+            <maincrmv2:StyledButton x:Name="Approve" Text="Approve" Clicked="onClickedChangeRender"/>
+            <maincrmv2:StyledButton x:Name="Tardy" Text="Tardy" Clicked="onClickedChangeRender"/>
+        </StackLayout>
+        <ScrollView><!-- Command Grid Begins here-->
+            <StackLayout Orientation="Vertical">
+                <Grid x:Name="CommandGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!-- Row 1-->
+                    <BoxView BackgroundColor="White"/>
+                    <Label Text="Agent:" HorizontalTextAlignment="End"/>
+                    <Picker Grid.Column="1"/>
+                    <maincrmv2:StyledButton Text="View" Grid.Column="2" Clicked="onClickView"/>
+                    
+                    <!-- Row 2-->
+                    <BoxView BackgroundColor="White"/>
+                    <Label Text="Date:" Grid.Row="1"/>
+                    <DatePicker Grid.Row="1" Grid.Column="1" x:Name="dayPicker"/>
+
+                </Grid>
+                <!-- Command Grid Ends here-->
+                <StackLayout x:Name="HourCalcHolder" IsVisible="True"><!-- Hour Calculator Begins here-->
+                    <Grid>
+                        
+                    </Grid>
+                </StackLayout><!-- Hour Calculator Ends here-->
+                <StackLayout><!-- Live Feed Begins here-->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+
+                        </Grid.RowDefinitions>
+                    </Grid>
+                </StackLayout><!-- Live Feed Ends here-->
+                <StackLayout><!-- Punch Approval Begins here-->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="10*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                        </Grid.RowDefinitions>
+                        <BoxView BackgroundColor="White"/>
+                        <Label Text="Note:"/>
+                        <Entry Text="" Grid.Column="1" x:Name="AdminNote"/>
+                    </Grid>
+                </StackLayout><!-- Punch Approval Ends here-->
+                <StackLayout><!-- Tardiness Display Begins here-->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+
+                        </Grid.RowDefinitions>
+                    </Grid>
+                </StackLayout><!-- Tardiness Display Ends here-->
+            </StackLayout>
+            
+        </ScrollView>
     </StackLayout>
 </ContentPage>

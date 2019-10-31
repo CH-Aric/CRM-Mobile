@@ -80,8 +80,6 @@ namespace MainCRMV2.Pages
             RequestResponse inviteRequestResponse = client.Invite("sip:800@coolheatcrm.duckdns.org", "sip:"+ PhoneNumber.Text+ "@coolheatcrm.duckdns.org", "sip:800@" + client.LocalIPEndPoint.ToString(), session);
             client.Ack(inviteRequestResponse);
 
-            Console.WriteLine("Press ENTER to exit.");
-            Console.Read();
             client.Disconnect();
         }
 
