@@ -205,7 +205,15 @@ namespace MainCRMV2
     {
         public MainLink(string name)
         {
-            base.Text = name;
+            base.Text = name; if (base.Text == "ToolBox")
+            {
+                base.Command = new Command(delegate (object o)
+                {
+                    App.MDP.Detail = new NavigationPage(new Toolbox_Page("Welcome to the CoolHeat CRM!"));
+                    App.MDP.IsPresented = false;
+                });
+                return;
+            }
             if (base.Text == "Tasks")
             {
                 base.Command = new Command(delegate (object o)

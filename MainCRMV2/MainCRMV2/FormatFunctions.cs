@@ -190,7 +190,7 @@ namespace MainCRMV2
             string dayalt = d.ToString("yyyy-M-d");
             string[] x = day.Split(' ');
             string[] y = dayalt.Split(' ');
-            string r = fieldname + " LIKE '%" + x[0] + "%' OR " + fieldname + " LIKE '%" + y[0] + "%'";
+            string r = fieldname + " LIKE '%" + x[0].Replace('-','/') + "%' OR " + fieldname + " LIKE '%" + y[0] + "%'";
             for (int i = 0; i < 6; i++)
             {
                 d = d.AddDays(1);
@@ -198,7 +198,7 @@ namespace MainCRMV2
                 dayalt = d.ToString("yyyy-M-d");
                 x = day.Split(' ');
                 y = dayalt.Split(' ');
-                r += " OR " + fieldname + " LIKE '%" + x[0] + "%' OR " + fieldname + " LIKE '%" + y[0] + "%'";
+                r += " OR " + fieldname + " LIKE '%" + x[0].Replace('-', '/') + "%' OR " + fieldname + " LIKE '%" + y[0] + "%'";
             }
             return r;
         }

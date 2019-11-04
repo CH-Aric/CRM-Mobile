@@ -14,8 +14,8 @@
             <maincrmv2:StyledButton x:Name="Tardy" Text="Tardy" Clicked="onClickedChangeRender"/>
         </StackLayout>
         <ScrollView><!-- Command Grid Begins here-->
-            <StackLayout Orientation="Vertical">
-                <Grid x:Name="CommandGrid">
+            <StackLayout Orientation="Vertical" BackgroundColor="Black">
+                <Grid x:Name="CommandGrid" BackgroundColor="Black">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="10*"/>
                         <ColumnDefinition Width="10*"/>
@@ -25,37 +25,84 @@
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
-                    
-                    <!-- Row 1-->
-                    <BoxView BackgroundColor="White"/>
-                    <Label Text="Agent:" HorizontalTextAlignment="End"/>
-                    <Picker Grid.Column="1"/>
-                    <maincrmv2:StyledButton Text="View" Grid.Column="2" Clicked="onClickView"/>
-                    
-                    <!-- Row 2-->
-                    <BoxView BackgroundColor="White"/>
-                    <Label Text="Date:" Grid.Row="1"/>
-                    <DatePicker Grid.Row="1" Grid.Column="1" x:Name="dayPicker"/>
 
+                    <!-- Row 1-->
+                    <BoxView BackgroundColor="White" Margin="1"/>
+                    <BoxView BackgroundColor="White" Margin="1" Grid.Column="1"/>
+                    <Label Text="Agent:" HorizontalTextAlignment="End"/>
+                    <Picker Grid.Column="1" x:Name="Agent"/>
+                    <maincrmv2:StyledButton Text="View" Grid.Column="2" Clicked="onClickView"/>
+
+                    <!-- Row 2-->
+                    <BoxView BackgroundColor="White" Grid.Row="1" Margin="1"/>
+                    <BoxView BackgroundColor="White" Grid.Row="1" Grid.Column="1" Margin="1"/>
+                    <Label Text="Date:" Grid.Row="1"/>
+                    <DatePicker Grid.Row="1" Grid.Column="1" x:Name="DayPicker"/>
                 </Grid>
                 <!-- Command Grid Ends here-->
-                <StackLayout x:Name="HourCalcHolder" IsVisible="True"><!-- Hour Calculator Begins here-->
-                    <Grid>
-                        
-                    </Grid>
-                </StackLayout><!-- Hour Calculator Ends here-->
-                <StackLayout><!-- Live Feed Begins here-->
-                    <Grid>
+                <StackLayout x:Name="HourStack" IsVisible="True" Orientation="Vertical" BackgroundColor="Black">
+                    <!-- Hour Calculator Begins here-->
+                    <Grid BackgroundColor="Black">
                         <Grid.ColumnDefinitions>
-
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="10*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
                         </Grid.RowDefinitions>
+                        <!-- Check Row-->
+                        <BoxView BackgroundColor="White" Margin="1"/>
+                        <BoxView BackgroundColor="White" Grid.Column="1" Margin="1"/>
+
+                        <Label Text="Location" Grid.Column="0"/>
+                        <Label Text="App Only" Grid.Column="1"/>
+                        <CheckBox x:Name="LocCheck" HorizontalOptions="End" Grid.Column="0" Margin="1"/>
+                        <CheckBox x:Name="AppCheck" HorizontalOptions="End" Grid.Column="1" Margin="1"/>
+                        <!-- Summary Row-->
+                        <BoxView BackgroundColor="White" Grid.Row="1" Grid.ColumnSpan="2" Margin="1"/>
+                        <Label x:Name="HourDisplay" Text="Total Hours:" Grid.Row="1" Grid.ColumnSpan="2"/>
                     </Grid>
-                </StackLayout><!-- Live Feed Ends here-->
-                <StackLayout><!-- Punch Approval Begins here-->
-                    <Grid>
+                    <ScrollView BackgroundColor="Black">
+                        <Grid x:Name="HourCalcBody" BackgroundColor="Black">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+                            <BoxView BackgroundColor="White" Margin="1"/>
+                            <BoxView BackgroundColor="White" Grid.Column="1" Margin="1"/>
+                            <Label Text="Time"/>
+                            <Label Text="State" Grid.Column="1"/>
+                        </Grid>
+                    </ScrollView>
+                </StackLayout>
+                <!-- Hour Calculator Ends here-->
+                <StackLayout x:Name="LiveStack" IsVisible="False" Orientation="Vertical" BackgroundColor="Black">
+                    <!-- Live Feed Begins here-->
+                    <Grid x:Name="LiveBody" BackgroundColor="Black">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="8*"/>
+                            <ColumnDefinition Width="10*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                        </Grid.RowDefinitions>
+                        <BoxView BackgroundColor="White" Margin="1"/>
+                        <BoxView BackgroundColor="White" Grid.Column="1" Margin="1"/>
+                        <BoxView BackgroundColor="White" Grid.Column="2" Margin="1"/>
+                        <Label Text="Name"/>
+                        <Label Text="Time" Grid.Column="1"/>
+                        <Label Text="Location" Grid.Column="2"/>
+                    </Grid>
+                </StackLayout>
+                <!-- Live Feed Ends here-->
+                <StackLayout x:Name="ApproveStack" IsVisible="False" Orientation="Vertical" BackgroundColor="Black">
+                    <!-- Punch Approval Begins here-->
+                    <Grid BackgroundColor="Black">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="10*"/>
@@ -63,23 +110,37 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="50"/>
                         </Grid.RowDefinitions>
-                        <BoxView BackgroundColor="White"/>
+                        <BoxView BackgroundColor="White" Margin="1"/>
+                        <BoxView BackgroundColor="White" Grid.Column="1" Margin="1"/>
                         <Label Text="Note:"/>
                         <Entry Text="" Grid.Column="1" x:Name="AdminNote"/>
                     </Grid>
-                </StackLayout><!-- Punch Approval Ends here-->
-                <StackLayout><!-- Tardiness Display Begins here-->
-                    <Grid>
+                    <Grid x:Name="ApproveBody" BackgroundColor="Black">
+                        
+                    </Grid>
+                </StackLayout>
+                <!-- Punch Approval Ends here-->
+                <StackLayout x:Name="TardStack" IsVisible="False" Orientation="Vertical" BackgroundColor="Black">
+                    <!-- Tardiness Display Begins here-->
+                    <Grid BackgroundColor="Black" x:Name="TardiGrid">
                         <Grid.ColumnDefinitions>
-
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="10*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-
+                            <RowDefinition Height="50"/>
                         </Grid.RowDefinitions>
+                        <BoxView BackgroundColor="White" Margin="1"/>
+                        <BoxView BackgroundColor="White" Grid.Column="1" Margin="1"/>
+                        <BoxView BackgroundColor="White" Grid.Column="2" Margin="1"/>
+                        <Label Text="State:"/>
+                        <Label Text="Date:" Grid.Column="1"/>
+                        <Label Text="Note:" Grid.Column="2"/>
                     </Grid>
-                </StackLayout><!-- Tardiness Display Ends here-->
+                </StackLayout>
+                <!-- Tardiness Display Ends here-->
             </StackLayout>
-            
         </ScrollView>
     </StackLayout>
 </ContentPage>

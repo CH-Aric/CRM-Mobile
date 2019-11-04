@@ -17,7 +17,6 @@ namespace MainCRMV2.Pages
         {
             InitializeComponent();
             getCurrentPunchState();
-            getPunches();
         }
         public void onclick(object sender, EventArgs e)
         {

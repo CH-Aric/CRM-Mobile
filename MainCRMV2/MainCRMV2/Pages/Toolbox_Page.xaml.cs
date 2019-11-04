@@ -49,11 +49,18 @@ namespace MainCRMV2.Pages
             }
             else if (b.Text.Equals("Perform an Audit"))
             {
-                App.MDP.Detail.Navigation.PushAsync(new Toolbox_Page("Not Implemented! Pick again!"));
+                App.MDP.Detail.Navigation.PushAsync(new Toolbox_Page("Soon, I shall be a thing!"));
             }
-            else if (b.Text.Equals("Place a Call"))
+            else if (b.Text.Equals("Punch Admin"))
             {
-                App.MDP.Detail.Navigation.PushAsync(new Call_Page());
+                if (ClientData.hasSecurityKey("Admin"))
+                {
+                    App.MDP.Detail.Navigation.PushAsync(new PunchAdmin());
+                }
+                else
+                {
+                    App.MDP.Detail.Navigation.PushAsync(new Toolbox_Page("Access Denied, Admin Access required! For Now..."));
+                }
             }
             else if (b.Text.Equals("Punch Clock"))
             {
