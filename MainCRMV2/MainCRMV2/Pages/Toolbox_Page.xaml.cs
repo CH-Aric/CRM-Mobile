@@ -18,6 +18,7 @@ namespace MainCRMV2.Pages
             base.Title = Title;
             InitializeComponent();
             //DatabaseFunctions.SendToDebug("Creating Toolbox!");
+            displayDailyTasks();
         }
 
         public void onClickAccess(object sender,EventArgs e)
