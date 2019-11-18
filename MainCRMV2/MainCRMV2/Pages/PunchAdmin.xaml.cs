@@ -39,9 +39,7 @@ namespace MainCRMV2.Pages
                     TardySearch();
                     break;
             }
-
         }
-
         public void DeactivateAll()
         {
             HourStack.IsVisible = false;

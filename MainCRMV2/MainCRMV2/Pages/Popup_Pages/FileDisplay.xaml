@@ -20,14 +20,8 @@
                 <Label x:Name="cusIDDisplay" Text="Cusname" Grid.Column="1"/>
                 <Label x:Name="modDate" Text="Last Modified" Grid.Column="2"/>
             </Grid>
-            <Grid x:Name="BodyGrid">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
-                </Grid.RowDefinitions>
-            </Grid>
+            <Image x:Name="image" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Red"/>
+            <Image Source="https://dotnet.microsoft.com/static/images/illustrations/swimlane_cross_platform_development.svg?v=3c13mnQyks7qNGb0s5tH3KtWOtAYoFqn_tguPhRNz5M"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="MintCream"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

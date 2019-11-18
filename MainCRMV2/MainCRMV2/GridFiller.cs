@@ -1,7 +1,9 @@
-﻿using System;
+﻿using MainCRMV2.Pages.Popup_Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MainCRMV2
@@ -185,9 +187,10 @@ namespace MainCRMV2
     }
     public class FileList : Grid
     {
-        
+        int customer;
         public FileList(int cusID) : base()
         {
+            customer = cusID;
             string sql = "SELECT cusfields.Value,cusindex.Name FROM cusfields INNER JOIN cusindex ON cusfields.CusID=cusindex.IDKey WHERE cusindex.IDKey='"+cusID+"' AND cusfields.Index LIKE '%dress%'";
             TaskCallback call = populateGrid;
             DatabaseFunctions.SendToPhp(false,sql,call);
@@ -200,6 +203,7 @@ namespace MainCRMV2
             {
                 string filepath = dictionary["Value"][0] + " - " + dictionary["Name"][0];
                 string[] customerFileList = DatabaseFunctions.getCustomerFileList(filepath);
+                filepath.Replace(" ", "%20");
                 foreach (string text in customerFileList)
                 {
                     if ((text != "." || text != "..") && customerFileList.Length > 1)
@@ -207,6 +211,7 @@ namespace MainCRMV2
                         SecurityButton dataButton = new SecurityButton(text, new string[] { "Sales" })
                         {
                             Text = text,
+                            String2=filepath,
                             FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label))
                         };
                         dataButton.Clicked += onFileButton;
@@ -218,7 +223,14 @@ namespace MainCRMV2
         }
         public void onFileButton(object sender, EventArgs e)
         {
+            SecurityButton sb = (SecurityButton)sender;
+            string escapedFileName = Uri.EscapeUriString(sb.String2 + "/" + sb.Text);
+            sendToBrowser("http://coolheatcrm.duckdns.org/sym/" + escapedFileName);
+        }
+        public async void sendToBrowser(string f)
+        {
 
+            await Browser.OpenAsync(f, BrowserLaunchMode.SystemPreferred);
         }
     }
 }

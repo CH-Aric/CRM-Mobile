@@ -217,7 +217,7 @@ namespace MainCRMV2
         }
         public static async void getFile(string filename)
         {
-            /*string df_text = @"\Root\Files\Customer Files\CoolHeat Comfort Customer List\Residential Customers\" + filename;
+            string df_text = @"\Root\Files\Customer Files\CoolHeat Comfort Customer List\Residential Customers\" + filename;
             string s = JsonClass.JSONSerialize<DatabaseFunctions.data>(new DatabaseFunctions.data
             {
                 df_text1 = df_text
@@ -238,9 +238,7 @@ namespace MainCRMV2
             {
                 fileStream.Write(buffer, 0, count);
             }
-            call("CHStreamFile" + filename);*/
             await Browser.OpenAsync(filename, BrowserLaunchMode.SystemPreferred);
-
         }
         public static string lookupInDictionary(string Index, string ToFinditIn, string ToReturn, Dictionary<string, List<string>> DictionaryToUse)
         {

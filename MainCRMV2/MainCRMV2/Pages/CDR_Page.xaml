@@ -7,18 +7,26 @@
         <Grid BackgroundColor="Black">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition Width="8*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <BoxView BackgroundColor="White" Margin="1" Grid.Column="0" Grid.Row="0"/>
             <BoxView BackgroundColor="White" Margin="1" Grid.Column="1" Grid.Row="0"/>
             <BoxView BackgroundColor="White" Margin="1" Grid.Column="2" Grid.Row="0"/>
-            <Entry x:Name="SearchEntry" HorizontalOptions="FillAndExpand" Grid.Column="0"/>
+            <Entry x:Name="SearchEntry" HorizontalOptions="FillAndExpand" Grid.Column="0" Placeholder="Search Term"/>
             <maincrmv2:StyledButton x:Name="SearchButton" Text="Search" Clicked="onClickedSearch" Grid.Column="1"/>
             <maincrmv2:StyledButton Text="D-Search" Clicked="onClickedExplicitySearch" Grid.Column="2"/>
+
+            <BoxView BackgroundColor="White" Margin="1" Grid.Column="0" Grid.Row="1"/>
+            <BoxView BackgroundColor="White" Margin="1" Grid.Column="1" Grid.Row="1"/>
+            <DatePicker x:Name="DayPicker" Grid.Row="1"/>
+            <Label Text="Date?" Grid.Row="1" Grid.Column="1" VerticalTextAlignment="Center"/>
+            <CheckBox x:Name="DateMode" Grid.Row="1" Grid.Column="1" HorizontalOptions="End"/>
+            <maincrmv2:StyledButton Grid.Row="1" Grid.Column="2" Text="Recent"/>
         </Grid>
         <ScrollView>
             <Grid x:Name="TSection" BackgroundColor="Black" ColumnSpacing="1" RowSpacing="1">
@@ -28,5 +36,4 @@
             </Grid>
         </ScrollView>
     </StackLayout>
-
 </ContentPage>

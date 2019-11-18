@@ -46,6 +46,8 @@
     <BundleAssemblies>false</BundleAssemblies>
     <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <AndroidHttpClientHandlerType>System.Net.Http.HttpClientHandler</AndroidHttpClientHandlerType>
+    <AndroidTlsProvider>btls</AndroidTlsProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
