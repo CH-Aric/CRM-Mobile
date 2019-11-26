@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:maincrmv2="clr-namespace:MainCRMV2"
+             mc:Ignorable="d"
+             x:Class="MainCRMV2.Pages.Customers.Tombstone_Page" Title="Customer Information">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid x:Name="ControlGrid" BackgroundColor="Black">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <BoxView BackgroundColor="White" Margin="2"/>
+                <Entry x:Name="JobName" Placeholder="New Job Name" VerticalOptions="Center"/>
+                <maincrmv2:StyledButton Text="Add Job" Clicked="onClickAddJob" Grid.Column="1"/>
+                <maincrmv2:StyledButton Text="Save Changes" Clicked="onClickSave" Grid.Column="2"/>
+            </Grid>
+            <Grid BackgroundColor="Black">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+
+                <BoxView BackgroundColor="White" Margin="2"/>
+                <BoxView BackgroundColor="White" Margin="2" Grid.Column="1"/>
+                <BoxView BackgroundColor="White" Grid.Row="1" Margin="1"/>
+                <BoxView BackgroundColor="White" Grid.Row="1" Margin="1" Grid.Column="1"/>
+                <BoxView BackgroundColor="White" Grid.Row="2" Margin="1"/>
+                <BoxView BackgroundColor="White" Grid.Row="2" Margin="1" Grid.Column="1"/>
+                <BoxView BackgroundColor="White" Grid.Row="3" Margin="1"/>
+                <BoxView BackgroundColor="White" Grid.Row="3" Margin="1" Grid.Column="1"/>
+                <BoxView BackgroundColor="White" Grid.Row="4" Margin="1"/>
+                <BoxView BackgroundColor="White" Grid.Row="4" Margin="1" Grid.Column="1"/>
+                <BoxView BackgroundColor="White" Grid.Row="5" Margin="1"/>
+                <BoxView BackgroundColor="White" Grid.Row="5" Margin="1" Grid.Column="1"/>
+                <BoxView BackgroundColor="White" Grid.Row="6" Margin="1" Grid.ColumnSpan="1"/>
+                <Entry Placeholder="Customer Name" x:Name="Name"/>
+                <Entry Placeholder="Address" Grid.Column="1" x:Name="Address"/>
+                <Entry Placeholder="Region" Grid.Row="1" x:Name="Region"/>
+                <Entry Placeholder="Email" Grid.Row="1" Grid.Column="1" x:Name="Email"/>
+                <maincrmv2:AgentPicker Title="Last Contact" Grid.Row="2" x:Name="AgentPicker"/>
+                <Entry Placeholder="Phone Number" x:Name="Phone" Grid.Row="3"/>
+                
+                <Label Text="Last Contact:" Grid.Row="4"/>
+                <DatePicker Grid.Row="4" Grid.Column="1" x:Name="LastContact"/>
+                <Label Text="First Contact:" x:Name="FirstContact" Grid.Row="5" />
+                <Entry Text="Source" Grid.Row="5" Grid.Column="1" x:Name="Source"/>
+                <Editor Grid.Row="6" x:Name="Note"/>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

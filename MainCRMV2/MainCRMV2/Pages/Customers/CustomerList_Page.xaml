@@ -6,9 +6,8 @@
     <StackLayout>
         <Grid>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70*"/>
                 <ColumnDefinition Width="30*"/>
-                <ColumnDefinition Width="10*"/>
-                <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
@@ -16,22 +15,7 @@
             </Grid.RowDefinitions>
             <Entry x:Name="SearchEntry" HorizontalOptions="FillAndExpand" Grid.Column="0" Grid.Row="0"/>
             <maincrmv2:StyledButton Clicked="onClickedSearch" Text="Search" Grid.Column="1" Grid.Row="0"/>
-            <Picker Title="Category" x:Name="picker"  Grid.Column="2" Grid.Row="0">
-                <Picker.Items>
-                    <x:String>All</x:String>
-                    <x:String>Leads</x:String>
-                    <x:String>Booked</x:String>
-                    <x:String>Quoted</x:String>
-                    <x:String>Follow Up With</x:String>
-                    <x:String>Sold</x:String>
-                    <x:String>Installs</x:String>
-                    <x:String>Installing</x:String>
-                    <x:String>QA</x:String>
-                    <x:String>Clients</x:String>
-                    <x:String>Archived</x:String>
-                </Picker.Items>
-            </Picker>
-            <Picker Title="Starting Stage" x:Name="NewPicker" HorizontalOptions="FillAndExpand"  Grid.Column="0" Grid.Row="1">
+            <Picker Title="Stage" x:Name="NewPicker" HorizontalOptions="FillAndExpand"  Grid.Column="0" Grid.Row="1">
                 <Picker.Items>
                     <x:String>Leads</x:String>
                     <x:String>Booked</x:String>
@@ -43,9 +27,14 @@
                     <x:String>QA</x:String>
                     <x:String>Clients</x:String>
                     <x:String>Archived</x:String>
+                    <x:String>Service Lead</x:String>
+                    <x:String>Service Appointment</x:String>
+                    <x:String>Serviced</x:String>
+                    <x:String>Maintenance Appointment</x:String>
+                    <x:String>Maintenance</x:String>
                 </Picker.Items>
             </Picker>
-            <maincrmv2:StyledButton Clicked="onClickedCreate" Text="Create New File" HorizontalOptions="FillAndExpand"  Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"/>
+            <maincrmv2:StyledButton Clicked="onClickedCreate" Text="New Customer" HorizontalOptions="FillAndExpand"  Grid.Column="1" Grid.Row="1"/>
         </Grid>
         <ScrollView x:Name="scroll">
             <Grid x:Name="dataGrid" BackgroundColor="Transparent">

@@ -95,7 +95,7 @@ namespace MainCRMV2.Pages.Customers
                     }));
                     dataPair.isNew = false;
                 }
-                else if (dataPair.Index.Text != dataPair.Index.GetInit())
+                else if (dataPair.Index.Text != dataPair.Index.GetInit()||dataPair.Value.Text!=dataPair.Value.GetInit())
                 {
                     DatabaseFunctions.SendToPhp(string.Concat(new object[]{"UPDATE cusfields SET Value = '", dataPair.Value.Text,  "',Index='", dataPair.Index.Text, "' WHERE (IDKey= '", dataPair.Index.GetInt(), "');"}));
                 }

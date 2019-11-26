@@ -361,4 +361,46 @@ namespace MainCRMV2
         //Override string and return what you want to be displayed
         public override string ToString() => Name;
     }
+    public class salesAgentPicker : Picker
+    {
+        List<string> agentNames;
+        List<string> agentNums;
+        public salesAgentPicker() : base()
+        {
+            string sql = "SELECT agents.FName,agents.IDKey FROM agents INNER JOIN agentroles ON agents.IDKey=agentroles.AgentID AND agentroles.AgentRole='0' AND agents.Active='1'";
+            TaskCallback call = loadAgents;
+            DatabaseFunctions.SendToPhp(false, sql, call);
+        }
+        public void loadAgents(string result)
+        {
+            Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
+            agentNames = dictionary["FName"];
+            agentNums = dictionary["IDKey"];
+        }
+        public int getSelectID()
+        {
+            return int.Parse(agentNums[DatabaseFunctions.findIndexInList(agentNames, SelectedItem.ToString())]);
+        }
+    }
+    public class AgentPicker:Picker
+    {
+        List<string> agentNames;
+        List<string> agentNums;
+        public AgentPicker() : base()
+        {
+            string sql = "SELECT FName,IDKey FROM agents WHERE Active='1'";
+            TaskCallback call = loadAgents;
+            DatabaseFunctions.SendToPhp(false,sql,call);
+        }
+        public void loadAgents(string result)
+        {
+            Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
+            agentNames = dictionary["FName"];
+            agentNums = dictionary["IDKey"];
+        }
+        public int getSelectID()
+        {
+            return int.Parse(agentNums[DatabaseFunctions.findIndexInList(agentNames,SelectedItem.ToString())]);
+        }
+    }
 }

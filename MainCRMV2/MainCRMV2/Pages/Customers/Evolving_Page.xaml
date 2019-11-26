@@ -6,5 +6,4 @@
              mc:Ignorable="d"
              x:Class="MainCRMV2.Pages.Customers.Evolving_Page">
   <!--Pages can be added as references or inline-->
-    <ContentPage Title="Tab 1"/>
 </TabbedPage>
