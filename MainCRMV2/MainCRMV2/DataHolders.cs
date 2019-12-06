@@ -1,13 +1,10 @@
-﻿using MainCRMV2;
-using MainCRMV2.Pages;
+﻿using MainCRMV2.Pages;
 using MainCRMV2.Pages.Customers;
 using MainCRMV2.Pages.Inventory;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
 using Xamarin.Forms;
 
 namespace MainCRMV2

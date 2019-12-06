@@ -31,6 +31,5 @@ namespace MainCRMV2.Pages.Customers
                 JobSheets.Add(x);
             }
         }
-        
     }
 }
