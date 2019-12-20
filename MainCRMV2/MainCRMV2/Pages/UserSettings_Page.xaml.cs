@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using MainCRMV2.Pages.Popup_Pages;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
-using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

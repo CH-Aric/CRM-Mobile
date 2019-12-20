@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using MainCRMV2.Pages;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

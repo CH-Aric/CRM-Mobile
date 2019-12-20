@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Independentsoft.Sip;
 using System.Net;
 using Independentsoft.Sip.Sdp;
-using Independentsoft.Sip.Methods;
 
 namespace MainCRMV2.Pages
 {

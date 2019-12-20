@@ -1,5 +1,4 @@
-﻿using Plugin.Geolocator;
-using System.Linq;
+﻿using System.Linq;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

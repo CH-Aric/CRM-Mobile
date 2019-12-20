@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
-using Xamarin.Forms.Xaml;
-using Xamarin.Forms.Xaml.Internals;
 
 namespace MainCRMV2.Pages
 {
