@@ -209,7 +209,7 @@ namespace MainCRMV2.Pages
                     Label N = new Label();
                     N.Text = FormatFunctions.PrettyDate(dictionary["Note"][i]);
                     List<View> list = new List<View>() { b, b2, T, L, I, N };
-                    GridFiller.rapidFillPremadeObjects(list, ApproveBody, new bool[] { false, false, true, true, true, true });
+                    GridFiller.rapidFillPremadeObjectsStandardHeight(list, ApproveBody, new bool[] { false, false, true, true, true, true },50);
                 }
             }
         }
