@@ -33,7 +33,6 @@
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
-
                 <BoxView BackgroundColor="White" Margin="2"/>
                 <BoxView BackgroundColor="White" Margin="2" Grid.Column="1"/>
                 <BoxView BackgroundColor="White" Grid.Row="1" Margin="1"/>
@@ -50,12 +49,11 @@
                 <Entry Placeholder="Customer Name" x:Name="Name"/>
                 <Entry Placeholder="Address" Grid.Column="1" x:Name="Address"/>
                 <Entry Placeholder="Region" Grid.Row="1" x:Name="Region"/>
-                <Entry Placeholder="Email" Grid.Row="1" Grid.Column="1" x:Name="Email"/>
-                <maincrmv2:AgentPicker Title="Last Contact" Grid.Row="2" x:Name="AgentPicker"/>
-                <Entry Placeholder="Phone Number" x:Name="Phone" Grid.Row="3"/>
-                
-                <Label Text="Last Contact:" Grid.Row="4"/>
-                <DatePicker Grid.Row="4" Grid.Column="1" x:Name="LastContact"/>
+                <Entry Placeholder="Postal Code" Grid.Row="1" Grid.Column="1" x:Name="Postal"/>
+                <Entry Placeholder="Email" Grid.Row="2" x:Name="Email"/>
+                <Entry Placeholder="Phone Number" x:Name="Phone" Grid.Row="2" Grid.Column="1"/>
+                <Label Text="Last Contact:" Grid.Row="3"/>
+                <DatePicker Grid.Row="3" Grid.Column="1" x:Name="LastContact"/>
                 <Label Text="First Contact:" x:Name="FirstContact" Grid.Row="5" />
                 <Entry Text="Source" Grid.Row="5" Grid.Column="1" x:Name="Source"/>
                 <Editor Grid.Row="6" x:Name="Note"/>

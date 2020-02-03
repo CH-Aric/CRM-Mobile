@@ -60,7 +60,6 @@ namespace MainCRMV2.Pages
                     return stream;
                 });
             };
-
             pickPhoto.Clicked += async (sender, args) =>
             {
                 if (!CrossMedia.Current.IsPickPhotoSupported)
@@ -132,7 +131,6 @@ namespace MainCRMV2.Pages
             CrossFileUploader.Current.FileUploadError += Current_FileUploadError;
             CrossFileUploader.Current.FileUploadProgress += Current_FileUploadProgress;
         }
-
         private void Current_FileUploadProgress(object sender, FileUploadProgress e)
         {
             Device.BeginInvokeOnMainThread(() =>
@@ -140,7 +138,6 @@ namespace MainCRMV2.Pages
                 progress.Progress = e.Percentage / 100.0f;
             });
         }
-
         private void Current_FileUploadError(object sender, FileUploadResponse e)
         {
             isBusy = false;
@@ -152,7 +149,6 @@ namespace MainCRMV2.Pages
                 progress.Progress = 0.0f;
             });
         }
-
         private void Current_FileUploadCompleted(object sender, FileUploadResponse e)
         {
             isBusy = false;
@@ -164,7 +160,6 @@ namespace MainCRMV2.Pages
                 progress.Progress = 0.0f;
             });
         }
-
         void OnUpload(object sender, EventArgs args)
         {
             if (isBusy)

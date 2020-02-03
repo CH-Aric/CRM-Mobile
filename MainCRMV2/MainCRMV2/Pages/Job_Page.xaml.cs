@@ -21,7 +21,7 @@ namespace MainCRMV2.Pages
         }
         public void populateGrid(string result)
         {
-            dp = new List<DataPair>();
+            dp = new List<DataPair>();     
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
             if (dictionary.Count > 0)
             {
