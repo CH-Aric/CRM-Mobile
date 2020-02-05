@@ -20,7 +20,7 @@ namespace MainCRMV2.Pages
             DatabaseFunctions.SendToPhp(false, sql, call);
         }
         public void populateGrid(string result)
-        {
+        {//TODO port to new Mobile friendly version from desktop
             dp = new List<DataPair>();     
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
             if (dictionary.Count > 0)

@@ -59,14 +59,14 @@ namespace MainCRMV2.Pages.Customers
         public void onClickedSearch(object sender, EventArgs e)
         {
             string text = "%" + SearchEntry.Text + "%";
-            string statement = "SELECT DISTINCT cusindex.IDKey FROM cusindex INNER JOIN cusfields ON cusindex.IDKey=cusfields.CusID INNER JOIN jobindex ON cusindex.IDKey=jobindex.CusID WHERE (cusfields.Value LIKE '" + text + "' OR cusindex.Name LIKE '" + text + "' OR jobindex.Name LIKE '"+text+"')";
+            string statement = "SELECT DISTINCT cusindex.IDKey FROM cusindex INNER JOIN cusfields ON cusindex.IDKey=cusfields.CusID INNER JOIN jobindex ON cusindex.IDKey=jobindex.CusID WHERE (cusfields.Value LIKE '" + text + "' OR cusindex.Name LIKE '" + text + "' OR jobindex.Name LIKE '" + text + "')";
             statement += appendPickerResult();
             TaskCallback call = new TaskCallback(this.PerformSearch);
             DatabaseFunctions.SendToPhp(false, statement, call);
         }
         public void onClickedCreate(object sender, EventArgs e)
         {
-            string sql = "INSERT INTO cusindex (Stage) VALUES ('" + (NewPicker.SelectedIndex + 1) + "')";
+            string sql = "INSERT INTO cusindex (Stage,Name) VALUES ('" + (NewPicker.SelectedIndex + 1) + "','x')";
             DatabaseFunctions.SendToPhp(sql);
             System.Threading.Thread.Sleep(500);
             string sql2 = "SELECT IDKey,Stage FROM cusindex ORDER BY IDKey Desc LIMIT 1";
@@ -118,8 +118,8 @@ namespace MainCRMV2.Pages.Customers
         {
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
 
-            string sqlj = "INSERT INTO jobindex (Stage,CusID) VALUES ('" + (NewPicker.SelectedIndex + 1) + "','"+dictionary["IDKey"][0]+"')";
-            string sqlf = "INSERT INTO cusfields (CusID,Index,Value) VALUES ('" + dictionary["IDKey"][0] + "','Phone',''),('" + dictionary["IDKey"][0] + "','Address',''),('" + dictionary["IDKey"][0] + "','Email',''),('" + dictionary["IDKey"][0] + "','Created On',''),('" + dictionary["IDKey"][0] + "','Region',''),('" + dictionary["IDKey"][0] + "','Notes',''),('" + dictionary["IDKey"][0] + "','Modified On',''),('" + dictionary["IDKey"][0] + "','Source','')";
+            string sqlj = "INSERT INTO jobindex (Stage,CusID) VALUES ('" + (NewPicker.SelectedIndex + 1) + "','" + dictionary["IDKey"][0] + "')";
+            string sqlf = "INSERT INTO cusfields (CusID,cusfields.Index,cusfields.Value) VALUES ('" + dictionary["IDKey"][0] + "','Phone',''),('" + dictionary["IDKey"][0] + "','Address',''),('" + dictionary["IDKey"][0] + "','Email',''),('" + dictionary["IDKey"][0] + "','Created On',''),('" + dictionary["IDKey"][0] + "','Region','Ottawa'),('" + dictionary["IDKey"][0] + "','Notes',''),('" + dictionary["IDKey"][0] + "','Modified On',''),('" + dictionary["IDKey"][0] + "','Source',''),('" + dictionary["IDKey"][0] + "','Last Contact','2020/03/01 00<00<00')";
             DatabaseFunctions.SendToPhp(sqlj);
             DatabaseFunctions.SendToPhp(sqlf);
             SecurityButton x = new SecurityButton(int.Parse(dictionary["IDKey"][0]), new string[] { "Employee" }) { Integer2 = int.Parse(dictionary["Stage"][0]) };
@@ -132,10 +132,10 @@ namespace MainCRMV2.Pages.Customers
             TaskCallback call = new TaskCallback(this.populateList);
             if (dictionary.Count > 0)
             {
-                string text = "SELECT cusindex.Name,jobindex.IDKey,cusfields.Value,cusfields.Index,cusindex.Stage FROM cusindex INNER JOIN cusfields ON cusindex.IDKey=cusfields.CusID INNER JOIN jobindex ON cusindex.IDKey=jobindex.CusID WHERE (cusfields.Index LIKE '%Phone%') AND (";
+                string text = "SELECT DISTINCT cusindex.Name, cusindex.IDKey,cusfields.Value,cusfields.Index,cusindex.Stage FROM cusindex INNER JOIN cusfields ON cusindex.IDKey=cusfields.CusID INNER JOIN jobindex ON cusindex.IDKey=jobindex.CusID WHERE (cusfields.Index LIKE '%Phone%') AND (";
                 foreach (string str in dictionary["IDKey"])
                 {
-                    text = text + " jobindex.IDKey='" + str + "' OR";
+                    text = text + " cusindex.IDKey='" + str + "' OR";
                 }
                 text += " cusindex.IDKey='0');";
                 this.PurgeCells();
