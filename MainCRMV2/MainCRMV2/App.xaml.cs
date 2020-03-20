@@ -1,5 +1,7 @@
 ﻿using MainCRMV2.Pages;
 using System;
+using System.Net;
+using System.Net.Http;
 using Xamarin.Forms;
 
 namespace MainCRMV2
@@ -8,11 +10,12 @@ namespace MainCRMV2
     {
         public static MasterDetailPage MDP;
         public static string WelcomeMsg="Welcome to the CoolHeat CRM";
+        
         public App()
         {
             InitializeComponent();
             //DatabaseFunctions.SendToDebug("Starting nav page");
-            
+            ServicePointManager.DefaultConnectionLimit = 500;
             base.MainPage = new NavigationPage();
             if (DatabaseFunctions.client.attemptSavedLoginAsync().GetAwaiter().GetResult())
             {

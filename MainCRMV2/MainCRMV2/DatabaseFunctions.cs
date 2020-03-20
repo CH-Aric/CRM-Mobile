@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using PostToPhp;
 using Xamarin.Essentials;
 
@@ -10,6 +12,66 @@ namespace MainCRMV2
 {
     public static class DatabaseFunctions
     {
+        public static HttpClient clientH = new HttpClient();
+        public static async void SendToPhpB(bool PBX, string statement,TaskCallback call)
+        {
+            try
+            {
+                data d = new data();
+                d.df_text1 = statement;
+                string requestUriString;
+                if (inOffice())
+                {
+                    if (PBX)
+                    {
+                        requestUriString = "http://192.168.0.69/accessPBX.php";
+                    }
+                    else
+                    {
+                        requestUriString = "http://192.168.0.69/access.php";
+                    }
+                }
+                else
+                {
+                    if (PBX)
+                    {
+                        requestUriString = "http://174.114.166.80/accessPBX.php";
+                    }
+                    else
+                    {
+                        requestUriString = "http://174.114.166.80/access.php";
+                    }
+                }
+                string text = JsonClass.JSONSerialize<DatabaseFunctions.data>(d);
+                StringContent content=new StringContent(text,Encoding.UTF8);
+                var result = await clientH.PostAsync(requestUriString, content).ConfigureAwait(false);
+                var t = await result.Content.ReadAsStringAsync();
+                call(t);
+            }
+            catch (HttpRequestException e)
+            {
+
+            }
+        }
+        public static bool inOffice()
+        {
+            IPAddress[] addresses = Dns.GetHostAddresses(Dns.GetHostName());
+            string k = new WebClient().DownloadString("http://icanhazip.com/");
+            k = Regex.Replace(k, "[^0-9]", "");
+            if (k == @"17411416680")
+            {
+                return true;
+            }
+            foreach (IPAddress i in addresses)
+            {
+                string j = i.ToString();
+                if (j == @"174.114.166.80")
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         public static void SendToPhp(bool PBX, string statement, TaskCallback call)
         {
             try
@@ -17,13 +79,27 @@ namespace MainCRMV2
                 data d = new data();
                 d.df_text1 = statement;
                 string requestUriString;
-                if (PBX)
+                if (inOffice())
                 {
-                    requestUriString = "http://coolheatcrm.duckdns.org/accessPBX.php";
+                    if (PBX)
+                    {
+                        requestUriString = "http://192.168.0.69/accessPBX.php";
+                    }
+                    else
+                    {
+                        requestUriString = "http://192.168.0.69/access.php";
+                    }
                 }
                 else
                 {
-                    requestUriString = "http://coolheatcrm.duckdns.org/access.php";
+                    if (PBX)
+                    {
+                        requestUriString = "http://174.114.166.80/accessPBX.php";
+                    }
+                    else
+                    {
+                        requestUriString = "http://174.114.166.80/access.php";
+                    }
                 }
                 string text = JsonClass.JSONSerialize<DatabaseFunctions.data>(d);
                 byte[] bytes = Encoding.UTF8.GetBytes(text);
@@ -31,13 +107,20 @@ namespace MainCRMV2
                 httpWebRequest.Method = "POST";
                 httpWebRequest.ContentType = "application/x-www-form-urlencoded";
                 httpWebRequest.ContentLength = (long)bytes.Length;
+                httpWebRequest.Timeout = 50000;
+                httpWebRequest.ReadWriteTimeout = 50000;
                 httpWebRequest.GetRequestStream().Write(bytes, 0, bytes.Length);
-                Stream responseStream = ((HttpWebResponse)httpWebRequest.GetResponse()).GetResponseStream();
-                StreamReader streamReader = new StreamReader(responseStream);
-                call(streamReader.ReadToEnd());
-                httpWebRequest.Abort();
-                streamReader.Close();
-                responseStream.Close();
+                httpWebRequest.KeepAlive = false;
+                using (Stream responseStream = ((HttpWebResponse)httpWebRequest.GetResponse()).GetResponseStream())
+                {
+                    StreamReader streamReader = new StreamReader(responseStream);
+                    String textOut = streamReader.ReadToEnd();
+                    bool status = httpWebRequest.HaveResponse;
+                    call(textOut);
+                    httpWebRequest.Abort();
+                    streamReader.Dispose();
+                    responseStream.Dispose();
+                }
             }
             catch (WebException ex)
             {
@@ -53,7 +136,7 @@ namespace MainCRMV2
                 {
                     df_text1 = statement
                 });
-                HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://coolheatcrm.duckdns.org/access.php");
+                HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://174.114.166.80/access.php");
                 httpWebRequest.Method = "POST";
                 string s = text;
                 byte[] bytes = Encoding.UTF8.GetBytes(s);
@@ -76,7 +159,7 @@ namespace MainCRMV2
                 {
                     df_text1 = statement
                 });
-                HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://coolheatcrm.duckdns.org/debug.php");
+                HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://174.114.166.80/debug.php");
                 httpWebRequest.Method = "POST";
                 string s = text;
                 byte[] bytes = Encoding.UTF8.GetBytes(s);
@@ -101,7 +184,7 @@ namespace MainCRMV2
                     BatchLength = statements.Length,
                     statements = statements
                 });
-                HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://coolheatcrm.duckdns.org/accessBatched.php");
+                HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://174.114.166.80/accessBatched.php");
                 httpWebRequest.Method = "POST";
                 string s = text;
                 byte[] bytes = Encoding.UTF8.GetBytes(s);
@@ -127,11 +210,11 @@ namespace MainCRMV2
                     string requestUriString;
                     if (PBX)
                     {
-                        requestUriString = "http://coolheatcrm.duckdns.org/accessPBX.php";
+                        requestUriString = "http://174.114.166.80/accessPBX.php";
                     }
                     else
                     {
-                        requestUriString = "http://coolheatcrm.duckdns.org/access.php";
+                        requestUriString = "http://174.114.166.80/access.php";
                     }
                     string text = JsonClass.JSONSerialize<DatabaseFunctions.data>(d);
                     byte[] bytes = Encoding.UTF8.GetBytes(text);
@@ -160,7 +243,7 @@ namespace MainCRMV2
             {
                 df_text1 = name
             });
-            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://coolheatcrm.duckdns.org/getCusFolders.php");
+            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://174.114.166.80/getCusFolders.php");
             httpWebRequest.Method = "POST";
             byte[] bytes = Encoding.UTF8.GetBytes(s);
             httpWebRequest.ContentType = "application/x-www-form-urlencoded";
@@ -197,7 +280,7 @@ namespace MainCRMV2
                 df_text1 = df_text
             });
             byte[] bytes = Encoding.UTF8.GetBytes(s);
-            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://coolheatcrm.duckdns.org/getCusFile.php");
+            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://174.114.166.80/getCusFile.php");
             httpWebRequest.Method = "POST";
             httpWebRequest.ContentType = "application/x-www-form-urlencoded";
             httpWebRequest.ContentLength = (long)bytes.Length;
@@ -223,7 +306,7 @@ namespace MainCRMV2
                 df_text1 = df_text
             });
             byte[] bytes = Encoding.UTF8.GetBytes(s);
-            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://coolheatcrm.duckdns.org/getCusFile.php");
+            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://174.114.166.80/getCusFile.php");
             httpWebRequest.Method = "POST";
             httpWebRequest.ContentType = "application/x-www-form-urlencoded";
             httpWebRequest.ContentLength = (long)bytes.Length;

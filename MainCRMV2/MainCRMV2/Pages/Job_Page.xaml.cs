@@ -9,12 +9,22 @@ namespace MainCRMV2.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Job_Page : ContentPage
     {
-        int JobID;
+        public int JobID;
         List<DataPair> dp;
+        int Stage;
         public Job_Page(int jobID)
         {
             InitializeComponent();
             JobID = jobID;
+            string sql2 = "SELECT Stage FROM jobindex WHERE IDKey='"+JobID+"'";
+            TaskCallback call2 = getStage;
+            DatabaseFunctions.SendToPhp(false,sql2,call2);
+        }
+        public void getStage(string result)
+        {
+            Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
+            Stage = int.Parse(dictionary["Stage"][0]);
+            
             string sql = "SELECT * FROM jobfields WHERE JobID='"+JobID+"'";
             TaskCallback call = populateGrid;
             DatabaseFunctions.SendToPhp(false, sql, call);
@@ -30,6 +40,8 @@ namespace MainCRMV2.Pages
                     DataPair d = new DataPair(int.Parse(dictionary["IDKey"][i]),dictionary["Index"][i],dictionary["Value"][i]);
                     List<View> list = new List<View>() { d.Index, d.Value };
                     GridFiller.rapidFillPremadeObjects(list, MainGrid, new bool[] { true, true });
+                    d.Value.Text = FormatFunctions.PrettyDate(dictionary["Value"][i]);
+                    d.Index.Text = FormatFunctions.PrettyDate(dictionary["Index"][i]);
                     dp.Add(d);
                 }
             }
@@ -75,6 +87,10 @@ namespace MainCRMV2.Pages
         {
             App.MDP.Detail.Navigation.PopToRootAsync();
             App.MDP.Detail.Navigation.PushAsync(new Advance_Page(JobID));
+        }
+        public void onClickAddItem(object sender, EventArgs e)
+        {
+
         }
     }
 }

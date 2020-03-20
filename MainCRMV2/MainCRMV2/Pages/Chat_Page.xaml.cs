@@ -46,7 +46,7 @@ namespace MainCRMV2.Pages
         public void getFavoriteAgents()
         {
             string statement = "SELECT agents.Fname AS Name,agents.IDKey, '0' AS g FROM agents INNER JOIN chatfavorite ON agents.IDKey=chatfavorite.TargetID WHERE chatfavorite.AgentID='" + ClientData.AgentIDK + "';";
-            TaskCallback call = new TaskCallback(this.populatePicker);
+            TaskCallback call = populatePicker;
             DatabaseFunctions.SendToPhp(false, statement, call);
         }
         public void getFavoriteGroups()

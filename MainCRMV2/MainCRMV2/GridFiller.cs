@@ -117,7 +117,7 @@ namespace MainCRMV2
         {
             int i = 0;
             Color c = ClientData.getGridColor();
-            g.RowDefinitions.Add(new RowDefinition { Height = new GridLength(10, GridUnitType.Star) });
+            g.RowDefinitions.Add(new RowDefinition { Height = new GridLength(50, GridUnitType.Absolute) });
             foreach (View s in Objects)
             {
                 if (boxoff[i])

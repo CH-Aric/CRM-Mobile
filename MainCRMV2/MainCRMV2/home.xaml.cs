@@ -10,7 +10,6 @@ namespace MainCRMV2
     {
         public home()
         {
-
             InitializeComponent();
             //DatabaseFunctions.SendToDebug("Created Home, beginning creation of MDP");
             MDPMain();

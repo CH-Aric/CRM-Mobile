@@ -74,7 +74,12 @@ namespace MainCRMV2
         }
         public static Dictionary<string, List<string>> createValuePairs(string[] input)
         {
+            
             Dictionary<string, List<string>> dictionary = new Dictionary<string, List<string>>();
+            if (input.Length == 0)
+            {
+                return dictionary;
+            }
             for (int i = 0; i < input.Length; i++)
             {
                 string[] array = input[i].Split(':');

@@ -73,47 +73,6 @@ namespace MainCRMV2.Pages.Customers
             TaskCallback call = OpenPage;
             DatabaseFunctions.SendToPhp(false, sql2, call);
         }
-        public void onCreateStageSpecificData(string cusID)
-        {
-            List<string> batch = new List<string>();
-            string noteSQL = "INSERT INTO jobfields (cusfields.Index,cusfields.Value,CusID) VALUES ('Notes:','','" + cusID + "'),('Created On','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "','" + cusID + "'),('Modified On','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "','" + cusID + "')";//'"+ClientData.AgentIDK+"','"+FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss"))+"'
-            batch.Add(noteSQL);
-            string sql2 = "INSERT INTO cusfields (cusfields.Index,cusfields.Value,CusID) VALUES ('PhoneNumber','','" + cusID + "')";
-            batch.Add(sql2);
-            if (NewPicker.SelectedIndex == 0)//For creating leads
-            {
-                //BookingDate, Notes
-                string sql = "INSERT INTO jobfields (cusfields.Index,cusfields.Value,CusID) VALUES ('BookingDate','','" + cusID + "')";
-                batch.Add(sql);
-            }
-            else if (NewPicker.SelectedIndex == 1)//Booked!
-            {
-                string sql = "INSERT INTO jobfields (cusfields.Index,cusfields.Value,CusID) VALUES ('BookingDate','','" + cusID + "'),('Salesman','','" + cusID + "')";
-                batch.Add(sql);
-            }
-            else if (NewPicker.SelectedIndex == 2)//Quoted!
-            {
-                string sql = "INSERT INTO jobfields (cusfields.Index,cusfields.Value,CusID) VALUES ('BookingDate','','" + cusID + "'),('Salesman','','" + cusID + "'),('QuoteTotal','','" + cusID + "'),('Signature','False','" + cusID + "'),('Deposit Received','False','" + cusID + "'),('Payment Method','Fill Me Out!','" + cusID + "')";
-                batch.Add(sql);
-            }
-            else if (NewPicker.SelectedIndex == 3)//Followup on Quote
-            {
-                string sql = "INSERT INTO jobfields (cusfields.Index,cusfields.Value,CusID) VALUES ('BookingDate','','" + cusID + "'),('Salesman','','" + cusID + "'),('QuoteTotal','','" + cusID + "'),('Signature','False','" + cusID + "'),('Deposit Received','False','" + cusID + "'),('Payment Method','Fill Me Out!','" + cusID + "'),('LastContact','mm/dd','" + cusID + "')";
-                batch.Add(sql);
-            }
-            else if (NewPicker.SelectedIndex == 4)//Sold!
-            {
-                string sql = "INSERT INTO jobfields (cusfields.Index,cusfields.Value,CusID) VALUES ('BookingDate','','" + cusID + "'),('Salesman','','" + cusID + "'),('QuoteTotal','','" + cusID + "'),('Signature','True','" + cusID + "'),('Deposit Received','True','" + cusID + "'),('Payment Method','Fill Me Out!','" + cusID + "')";
-                
-                batch.Add(sql);
-            }
-            else if (NewPicker.SelectedIndex == 5)//Install!
-            {
-                string sql= "INSERT INTO jobfields (cusfields.Index,cusfields.Value,CusID) VALUES ('Salesman','','" + cusID + "'),('QuoteTotal','','" + cusID + "'),('Signature','True','" + cusID + "'),('Deposit Received','True','" + cusID + "'),('Payment Method','Fill Me Out!','" + cusID + "'),('InstallDate','','" + cusID + "')";
-                batch.Add(sql);
-            }
-            DatabaseFunctions.SendBatchToPHP(batch);
-        }
         public void OpenPage(string result)
         {
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
@@ -215,5 +174,49 @@ namespace MainCRMV2.Pages.Customers
             }
             return sql;
         }
+
+        //Expired Modules:
+        /*
+        public void onCreateStageSpecificData(string cusID)
+        {
+            List<string> batch = new List<string>();
+            string noteSQL = "INSERT INTO jobfields (cusfields.Index,cusfields.Value,CusID) VALUES ('Notes:','','" + cusID + "'),('Created On','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "','" + cusID + "'),('Modified On','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "','" + cusID + "')";//'"+ClientData.AgentIDK+"','"+FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss"))+"'
+            batch.Add(noteSQL);
+            string sql2 = "INSERT INTO cusfields (cusfields.Index,cusfields.Value,CusID) VALUES ('PhoneNumber','','" + cusID + "')";
+            batch.Add(sql2);
+            if (NewPicker.SelectedIndex == 0)//For creating leads
+            {
+                //BookingDate, Notes
+                string sql = "INSERT INTO jobfields (cusfields.Index,cusfields.Value,CusID) VALUES ('BookingDate','','" + cusID + "')";
+                batch.Add(sql);
+            }
+            else if (NewPicker.SelectedIndex == 1)//Booked!
+            {
+                string sql = "INSERT INTO jobfields (cusfields.Index,cusfields.Value,CusID) VALUES ('BookingDate','','" + cusID + "'),('Salesman','','" + cusID + "')";
+                batch.Add(sql);
+            }
+            else if (NewPicker.SelectedIndex == 2)//Quoted!
+            {
+                string sql = "INSERT INTO jobfields (cusfields.Index,cusfields.Value,CusID) VALUES ('BookingDate','','" + cusID + "'),('Salesman','','" + cusID + "'),('QuoteTotal','','" + cusID + "'),('Signature','False','" + cusID + "'),('Deposit Received','False','" + cusID + "'),('Payment Method','Fill Me Out!','" + cusID + "')";
+                batch.Add(sql);
+            }
+            else if (NewPicker.SelectedIndex == 3)//Followup on Quote
+            {
+                string sql = "INSERT INTO jobfields (cusfields.Index,cusfields.Value,CusID) VALUES ('BookingDate','','" + cusID + "'),('Salesman','','" + cusID + "'),('QuoteTotal','','" + cusID + "'),('Signature','False','" + cusID + "'),('Deposit Received','False','" + cusID + "'),('Payment Method','Fill Me Out!','" + cusID + "'),('LastContact','mm/dd','" + cusID + "')";
+                batch.Add(sql);
+            }
+            else if (NewPicker.SelectedIndex == 4)//Sold!
+            {
+                string sql = "INSERT INTO jobfields (cusfields.Index,cusfields.Value,CusID) VALUES ('BookingDate','','" + cusID + "'),('Salesman','','" + cusID + "'),('QuoteTotal','','" + cusID + "'),('Signature','True','" + cusID + "'),('Deposit Received','True','" + cusID + "'),('Payment Method','Fill Me Out!','" + cusID + "')";
+                
+                batch.Add(sql);
+            }
+            else if (NewPicker.SelectedIndex == 5)//Install!
+            {
+                string sql= "INSERT INTO jobfields (cusfields.Index,cusfields.Value,CusID) VALUES ('Salesman','','" + cusID + "'),('QuoteTotal','','" + cusID + "'),('Signature','True','" + cusID + "'),('Deposit Received','True','" + cusID + "'),('Payment Method','Fill Me Out!','" + cusID + "'),('InstallDate','','" + cusID + "')";
+                batch.Add(sql);
+            }
+            DatabaseFunctions.SendBatchToPHP(batch);
+        }*/
     }
 }
