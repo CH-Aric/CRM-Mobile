@@ -1,17 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <ProduceAssemblyReference>true</ProduceAssemblyReference>
     <ApplicationIcon>icon-1.ico</ApplicationIcon>
     <Win32Resource />
+    <FileUpgradeFlags>40</FileUpgradeFlags>
+    <UpgradeBackupLocation>F:\Design\Projects\CRM-Mobile\Backup\MainCRMV2\MainCRMV2\</UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Independentsoft.Sip" Version="1.0.540" />
     <PackageReference Include="itext7" Version="7.1.7" />
@@ -28,7 +28,6 @@
     <PackageReference Include="Xamarin.Forms.InputKit" Version="3.0.12" />
     <PackageReference Include="Xamarin.Forms.Maps" Version="4.1.0.581479" />
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Update="Pages\Call_Page.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
