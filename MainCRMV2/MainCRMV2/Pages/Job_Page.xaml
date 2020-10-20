@@ -35,6 +35,7 @@
                     <ColumnDefinition Width="10*"/>
                     <ColumnDefinition Width="10*"/>
                     <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
@@ -42,6 +43,8 @@
                 <maincrmv2:StyledButton Clicked="onClickAddFields" Text="Add Field"/>
                 <maincrmv2:StyledButton Clicked="onClickAdvance" Text="Advance" Grid.Column="1"/>
                 <maincrmv2:StyledButton Clicked="onClickSave" Text="Save Changes" Grid.Column="2"/>
+                <maincrmv2:StyledButton Clicked="onClickSendEmail" Text="Email PDF" Grid.Column="3"/>
+                
             </Grid>
             <Grid x:Name="MainGrid" BackgroundColor="Black">
                 <Grid.ColumnDefinitions>

@@ -92,5 +92,9 @@ namespace MainCRMV2.Pages
         {
 
         }
+        public void onClickSendEmail(object sender, EventArgs e)
+        {
+            DatabaseFunctions.SendToPDFPrinter(JobID+"");
+        }
     }
 }

@@ -151,6 +151,29 @@ namespace MainCRMV2
                 Console.WriteLine("--->" + str);
             }
         }
+        public static void SendToPDFPrinter(string data)
+        {
+            try
+            {
+                string text = JsonClass.JSONSerialize<DatabaseFunctions.data>(new DatabaseFunctions.data
+                {
+                    df_text1 = data
+                });
+                HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://174.114.166.80/SendPDF.php");
+                httpWebRequest.Method = "POST";
+                string s = text;
+                byte[] bytes = Encoding.UTF8.GetBytes(s);
+                httpWebRequest.ContentType = "application/x-www-form-urlencoded";
+                httpWebRequest.ContentLength = (long)bytes.Length;
+                httpWebRequest.GetRequestStream().Write(bytes, 0, bytes.Length);
+                httpWebRequest.Abort();
+            }
+            catch (WebException ex)
+            {
+                string str = ex.ToString();
+                Console.WriteLine("--->" + str);
+            }
+        }
         public static void SendToDebug(string statement)
         {
             try
